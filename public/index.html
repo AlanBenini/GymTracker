@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Gym Tracker</title>
+  
+  <meta name="theme-color" content="#0b0d11">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="title-wrapper">
+        <input type="text" class="session-title" id="customTitle" value="Push Day / Spinta" spellcheck="false" />
+        <span class="session-subtitle">Tocca il titolo per rinominare</span>
+      </div>
+      <div class="session-badge" id="sessionTimer">00:00</div>
+    </header>
+
+    <!-- Top Dashboard: Body Map + Timer Pausa -->
+    <div class="top-dashboard">
+      <div class="body-map-card">
+        <svg class="body-svg" viewBox="0 0 100 140" id="liveBodyMap">
+          <!-- Testa -->
+          <circle cx="50" cy="12" r="7" fill="#222834" />
+          <!-- Petto -->
+          <path class="muscle" data-muscle="chest" d="M40,25 C45,23 55,23 60,25 C62,35 38,35 40,25 Z" />
+          <!-- Addome -->
+          <path class="muscle" data-muscle="abs" d="M43,37 C43,37 57,37 57,37 C56,52 44,52 43,37 Z" />
+          <!-- Spalle -->
+          <circle class="muscle" data-muscle="shoulders" cx="33" cy="26" r="4.5" />
+          <circle class="muscle" data-muscle="shoulders" cx="67" cy="26" r="4.5" />
+          <!-- Braccia -->
+          <rect class="muscle" data-muscle="arms" x="28" y="32" width="6" height="18" rx="3" />
+          <rect class="muscle" data-muscle="arms" x="66" y="32" width="6" height="18" rx="3" />
+          <!-- Dorso -->
+          <path class="muscle" data-muscle="back" d="M38,26 L36,36 L39,36 Z M62,26 L64,36 L61,36 Z" />
+          <!-- Gambe -->
+          <rect class="muscle" data-muscle="legs" x="40" y="56" width="8" height="34" rx="4" />
+          <rect class="muscle" data-muscle="legs" x="52" y="56" width="8" height="34" rx="4" />
+          <rect class="muscle" data-muscle="legs" x="41" y="93" width="6" height="25" rx="3" />
+          <rect class="muscle" data-muscle="legs" x="53" y="93" width="6" height="25" rx="3" />
+        </svg>
+      </div>
+
+      <div class="timer-card">
+        <div class="timer-header">Recupero</div>
+        <div class="timer-display" id="restDisplay">01:30</div>
+        <div class="timer-buttons">
+          <button class="btn-timer" id="btnRest60">+1m</button>
+          <button class="btn-timer" id="btnRest90">+1:30</button>
+          <button class="btn-timer" id="btnRestStop">Stop</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Aggiunta Esercizio -->
+    <div class="add-section">
+      <div class="select-row">
+        <select id="exerciseSelect">
+          <option value="">Caricamento esercizi...</option>
+        </select>
+        <button class="btn-icon-add" id="btnOpenModal" title="Crea Nuovo Esercizio">+</button>
+      </div>
+
+      <div class="input-row">
+        <input type="number" id="sets" placeholder="Serie" min="1" value="4">
+        <input type="number" id="reps" placeholder="Reps" min="1" value="10">
+      </div>
+      <input type="number" id="weight" placeholder="Carico (kg)" min="0" value="60">
+
+      <button class="btn-primary" id="btnAddExercise">
+        + Registra Esercizio
+      </button>
+    </div>
+
+    <div class="section-label">Log Esercizi</div>
+    <div class="exercise-list" id="exerciseList"></div>
+  </div>
+
+  <div class="bottom-bar">
+    <button class="btn-finish" id="btnShowRecap">Termina e Mostra Recap</button>
+  </div>
+
+  <!-- Modal Creazione Nuovo Esercizio -->
+  <div class="modal" id="newExModal">
+    <div class="modal-card">
+      <h3 style="font-size: 1.05rem; font-weight: 700;">Aggiungi Nuovo Esercizio</h3>
+      <input type="text" id="newExName" placeholder="Nome Esercizio (es. Hack Squat)" />
+      
+      <div>
+        <label class="section-label">Gruppo Muscolare</label>
+        <select id="newExMuscle" style="margin-top: 4px;">
+          <option value="chest">Petto</option>
+          <option value="back">Dorso</option>
+          <option value="shoulders">Spalle</option>
+          <option value="arms">Braccia</option>
+          <option value="legs">Gambe</option>
+          <option value="abs">Addome</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="section-label">Attrezzatura / Icona</label>
+        <select id="newExIcon" style="margin-top: 4px;">
+          <option value="barbell">Bilanciere</option>
+          <option value="dumbbell">Manubri</option>
+          <option value="machine">Macchinario / Cavi</option>
+          <option value="bodyweight">Corpo Libero</option>
+        </select>
+      </div>
+
+      <div style="display:flex; gap: 8px; margin-top: 6px;">
+        <button class="btn-primary" style="flex:1; background: var(--surface-subtle);" id="btnCloseModal">Annulla</button>
+        <button class="btn-primary" style="flex:1;" id="btnSaveCustomEx">Salva</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Recap Finale -->
+  <div class="modal" id="recapModal">
+    <div class="modal-card">
+      <div>
+        <h2 style="font-size: 1.15rem; font-weight: 700;" id="recapSessionName">Recap Workout</h2>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">Riepilogo della sessione completata</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" id="recapTotalWeight">0 kg</div>
+          <div class="stat-label">Volume</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="recapCount">0</div>
+          <div class="stat-label">Esercizi</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="recapDuration">00:00</div>
+          <div class="stat-label">Tempo</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; background: var(--bg); border-radius: var(--radius-md); padding: 8px; border: 1px solid var(--border);">
+        <svg class="body-svg" viewBox="0 0 100 140" id="recapBodyMap"></svg>
+      </div>
+
+      <div class="section-label">Dettaglio Esercizi</div>
+      <div id="recapExerciseList" style="display: flex; flex-direction: column; gap: 6px; max-height: 160px; overflow-y: auto;"></div>
+
+      <button class="btn-primary" id="btnResetSession">Nuova Sessione</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
