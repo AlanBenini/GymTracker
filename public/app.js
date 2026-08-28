@@ -79,6 +79,7 @@ const I18N = {
     emptyHistory: "Nessun workout registrato.<br>Inizia ora!",
     emptyExplore: "Nessun esercizio trovato.", equipBarbell: "Bilanciere", equipDumbbell: "Manubri",
     equipMachine: "Macchinario", equipBodyweight: "Corpo Libero",
+    startSessionBtn: "Inizia", pauseSessionBtn: "Pausa", resumeSessionBtn: "Riprendi",
     muscles: { all: "Tutti", chest: "Petto", shoulders: "Spalle", upper_back: "Schiena Alta", lats: "Dorsali", lower_back: "Lombari", biceps: "Bicipiti", triceps: "Tricipiti", forearms: "Avambracci", abs: "Addome", obliques: "Obliqui", quads: "Quadricipiti", hamstrings: "Femorali", glutes: "Glutei", calves: "Polpacci" }
   },
   en: {
@@ -95,6 +96,7 @@ const I18N = {
     emptyHistory: "No workouts recorded.<br>Start now!",
     emptyExplore: "No exercises found.", equipBarbell: "Barbell", equipDumbbell: "Dumbbells",
     equipMachine: "Machine", equipBodyweight: "Bodyweight",
+    startSessionBtn: "Start", pauseSessionBtn: "Pause", resumeSessionBtn: "Resume",
     muscles: { all: "All", chest: "Chest", shoulders: "Shoulders", upper_back: "Upper Back", lats: "Lats", lower_back: "Lower Back", biceps: "Biceps", triceps: "Triceps", forearms: "Forearms", abs: "Abs", obliques: "Obliques", quads: "Quads", hamstrings: "Hamstrings", glutes: "Glutes", calves: "Calves" }
   },
   es: {
@@ -111,6 +113,7 @@ const I18N = {
     emptyHistory: "No hay entrenamientos.<br>¡Empieza ahora!",
     emptyExplore: "No se encontraron ejercicios.", equipBarbell: "Barra", equipDumbbell: "Mancuernas",
     equipMachine: "Máquina", equipBodyweight: "Peso Corporal",
+    startSessionBtn: "Iniciar", pauseSessionBtn: "Pausa", resumeSessionBtn: "Reanudar",
     muscles: { all: "Todos", chest: "Pecho", shoulders: "Hombros", upper_back: "Espalda Alta", lats: "Dorsales", lower_back: "Lumbares", biceps: "Bíceps", triceps: "Tríceps", forearms: "Antebrazos", abs: "Abdomen", obliques: "Oblicuos", quads: "Cuádriceps", hamstrings: "Isquios", glutes: "Glúteos", calves: "Gemelos" }
   }
 };
@@ -128,8 +131,46 @@ let imageAnimationInterval = null;
 let dashOrientation = 'front';
 let exploreOrientation = 'front';
 let recapOrientation = 'front';
-let sessionStartTime = Date.now();
+
+let sessionInterval = null;
+let sessionSeconds = 0;
+let isSessionRunning = false;
 let restInterval = null;
+
+const sessionTimerDisplay = document.getElementById('sessionTimerDisplay');
+const sessionStatusDot = document.getElementById('sessionStatusDot');
+const btnToggleSession = document.getElementById('btnToggleSession');
+
+function updateSessionTimerUI() {
+  const m = String(Math.floor(sessionSeconds / 60)).padStart(2, '0');
+  const s = String(sessionSeconds % 60).padStart(2, '0');
+  sessionTimerDisplay.innerText = `${m}:${s}`;
+}
+
+btnToggleSession.addEventListener('click', () => {
+  if (isSessionRunning) {
+    clearInterval(sessionInterval);
+    isSessionRunning = false;
+    btnToggleSession.innerText = t('resumeSessionBtn');
+    btnToggleSession.className = "bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 font-bold px-4 py-2.5 rounded-full text-[0.8rem] active:scale-95 transition-all";
+    sessionStatusDot.className = "w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.5)]";
+    sessionTimerDisplay.classList.replace('text-green-400', 'text-yellow-400');
+    sessionTimerDisplay.classList.replace('drop-shadow-[0_0_12px_rgba(34,197,94,0.4)]', 'drop-shadow-[0_0_12px_rgba(234,179,8,0.4)]');
+  } else {
+    isSessionRunning = true;
+    btnToggleSession.innerText = t('pauseSessionBtn');
+    btnToggleSession.className = "bg-purple-500/15 border border-purple-500/30 text-purple-300 font-bold px-4 py-2.5 rounded-full text-[0.8rem] active:scale-95 transition-all";
+    sessionStatusDot.className = "w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse";
+    
+    sessionTimerDisplay.classList.remove('text-gray-500', 'text-yellow-400', 'drop-shadow-[0_0_12px_rgba(234,179,8,0.4)]');
+    sessionTimerDisplay.classList.add('text-green-400', 'drop-shadow-[0_0_12px_rgba(34,197,94,0.4)]');
+
+    sessionInterval = setInterval(() => {
+      sessionSeconds++;
+      updateSessionTimerUI();
+    }, 1000);
+  }
+});
 
 function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || (I18N['it'][key]) || key; }
 function getMuscleName(m) { return (I18N[currentLang]?.muscles?.[m]) || (I18N['it'].muscles[m]) || m; }
@@ -142,6 +183,15 @@ function applyTranslations() {
       el.innerText = getMuscleName(mKey === 'upperback' ? 'upper_back' : mKey === 'lowerback' ? 'lower_back' : mKey);
     } else { el.innerText = t(key); }
   });
+  
+  if (!isSessionRunning && sessionSeconds === 0) {
+    btnToggleSession.innerText = t('startSessionBtn');
+  } else if (!isSessionRunning && sessionSeconds > 0) {
+    btnToggleSession.innerText = t('resumeSessionBtn');
+  } else {
+    btnToggleSession.innerText = t('pauseSessionBtn');
+  }
+
   const searchInp = document.getElementById('exploreSearchInput');
   if (searchInp) searchInp.placeholder = t('exploreSearchPlaceholder');
   document.querySelectorAll('.lang-pill').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLang));
@@ -271,7 +321,7 @@ searchInput.addEventListener('input', () => {
     searchResults.innerHTML = matches.slice(0, 8).map((ex, i) => `
       <div class="search-item p-3 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
         <span class="truncate pr-2">${ex.name}</span>
-        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-300 whitespace-nowrap shrink-0">${getMuscleName(ex.muscle)}</span>
+        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/20 text-purple-300 whitespace-nowrap shrink-0">${getMuscleName(ex.muscle)}</span>
       </div>
     `).join('');
   }
@@ -284,7 +334,7 @@ searchResults.addEventListener('click', (e) => {
   selectedExercise = getAllExercises().find(ex => ex.name === item.dataset.name) || { name: item.dataset.name, muscle: "chest", icon: "barbell" };
   searchInput.value = selectedExercise.name;
   searchResults.classList.remove('open');
-  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = selectedExercise.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(selectedExercise.muscle);
   document.getElementById('selectedExPreview').classList.remove('hidden');
@@ -319,12 +369,12 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
 
 function renderCompletedList() {
   document.getElementById('exerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-2xl p-3">
-      <div class="w-12 h-12 bg-black/40 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.iconKey]}</div>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
+      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.iconKey]}</div>
       <div class="flex-1 min-w-0">
-        <div class="text-[0.95rem] font-bold text-white flex justify-between items-center mb-1">
-          <span class="truncate pr-2">${ex.name}</span>
-          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[0.95rem] font-bold text-white truncate pr-2">${ex.name}</span>
+          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/20 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
         </div>
         <div class="font-mono text-[0.8rem] text-gray-400 font-semibold">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
       </div>
@@ -360,11 +410,11 @@ function renderExploreList() {
   }
 
   document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, i) => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-2xl p-3">
-      <div class="w-12 h-12 bg-black/40 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.icon] || ICONS.barbell}</div>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
+      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.icon] || ICONS.barbell}</div>
       <div class="flex-1 min-w-0">
         <div class="text-[0.95rem] font-bold text-white truncate">${ex.name}</div>
-        <div class="text-[0.65rem] uppercase font-bold text-purple-400/80 mt-0.5">${getMuscleName(ex.muscle)}</div>
+        <div class="text-[0.65rem] uppercase font-bold text-purple-300 mt-0.5">${getMuscleName(ex.muscle)}</div>
       </div>
       <button class="px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-[0.75rem] font-bold active:bg-purple-500/20 active:border-purple-500 transition-colors shrink-0 btn-discover" data-index="${i}">${t('discoverBtn')}</button>
     </div>
@@ -435,7 +485,7 @@ function renderHistoryList() {
   }
 
   document.getElementById('historyList').innerHTML = hist.map((s, i) => `
-    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
+    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
       <div class="flex justify-between items-start">
         <div>
           <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
@@ -472,15 +522,10 @@ document.getElementById('btnRest60').addEventListener('click', () => startRestTi
 document.getElementById('btnRest90').addEventListener('click', () => startRestTimer(90));
 document.getElementById('btnRestStop').addEventListener('click', stopRestTimer);
 
-setInterval(() => {
-  const e = Math.floor((Date.now() - sessionStartTime) / 1000);
-  document.getElementById('sessionTimer').innerText = `${String(Math.floor(e/60)).padStart(2,'0')}:${String(e%60).padStart(2,'0')}`;
-}, 1000);
-
 document.getElementById('btnShowRecap').addEventListener('click', () => {
   const tv = completedExercises.reduce((a, c) => a + (c.sets * c.reps * c.weight), 0);
   const st = document.getElementById('customTitle').value || 'Workout';
-  const sd = document.getElementById('sessionTimer').innerText;
+  const sd = document.getElementById('sessionTimerDisplay').innerText;
   
   document.getElementById('recapSessionName').innerText = st;
   document.getElementById('recapTotalWeight').innerText = `${tv.toLocaleString()} kg`;
@@ -506,9 +551,21 @@ document.getElementById('btnShowRecap').addEventListener('click', () => {
   document.getElementById('recapModal').classList.add('open');
 });
 
+function resetSessionUI() {
+  clearInterval(sessionInterval);
+  isSessionRunning = false;
+  sessionSeconds = 0;
+  updateSessionTimerUI();
+  btnToggleSession.innerText = t('startSessionBtn');
+  btnToggleSession.className = "bg-green-500/15 border border-green-500/30 text-green-400 font-bold px-4 py-2.5 rounded-full text-[0.8rem] active:scale-95 transition-all";
+  sessionStatusDot.className = "w-3 h-3 rounded-full bg-gray-600 shadow-none";
+  sessionTimerDisplay.className = "font-mono text-2xl font-extrabold text-gray-500 drop-shadow-md transition-colors";
+}
+
 document.getElementById('btnResetSession').addEventListener('click', () => {
   document.getElementById('recapModal').classList.remove('open');
-  completedExercises = []; targetedMuscles.clear(); renderBodySvg('dashBodyContainer', dashOrientation); renderCompletedList(); sessionStartTime = Date.now();
+  completedExercises = []; targetedMuscles.clear(); renderBodySvg('dashBodyContainer', dashOrientation); renderCompletedList(); 
+  resetSessionUI();
 });
 
 document.getElementById('btnOpenModal').addEventListener('click', () => { document.getElementById('newExName').value = ''; document.getElementById('newExModal').classList.add('open'); });
