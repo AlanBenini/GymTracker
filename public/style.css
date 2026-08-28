@@ -11,6 +11,7 @@
   --blue: #3b82f6;
   --purple: #8b5cf6;
   --green: #10b981;
+  --red: #ef4444;
   
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -478,6 +479,108 @@ select:focus, input:focus { border-color: var(--blue); }
   background: var(--blue);
   border-color: var(--blue);
   color: #fff;
+}
+
+.history-header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.btn-clear-history {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: var(--red);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.history-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.history-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.btn-del-single {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+}
+.btn-del-single:hover {
+  color: var(--red);
+}
+
+.history-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.history-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.history-stat-lbl {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.history-muscles-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.history-muscle-tag {
+  font-size: 0.65rem;
+  background: rgba(139, 92, 246, 0.12);
+  color: #c4b5fd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 600;
 }
 
 .bottom-bar {

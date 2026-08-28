@@ -29,7 +29,8 @@
 
     <nav class="main-nav">
       <button class="nav-btn active" id="tabWorkoutBtn">Allenamento</button>
-      <button class="nav-btn" id="tabExploreBtn">Esplora Esercizi</button>
+      <button class="nav-btn" id="tabExploreBtn">Esplora</button>
+      <button class="nav-btn" id="tabHistoryBtn">Cronologia</button>
     </nav>
 
     <section id="viewWorkout" class="view-section active">
@@ -119,10 +120,22 @@
       <div class="section-label" id="exploreCountLabel">Esercizi Disponibili</div>
       <div class="exercise-list" id="exploreExerciseList"></div>
     </section>
+
+    <section id="viewHistory" class="view-section">
+      <div class="history-header-box">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700;">Cronologia Workout</h2>
+          <p style="font-size: 0.75rem; color: var(--text-muted);" id="historyCountLabel">Ultime 30 sessioni archiviate</p>
+        </div>
+        <button class="btn-clear-history" id="btnClearHistory">Svuota</button>
+      </div>
+
+      <div class="history-list" id="historyList"></div>
+    </section>
   </div>
 
   <div class="bottom-bar" id="bottomBar">
-    <button class="btn-finish" id="btnShowRecap">Termina e Mostra Recap</button>
+    <button class="btn-finish" id="btnShowRecap">Termina e Salva Workout</button>
   </div>
 
   <div class="modal" id="detailModal">
@@ -204,7 +217,7 @@
     <div class="modal-card">
       <div>
         <h2 style="font-size: 1.15rem; font-weight: 700;" id="recapSessionName">Recap Workout</h2>
-        <p style="font-size: 0.75rem; color: var(--text-muted);">Riepilogo della sessione completata</p>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">Sessione salvata in cronologia</p>
       </div>
 
       <div class="stats-grid">

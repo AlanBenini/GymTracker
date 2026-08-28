@@ -67,6 +67,7 @@ const BODY_SVGS = {
 
 const GITHUB_EXERCISES_URL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json";
 const GITHUB_IMAGE_BASE_URL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
+const MAX_HISTORY_ITEMS = 30;
 
 const FALLBACK_EXERCISES = [
   {
@@ -263,21 +264,27 @@ function renderBodySvg(containerId, orientation, isExplore = false) {
   }
 }
 
+function setActiveNavTab(tabId, viewId, showBottomBar = false) {
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+  
+  document.getElementById(tabId).classList.add('active');
+  document.getElementById(viewId).classList.add('active');
+  document.getElementById('bottomBar').style.display = showBottomBar ? 'flex' : 'none';
+}
+
 document.getElementById('tabWorkoutBtn').addEventListener('click', () => {
-  document.getElementById('tabWorkoutBtn').classList.add('active');
-  document.getElementById('tabExploreBtn').classList.remove('active');
-  document.getElementById('viewWorkout').classList.add('active');
-  document.getElementById('viewExplore').classList.remove('active');
-  document.getElementById('bottomBar').style.display = 'flex';
+  setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true);
 });
 
 document.getElementById('tabExploreBtn').addEventListener('click', () => {
-  document.getElementById('tabExploreBtn').classList.add('active');
-  document.getElementById('tabWorkoutBtn').classList.remove('active');
-  document.getElementById('viewExplore').classList.add('active');
-  document.getElementById('viewWorkout').classList.remove('active');
-  document.getElementById('bottomBar').style.display = 'none';
+  setActiveNavTab('tabExploreBtn', 'viewExplore', false);
   renderExploreList();
+});
+
+document.getElementById('tabHistoryBtn').addEventListener('click', () => {
+  setActiveNavTab('tabHistoryBtn', 'viewHistory', false);
+  renderHistoryList();
 });
 
 document.getElementById('dashFlipBtn').addEventListener('click', () => {
@@ -529,7 +536,98 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   videoEl.pause();
   videoEl.removeAttribute('src');
   document.getElementById('detailModal').classList.remove('open');
-  document.getElementById('tabWorkoutBtn').click();
+  setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true);
+});
+
+function saveCompletedSessionToHistory(sessionData) {
+  try {
+    let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+    history.unshift(sessionData);
+    
+    if (history.length > MAX_HISTORY_ITEMS) {
+      history = history.slice(0, MAX_HISTORY_ITEMS);
+    }
+    
+    localStorage.setItem('my_gym_history', JSON.stringify(history));
+  } catch (err) {
+    console.warn("Spazio storage limitato, pulizia automatica cronologia:", err);
+    try {
+      let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+      history = history.slice(0, 10);
+      localStorage.setItem('my_gym_history', JSON.stringify(history));
+    } catch (e) {}
+  }
+}
+
+function renderHistoryList() {
+  const listContainer = document.getElementById('historyList');
+  const history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+  
+  document.getElementById('historyCountLabel').innerText = `${history.length} sessioni archiviate (max ${MAX_HISTORY_ITEMS})`;
+
+  if (history.length === 0) {
+    listContainer.innerHTML = `
+      <div style="text-align:center; padding: 36px 0; color: var(--text-muted); font-size: 0.85rem;">
+        Nessun workout registrato finora.<br>Completa la tua prima sessione per visualizzarla qui!
+      </div>
+    `;
+    return;
+  }
+
+  listContainer.innerHTML = history.map((session, index) => {
+    const musclesList = Array.isArray(session.targetedMuscles) ? session.targetedMuscles : [];
+    return `
+      <div class="history-card">
+        <div class="history-card-header">
+          <div>
+            <div class="history-title">${session.title}</div>
+            <div class="history-date">${session.date}</div>
+          </div>
+          <button class="btn-del-single" onclick="deleteHistorySession(${index})" title="Elimina sessione">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="history-stats-row">
+          <div>
+            <div class="history-stat-val">${session.totalVolume.toLocaleString()} kg</div>
+            <div class="history-stat-lbl">Volume</div>
+          </div>
+          <div>
+            <div class="history-stat-val">${session.exerciseCount}</div>
+            <div class="history-stat-lbl">Esercizi</div>
+          </div>
+          <div>
+            <div class="history-stat-val">${session.duration}</div>
+            <div class="history-stat-lbl">Tempo</div>
+          </div>
+        </div>
+
+        ${musclesList.length > 0 ? `
+          <div class="history-muscles-tags">
+            ${musclesList.map(m => `<span class="history-muscle-tag">${MUSCLE_NAMES[m] || m}</span>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+window.deleteHistorySession = function(index) {
+  let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+  history.splice(index, 1);
+  localStorage.setItem('my_gym_history', JSON.stringify(history));
+  renderHistoryList();
+};
+
+document.getElementById('btnClearHistory').addEventListener('click', () => {
+  if (confirm("Vuoi cancellare tutta la cronologia dei workout?")) {
+    localStorage.removeItem('my_gym_history');
+    renderHistoryList();
+  }
 });
 
 function startRestTimer(seconds) {
@@ -573,11 +671,13 @@ setInterval(() => {
 
 document.getElementById('btnShowRecap').addEventListener('click', () => {
   const totalVolume = completedExercises.reduce((acc, curr) => acc + (curr.sets * curr.reps * curr.weight), 0);
+  const sessionTitle = document.getElementById('customTitle').value || 'Workout';
+  const sessionDuration = document.getElementById('sessionTimer').innerText;
   
-  document.getElementById('recapSessionName').innerText = document.getElementById('customTitle').value || 'Workout';
+  document.getElementById('recapSessionName').innerText = sessionTitle;
   document.getElementById('recapTotalWeight').innerText = `${totalVolume.toLocaleString()} kg`;
   document.getElementById('recapCount').innerText = completedExercises.length;
-  document.getElementById('recapDuration').innerText = document.getElementById('sessionTimer').innerText;
+  document.getElementById('recapDuration').innerText = sessionDuration;
 
   renderBodySvg('recapBodyContainer', recapOrientation);
 
@@ -590,6 +690,28 @@ document.getElementById('btnShowRecap').addEventListener('click', () => {
       <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
     </div>
   `).join('');
+
+  if (completedExercises.length > 0) {
+    const now = new Date();
+    const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    
+    saveCompletedSessionToHistory({
+      title: sessionTitle,
+      date: formattedDate,
+      duration: sessionDuration,
+      totalVolume: totalVolume,
+      exerciseCount: completedExercises.length,
+      targetedMuscles: Array.from(targetedMuscles),
+      exercises: completedExercises.map(ex => ({
+        name: ex.name,
+        muscle: ex.muscle,
+        iconKey: ex.iconKey,
+        sets: ex.sets,
+        reps: ex.reps,
+        weight: ex.weight
+      }))
+    });
+  }
 
   document.getElementById('recapModal').classList.add('open');
 });
