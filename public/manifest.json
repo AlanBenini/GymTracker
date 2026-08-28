@@ -8,9 +8,10 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://i.chzbgr.com/full/9073449216/hBF5E1E8A/funny-photoshop-meme-about-monster-energy-mustard",
+      "src": "icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
