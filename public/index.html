@@ -84,13 +84,13 @@
     <section id="viewExplore" class="view-section">
       <div class="explore-header">
         <div>
-          <h2 style="font-size: 1.15rem; font-weight: 700;">Database & Atlante Esercizi</h2>
-          <p style="font-size: 0.75rem; color: var(--text-muted);">Cerca nel database o tocca il muscolo sulla sagoma</p>
+          <h2 style="font-size: 1.15rem; font-weight: 700;">Database & Atlante Muscolare</h2>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Tocca un muscolo specifico sulla sagoma o usa la ricerca</p>
         </div>
       </div>
 
       <div class="explore-search-container">
-        <input type="text" id="exploreSearchInput" placeholder="Cerca esercizio, attrezzatura, muscolo..." autocomplete="off" />
+        <input type="text" id="exploreSearchInput" placeholder="Cerca per nome, muscolo o attrezzo..." autocomplete="off" />
       </div>
 
       <div class="explore-body-card">
@@ -101,11 +101,19 @@
       <div class="muscle-pills" id="musclePills">
         <button class="pill active" data-muscle="all">Tutti</button>
         <button class="pill" data-muscle="chest">Petto</button>
-        <button class="pill" data-muscle="back">Dorso</button>
         <button class="pill" data-muscle="shoulders">Spalle</button>
-        <button class="pill" data-muscle="arms">Braccia</button>
-        <button class="pill" data-muscle="legs">Gambe</button>
+        <button class="pill" data-muscle="upper_back">Schiena Alta / Trapezi</button>
+        <button class="pill" data-muscle="lats">Gran Dorsale</button>
+        <button class="pill" data-muscle="lower_back">Lombari</button>
+        <button class="pill" data-muscle="biceps">Bicipiti</button>
+        <button class="pill" data-muscle="triceps">Tricipiti</button>
+        <button class="pill" data-muscle="forearms">Avambracci</button>
         <button class="pill" data-muscle="abs">Addome</button>
+        <button class="pill" data-muscle="obliques">Obliqui</button>
+        <button class="pill" data-muscle="quads">Quadricipiti</button>
+        <button class="pill" data-muscle="hamstrings">Femorali</button>
+        <button class="pill" data-muscle="glutes">Glutei</button>
+        <button class="pill" data-muscle="calves">Polpacci</button>
       </div>
 
       <div class="section-label" id="exploreCountLabel">Esercizi Disponibili</div>
@@ -151,23 +159,31 @@
 
   <div class="modal" id="newExModal">
     <div class="modal-card">
-      <h3 style="font-size: 1.05rem; font-weight: 700;">Nuovo Esercizio</h3>
+      <h3 style="font-size: 1.05rem; font-weight: 700;">Aggiungi Nuovo Esercizio</h3>
       <input type="text" id="newExName" placeholder="Nome (es. Hack Squat)" />
       
       <div>
-        <label class="section-label">Gruppo Muscolare</label>
+        <label class="section-label">Gruppo Muscolare Specifico</label>
         <select id="newExMuscle" style="margin-top: 4px;">
-          <option value="chest">Petto</option>
-          <option value="back">Dorso</option>
-          <option value="shoulders">Spalle</option>
-          <option value="arms">Braccia</option>
-          <option value="legs">Gambe</option>
-          <option value="abs">Addome</option>
+          <option value="chest">Petto (Pettorali)</option>
+          <option value="shoulders">Spalle (Deltoidi)</option>
+          <option value="upper_back">Schiena Alta / Trapezi</option>
+          <option value="lats">Gran Dorsale (Dorsali)</option>
+          <option value="lower_back">Schiena Bassa / Lombari</option>
+          <option value="biceps">Bicipiti</option>
+          <option value="triceps">Tricipiti</option>
+          <option value="forearms">Avambracci</option>
+          <option value="abs">Addome (Core)</option>
+          <option value="obliques">Obliqui</option>
+          <option value="quads">Quadricipiti</option>
+          <option value="hamstrings">Femorali (Ischiocrurali)</option>
+          <option value="glutes">Glutei</option>
+          <option value="calves">Polpacci</option>
         </select>
       </div>
 
       <div>
-        <label class="section-label">Attrezzatura</label>
+        <label class="section-label">Tipo Attrezzatura</label>
         <select id="newExIcon" style="margin-top: 4px;">
           <option value="barbell">Bilanciere</option>
           <option value="dumbbell">Manubri</option>
@@ -178,7 +194,7 @@
 
       <div style="display:flex; gap: 8px; margin-top: 6px;">
         <button class="btn-primary" style="flex:1; background: var(--surface-subtle);" id="btnCloseModal">Annulla</button>
-        <button class="btn-primary" style="flex:1;" id="btnSaveCustomEx">Salva</button>
+        <button class="btn-primary" style="flex:1;" id="btnSaveCustomEx">Salva Esercizio</button>
       </div>
     </div>
   </div>
