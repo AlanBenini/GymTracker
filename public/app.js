@@ -68,11 +68,11 @@ const I18N = {
   it: {
     menuTitle: "Menu", tabWorkout: "Allenamento", tabExplore: "Esplora Esercizi", tabHistory: "Cronologia",
     langLabel: "Lingua / Language", titleRenameSub: "Tocca per rinominare", flipBtn: "↻ Gira",
-    flipBtnLarge: "↻ Fronte / Retro", restHeader: "Recupero", stopBtn: "Stop", addExerciseBtn: "+ Registra",
+    flipBtnLarge: "↻ Fronte / Retro", restHeader: "Recupero", stopBtn: "Stop", addExerciseBtn: "+ Registra Esercizio",
     logLabel: "Log Esercizi", exploreTitle: "Database Esercizi", exploreSub: "Tocca un muscolo sulla sagoma",
     exploreSearchPlaceholder: "Cerca tra oltre 800 esercizi...", exploreCountLabel: "Disponibili",
     discoverBtn: "Esecuzione", historyTitle: "Cronologia", clearBtn: "Svuota", finishBtn: "Termina e Salva",
-    noMedia: "Video non disponibile", execStepsLabel: "Istruzioni", useInWorkoutBtn: "+ Usa",
+    noMedia: "Video non disponibile", execStepsLabel: "Istruzioni", useInWorkoutBtn: "+ Inserisci",
     newExTitle: "Nuovo Esercizio", targetMuscleLabel: "Muscolo", equipTypeLabel: "Attrezzatura",
     cancelBtn: "Annulla", saveExBtn: "Salva", recapSub: "Salvato in cronologia", statVolume: "Volume",
     statExercises: "Esercizi", statTime: "Tempo", recapDetailLabel: "Dettaglio", newSessionBtn: "Nuova Sessione",
@@ -88,7 +88,7 @@ const I18N = {
     logLabel: "Log", exploreTitle: "Database", exploreSub: "Tap a muscle or search",
     exploreSearchPlaceholder: "Search 800+ exercises...", exploreCountLabel: "Available",
     discoverBtn: "View", historyTitle: "History", clearBtn: "Clear", finishBtn: "Save Workout",
-    noMedia: "Video unavailable", execStepsLabel: "Instructions", useInWorkoutBtn: "+ Use",
+    noMedia: "Video unavailable", execStepsLabel: "Instructions", useInWorkoutBtn: "+ Insert",
     newExTitle: "Custom Exercise", targetMuscleLabel: "Muscle", equipTypeLabel: "Equipment",
     cancelBtn: "Cancel", saveExBtn: "Save", recapSub: "Saved to history", statVolume: "Volume",
     statExercises: "Exercises", statTime: "Time", recapDetailLabel: "Details", newSessionBtn: "New Session",
@@ -104,7 +104,7 @@ const I18N = {
     logLabel: "Registro", exploreTitle: "Base de Datos", exploreSub: "Toca un músculo",
     exploreSearchPlaceholder: "Buscar 800+ ejercicios...", exploreCountLabel: "Disponibles",
     discoverBtn: "Ver", historyTitle: "Historial", clearBtn: "Vaciar", finishBtn: "Guardar",
-    noMedia: "Video no disponible", execStepsLabel: "Instrucciones", useInWorkoutBtn: "+ Usar",
+    noMedia: "Video no disponible", execStepsLabel: "Instrucciones", useInWorkoutBtn: "+ Añadir",
     newExTitle: "Nuevo Ejercicio", targetMuscleLabel: "Músculo", equipTypeLabel: "Equipamiento",
     cancelBtn: "Cancelar", saveExBtn: "Guardar", recapSub: "Guardado", statVolume: "Volumen",
     statExercises: "Ejercicios", statTime: "Tiempo", recapDetailLabel: "Detalle", newSessionBtn: "Nueva Sesión",
@@ -269,9 +269,9 @@ searchInput.addEventListener('input', () => {
     searchResults.innerHTML = `<div class="p-3 text-[0.8rem] text-gray-400">Nessun esercizio trovato</div>`;
   } else {
     searchResults.innerHTML = matches.slice(0, 8).map((ex, i) => `
-      <div class="search-item" data-index="${i}" data-name="${ex.name}">
+      <div class="search-item p-3 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
         <span class="truncate pr-2">${ex.name}</span>
-        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/20 text-purple-300 whitespace-nowrap">${getMuscleName(ex.muscle)}</span>
+        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-300 whitespace-nowrap shrink-0">${getMuscleName(ex.muscle)}</span>
       </div>
     `).join('');
   }
@@ -284,7 +284,7 @@ searchResults.addEventListener('click', (e) => {
   selectedExercise = getAllExercises().find(ex => ex.name === item.dataset.name) || { name: item.dataset.name, muscle: "chest", icon: "barbell" };
   searchInput.value = selectedExercise.name;
   searchResults.classList.remove('open');
-  document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = selectedExercise.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(selectedExercise.muscle);
   document.getElementById('selectedExPreview').classList.remove('hidden');
@@ -307,7 +307,11 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
   renderBodySvg('dashBodyContainer', dashOrientation);
   renderCompletedList();
   startRestTimer(90);
+  
   searchInput.value = '';
+  document.getElementById('sets').value = '';
+  document.getElementById('reps').value = '';
+  document.getElementById('weight').value = '';
   document.getElementById('selectedExPreview').classList.add('hidden');
   document.getElementById('selectedExPreview').classList.remove('flex');
   selectedExercise = null;
@@ -315,12 +319,12 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
 
 function renderCompletedList() {
   document.getElementById('exerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
-      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.iconKey]}</div>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-2xl p-3">
+      <div class="w-12 h-12 bg-black/40 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.iconKey]}</div>
       <div class="flex-1 min-w-0">
-        <div class="flex justify-between items-center mb-1">
-          <span class="text-[0.95rem] font-bold text-white truncate pr-2">${ex.name}</span>
-          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/20 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
+        <div class="text-[0.95rem] font-bold text-white flex justify-between items-center mb-1">
+          <span class="truncate pr-2">${ex.name}</span>
+          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/15 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
         </div>
         <div class="font-mono text-[0.8rem] text-gray-400 font-semibold">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
       </div>
@@ -356,19 +360,19 @@ function renderExploreList() {
   }
 
   document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, i) => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
-      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.icon] || ICONS.barbell}</div>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-2xl p-3">
+      <div class="w-12 h-12 bg-black/40 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.icon] || ICONS.barbell}</div>
       <div class="flex-1 min-w-0">
         <div class="text-[0.95rem] font-bold text-white truncate">${ex.name}</div>
-        <div class="text-[0.65rem] uppercase font-bold text-purple-300 mt-0.5">${getMuscleName(ex.muscle)}</div>
+        <div class="text-[0.65rem] uppercase font-bold text-purple-400/80 mt-0.5">${getMuscleName(ex.muscle)}</div>
       </div>
-      <button class="px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-[0.75rem] font-bold active:bg-purple-500/20 active:border-purple-500 transition-colors shrink-0" data-index="${i}">${t('discoverBtn')}</button>
+      <button class="px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-[0.75rem] font-bold active:bg-purple-500/20 active:border-purple-500 transition-colors shrink-0 btn-discover" data-index="${i}">${t('discoverBtn')}</button>
     </div>
   `).join('');
 }
 
 document.getElementById('exploreExerciseList').addEventListener('click', e => {
-  const btn = e.target.closest('button');
+  const btn = e.target.closest('.btn-discover');
   if (btn) openExerciseDetail(currentFilteredExploreList[parseInt(btn.dataset.index)]);
 });
 
@@ -431,7 +435,7 @@ function renderHistoryList() {
   }
 
   document.getElementById('historyList').innerHTML = hist.map((s, i) => `
-    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
       <div class="flex justify-between items-start">
         <div>
           <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
