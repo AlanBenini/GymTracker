@@ -765,3 +765,9 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
 renderBodySvg('dashBodyContainer', 'front');
 renderBodySvg('exploreBodyContainer', 'front', true);
 loadOpenExerciseDatabase();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
