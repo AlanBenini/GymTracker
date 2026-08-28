@@ -189,7 +189,7 @@ const FALLBACK_EXERCISES = [
     ]
   },
   {
-    name: "Iperestensioni Lombari (Hyperextension)",
+    name: "Iperestensioni Lombari",
     muscle: "lower_back",
     icon: "bodyweight",
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-hyperextension-front.mp4",
@@ -363,6 +363,7 @@ let targetedMuscles = new Set();
 let selectedExercise = null;
 let currentExploreMuscle = "all";
 let exerciseInDetail = null;
+let currentFilteredExploreList = [];
 
 let dashOrientation = 'front';
 let exploreOrientation = 'front';
@@ -509,8 +510,8 @@ searchInput.addEventListener('input', () => {
   if (matches.length === 0) {
     searchResults.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-muted);">Nessun esercizio trovato</div>`;
   } else {
-    searchResults.innerHTML = matches.slice(0, 8).map(ex => `
-      <div class="search-item" data-name="${ex.name}" data-muscle="${ex.muscle}" data-icon="${ex.icon}">
+    searchResults.innerHTML = matches.slice(0, 8).map((ex, index) => `
+      <div class="search-item" data-index="${index}" data-name="${ex.name}">
         <span>${ex.name}</span>
         <span class="ex-badge">${MUSCLE_NAMES[ex.muscle] || ex.muscle}</span>
       </div>
@@ -526,8 +527,8 @@ searchResults.addEventListener('click', (e) => {
   const found = getAllExercises().find(ex => ex.name === item.dataset.name);
   selectedExercise = found || {
     name: item.dataset.name,
-    muscle: item.dataset.muscle,
-    icon: item.dataset.icon
+    muscle: "chest",
+    icon: "barbell"
   };
 
   searchInput.value = selectedExercise.name;
@@ -615,7 +616,7 @@ function renderExploreList() {
   const all = getAllExercises();
   const searchFilter = (exploreSearchInput.value || '').trim().toLowerCase();
 
-  const filtered = all.filter(ex => {
+  currentFilteredExploreList = all.filter(ex => {
     const matchesMuscle = (currentExploreMuscle === "all" || ex.muscle === currentExploreMuscle);
     const muscleLabel = (MUSCLE_NAMES[ex.muscle] || '').toLowerCase();
     const matchesQuery = !searchFilter || 
@@ -625,9 +626,9 @@ function renderExploreList() {
     return matchesMuscle && matchesQuery;
   });
 
-  document.getElementById('exploreCountLabel').innerText = `Esercizi (${filtered.length})`;
+  document.getElementById('exploreCountLabel').innerText = `Esercizi (${currentFilteredExploreList.length})`;
 
-  if (filtered.length === 0) {
+  if (currentFilteredExploreList.length === 0) {
     document.getElementById('exploreExerciseList').innerHTML = `
       <div style="text-align:center; padding: 24px 0; color: var(--text-muted); font-size: 0.85rem;">
         Nessun esercizio trovato per i filtri selezionati.
@@ -636,7 +637,7 @@ function renderExploreList() {
     return;
   }
 
-  document.getElementById('exploreExerciseList').innerHTML = filtered.map(ex => `
+  document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.map((ex, index) => `
     <div class="exercise-item">
       <div class="ex-icon-box">${ICONS[ex.icon] || ICONS.barbell}</div>
       <div class="ex-details">
@@ -645,13 +646,20 @@ function renderExploreList() {
           <span class="ex-badge">${MUSCLE_NAMES[ex.muscle] || ex.muscle}</span>
         </div>
       </div>
-      <button class="btn-discover" onclick="openExerciseDetail('${encodeURIComponent(JSON.stringify(ex))}')">Scopri esecuzione</button>
+      <button class="btn-discover" data-index="${index}">Scopri esecuzione</button>
     </div>
   `).join('');
 }
 
-window.openExerciseDetail = function(encodedEx) {
-  const ex = JSON.parse(decodeURIComponent(encodedEx));
+document.getElementById('exploreExerciseList').addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-discover');
+  if (!btn) return;
+  const index = parseInt(btn.dataset.index, 10);
+  const ex = currentFilteredExploreList[index];
+  if (ex) openExerciseDetail(ex);
+});
+
+function openExerciseDetail(ex) {
   exerciseInDetail = ex;
 
   document.getElementById('detailExName').innerText = ex.name;
@@ -661,14 +669,27 @@ window.openExerciseDetail = function(encodedEx) {
   const videoEl = document.getElementById('detailVideo');
   const placeholderEl = document.getElementById('videoPlaceholder');
 
-  if (ex.video) {
-    videoEl.src = ex.video;
+  videoEl.pause();
+  videoEl.removeAttribute('src');
+  videoEl.load();
+
+  videoEl.onerror = () => {
+    videoEl.style.display = 'none';
+    placeholderEl.style.display = 'flex';
+  };
+
+  videoEl.onloadeddata = () => {
     videoEl.style.display = 'block';
     placeholderEl.style.display = 'none';
+  };
+
+  if (ex.video && typeof ex.video === 'string' && ex.video.trim().length > 0) {
+    placeholderEl.style.display = 'none';
+    videoEl.style.display = 'block';
+    videoEl.src = ex.video.trim();
     videoEl.load();
     videoEl.play().catch(() => {});
   } else {
-    videoEl.pause();
     videoEl.style.display = 'none';
     placeholderEl.style.display = 'flex';
   }
@@ -681,11 +702,12 @@ window.openExerciseDetail = function(encodedEx) {
   }
 
   document.getElementById('detailModal').classList.add('open');
-};
+}
 
 document.getElementById('btnCloseDetailModal').addEventListener('click', () => {
   const videoEl = document.getElementById('detailVideo');
   videoEl.pause();
+  videoEl.removeAttribute('src');
   document.getElementById('detailModal').classList.remove('open');
 });
 
@@ -699,6 +721,9 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   document.getElementById('selectedExMuscle').innerText = MUSCLE_NAMES[exerciseInDetail.muscle] || exerciseInDetail.muscle;
   document.getElementById('selectedExPreview').style.display = 'flex';
 
+  const videoEl = document.getElementById('detailVideo');
+  videoEl.pause();
+  videoEl.removeAttribute('src');
   document.getElementById('detailModal').classList.remove('open');
   document.getElementById('tabWorkoutBtn').click();
 });
@@ -778,9 +803,11 @@ document.getElementById('btnOpenModal').addEventListener('click', () => {
   document.getElementById('newExName').value = '';
   document.getElementById('newExModal').classList.add('open');
 });
+
 document.getElementById('btnCloseModal').addEventListener('click', () => {
   document.getElementById('newExModal').classList.remove('open');
 });
+
 document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   const name = document.getElementById('newExName').value.trim();
   const muscle = document.getElementById('newExMuscle').value;
