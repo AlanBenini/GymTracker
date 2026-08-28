@@ -485,7 +485,7 @@ function renderHistoryList() {
   }
 
   document.getElementById('historyList').innerHTML = hist.map((s, i) => `
-    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
       <div class="flex justify-between items-start">
         <div>
           <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
