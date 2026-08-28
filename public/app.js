@@ -6,20 +6,10 @@ const ICONS = {
 };
 
 const MUSCLE_NAMES = {
-  chest: "Petto",
-  shoulders: "Spalle",
-  upper_back: "Schiena Alta / Trapezi",
-  lats: "Gran Dorsale",
-  lower_back: "Schiena Bassa / Lombari",
-  biceps: "Bicipiti",
-  triceps: "Tricipiti",
-  forearms: "Avambracci",
-  abs: "Addome",
-  obliques: "Obliqui",
-  quads: "Quadricipiti",
-  hamstrings: "Femorali",
-  glutes: "Glutei",
-  calves: "Polpacci"
+  chest: "Petto", shoulders: "Spalle", upper_back: "Schiena Alta", lats: "Gran Dorsale",
+  lower_back: "Lombari", biceps: "Bicipiti", triceps: "Tricipiti", forearms: "Avambracci",
+  abs: "Addome", obliques: "Obliqui", quads: "Quadricipiti", hamstrings: "Femorali",
+  glutes: "Glutei", calves: "Polpacci"
 };
 
 const BODY_SVGS = {
@@ -70,170 +60,146 @@ const GITHUB_IMAGE_BASE_URL = "https://raw.githubusercontent.com/yuhonas/free-ex
 const MAX_HISTORY_ITEMS = 30;
 
 const FALLBACK_EXERCISES = [
-  {
-    name: "Panca Piana Bilanciere",
-    muscle: "chest",
-    icon: "barbell",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bench-press-front.mp4",
-    steps: [
-      "Sdraiati sulla panca con gli occhi sotto il bilanciere e i piedi ben saldi a terra.",
-      "Impugna il bilanciere a larghezza superiore alle spalle e adduci le scapole.",
-      "Abbassa la barra in modo controllato fino a sfiorare la parte media del petto.",
-      "Spingi con forza verso l'alto tornando alla posizione di partenza senza rimbalzare."
-    ]
-  },
-  {
-    name: "Spinte Manubri Inclinata",
-    muscle: "chest",
-    icon: "dumbbell",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-incline-bench-press-front.mp4",
-    steps: [
-      "Regola la panca tra 30° e 45° e porta i manubri all'altezza del petto.",
-      "Mantieni il petto aperto e spingi i manubri verso l'alto senza farli toccare in cima.",
-      "Scendi lentamente aprendo i gomiti a circa 45-60 gradi rispetto al busto."
-    ]
-  },
-  {
-    name: "Military Press",
-    muscle: "shoulders",
-    icon: "barbell",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-overhead-press-front.mp4",
-    steps: [
-      "In piedi con il bilanciere poggiato sulle clavicole e i gomiti leggermente avanti.",
-      "Contrai addome e glutei e spingi il bilanciere sopra la testa in linea retta.",
-      "Blocca la posizione in cima e riporta il bilanciere al petto controllando il peso."
-    ]
-  },
-  {
-    name: "Trazioni alla Sbarra",
-    muscle: "lats",
-    icon: "bodyweight",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-pullup-front.mp4",
-    steps: [
-      "Afferra la sbarra con presa prona a una larghezza leggermente superiore alle spalle.",
-      "Attiva il dorso deprimendo le scapole e tira il corpo verso l'alto.",
-      "Porta il mento oltre la sbarra e scendi fino a distendere completamente le braccia."
-    ]
-  },
-  {
-    name: "Curl Bicipiti con Manubri",
-    muscle: "biceps",
-    icon: "dumbbell",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-curl-front.mp4",
-    steps: [
-      "Impugna i manubri con le braccia lungo i fianchi e i gomiti fermi vicino al tronco.",
-      "Fletti i gomiti ruotando i palmi verso l'alto fino a contrarre al massimo i bicipiti.",
-      "Abbassa i manubri lentamente tornando alla distensione completa."
-    ]
-  },
-  {
-    name: "Squat con Bilanciere",
-    muscle: "quads",
-    icon: "barbell",
-    images: [],
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-squat-front.mp4",
-    steps: [
-      "Posiziona il bilanciere sui trapezi, piedi a larghezza spalle con punte leggermente aperte.",
-      "Scendi piegando anche e ginocchia mantenendo la schiena dritta fino al parallelo.",
-      "Spingi sui talloni e sull'avampiede per risalire in posizione eretta."
-    ]
-  }
+  { name: "Panca Piana Bilanciere", muscle: "chest", icon: "barbell", images: [], video: "", steps: ["Spingi con forza verso l'alto tornando alla posizione di partenza senza rimbalzare."] },
+  { name: "Trazioni alla Sbarra", muscle: "lats", icon: "bodyweight", images: [], video: "", steps: ["Porta il mento oltre la sbarra e scendi fino a distendere completamente le braccia."] }
 ];
 
+const I18N = {
+  it: {
+    menuTitle: "Menu", tabWorkout: "Allenamento", tabExplore: "Esplora Esercizi", tabHistory: "Cronologia",
+    langLabel: "Lingua / Language", titleRenameSub: "Tocca per rinominare sessione", flipBtn: "↻ Gira",
+    flipBtnLarge: "↻ Gira Fronte / Retro", restHeader: "Recupero", stopBtn: "Stop", addExerciseBtn: "+ Registra Esercizio",
+    logLabel: "Log Esercizi", exploreTitle: "Database & Atlante Muscolare", exploreSub: "Tocca un muscolo sulla sagoma o usa la ricerca",
+    exploreSearchPlaceholder: "Cerca tra oltre 800 esercizi...", exploreCountLabel: "Esercizi Disponibili",
+    discoverBtn: "Scopri esecuzione", historyTitle: "Cronologia Workout", clearBtn: "Svuota", finishBtn: "Termina e Salva Workout",
+    noMedia: "Dimostrazione visiva non disponibile", execStepsLabel: "Esecuzione e Istruzioni", useInWorkoutBtn: "+ Inserisci nel Workout",
+    newExTitle: "Nuovo Esercizio", targetMuscleLabel: "Gruppo Muscolare", equipTypeLabel: "Attrezzatura",
+    cancelBtn: "Annulla", saveExBtn: "Salva", recapSub: "Sessione salvata in cronologia", statVolume: "Volume",
+    statExercises: "Esercizi", statTime: "Tempo", recapDetailLabel: "Dettaglio Esercizi", newSessionBtn: "Nuova Sessione",
+    emptyHistory: "Nessun workout registrato finora.<br>Completa la tua prima sessione per visualizzarla qui!",
+    emptyExplore: "Nessun esercizio trovato per i filtri selezionati.", equipBarbell: "Bilanciere", equipDumbbell: "Manubri",
+    equipMachine: "Macchinario / Cavi", equipBodyweight: "Corpo Libero",
+    muscles: { all: "Tutti", chest: "Petto", shoulders: "Spalle", upper_back: "Schiena Alta", lats: "Gran Dorsale", lower_back: "Lombari", biceps: "Bicipiti", triceps: "Tricipiti", forearms: "Avambracci", abs: "Addome", obliques: "Obliqui", quads: "Quadricipiti", hamstrings: "Femorali", glutes: "Glutei", calves: "Polpacci" }
+  },
+  en: {
+    menuTitle: "Menu", tabWorkout: "Workout", tabExplore: "Explore", tabHistory: "History",
+    langLabel: "Language", titleRenameSub: "Tap to rename session", flipBtn: "↻ Flip",
+    flipBtnLarge: "↻ Flip Front / Back", restHeader: "Rest", stopBtn: "Stop", addExerciseBtn: "+ Add Exercise",
+    logLabel: "Log", exploreTitle: "Database & Muscle Map", exploreSub: "Tap a muscle or search",
+    exploreSearchPlaceholder: "Search 800+ exercises...", exploreCountLabel: "Available Exercises",
+    discoverBtn: "View Execution", historyTitle: "History", clearBtn: "Clear", finishBtn: "Finish & Save",
+    noMedia: "Visual demo not available", execStepsLabel: "Instructions", useInWorkoutBtn: "+ Add to Workout",
+    newExTitle: "Custom Exercise", targetMuscleLabel: "Target Muscle", equipTypeLabel: "Equipment",
+    cancelBtn: "Cancel", saveExBtn: "Save", recapSub: "Session saved to history", statVolume: "Volume",
+    statExercises: "Exercises", statTime: "Duration", recapDetailLabel: "Exercise Details", newSessionBtn: "New Session",
+    emptyHistory: "No workouts recorded yet.<br>Complete your first session!",
+    emptyExplore: "No exercises found.", equipBarbell: "Barbell", equipDumbbell: "Dumbbells",
+    equipMachine: "Machine / Cables", equipBodyweight: "Bodyweight",
+    muscles: { all: "All", chest: "Chest", shoulders: "Shoulders", upper_back: "Upper Back", lats: "Lats", lower_back: "Lower Back", biceps: "Biceps", triceps: "Triceps", forearms: "Forearms", abs: "Abs", obliques: "Obliques", quads: "Quads", hamstrings: "Hamstrings", glutes: "Glutes", calves: "Calves" }
+  },
+  es: {
+    menuTitle: "Menú", tabWorkout: "Rutina", tabExplore: "Explorar", tabHistory: "Historial",
+    langLabel: "Idioma", titleRenameSub: "Toca para renombrar", flipBtn: "↻ Girar",
+    flipBtnLarge: "↻ Girar Frente / Dorso", restHeader: "Descanso", stopBtn: "Parar", addExerciseBtn: "+ Añadir Ejercicio",
+    logLabel: "Registro", exploreTitle: "Base de Datos", exploreSub: "Toca un músculo o busca",
+    exploreSearchPlaceholder: "Buscar 800+ ejercicios...", exploreCountLabel: "Ejercicios Disponibles",
+    discoverBtn: "Ver ejecución", historyTitle: "Historial", clearBtn: "Vaciar", finishBtn: "Terminar y Guardar",
+    noMedia: "Demo visual no disponible", execStepsLabel: "Instrucciones", useInWorkoutBtn: "+ Añadir a Rutina",
+    newExTitle: "Nuevo Ejercicio", targetMuscleLabel: "Músculo", equipTypeLabel: "Equipamiento",
+    cancelBtn: "Cancelar", saveExBtn: "Guardar", recapSub: "Sesión guardada", statVolume: "Volumen",
+    statExercises: "Ejercicios", statTime: "Tiempo", recapDetailLabel: "Detalle de Ejercicios", newSessionBtn: "Nueva Sesión",
+    emptyHistory: "No hay entrenamientos guardados.<br>¡Completa tu primera sesión!",
+    emptyExplore: "No se encontraron ejercicios.", equipBarbell: "Barra", equipDumbbell: "Mancuernas",
+    equipMachine: "Máquina", equipBodyweight: "Peso Corporal",
+    muscles: { all: "Todos", chest: "Pecho", shoulders: "Hombros", upper_back: "Espalda Alta", lats: "Dorsales", lower_back: "Lumbares", biceps: "Bíceps", triceps: "Tríceps", forearms: "Antebrazos", abs: "Abdomen", obliques: "Oblicuos", quads: "Cuádriceps", hamstrings: "Isquios", glutes: "Glúteos", calves: "Gemelos" }
+  }
+};
+
+let currentLang = localStorage.getItem('my_gym_lang') || 'it';
 let apiExercises = [];
 let customExercises = JSON.parse(localStorage.getItem('my_gym_custom_exercises')) || [];
 let completedExercises = [];
 let targetedMuscles = new Set();
-
 let selectedExercise = null;
 let currentExploreMuscle = "all";
 let exerciseInDetail = null;
 let currentFilteredExploreList = [];
 let imageAnimationInterval = null;
-
 let dashOrientation = 'front';
 let exploreOrientation = 'front';
 let recapOrientation = 'front';
-
 let sessionStartTime = Date.now();
 let restInterval = null;
 
-function normalizeMuscleName(apiMuscle) {
-  if (!apiMuscle) return "chest";
-  const m = apiMuscle.toLowerCase().trim();
-  
-  if (m.includes("chest") || m.includes("pec") || m.includes("petto")) return "chest";
-  if (m.includes("shoulder") || m.includes("delt") || m.includes("spall")) return "shoulders";
-  if (m.includes("trap") || m.includes("middle back") || m.includes("neck") || m.includes("upper back") || m.includes("schiena alta")) return "upper_back";
+function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || (I18N['it'][key]) || key; }
+function getMuscleName(m) { return (I18N[currentLang]?.muscles?.[m]) || (I18N['it'].muscles[m]) || m; }
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (key.startsWith('muscle')) {
+      const mKey = key.replace('muscle', '').toLowerCase();
+      el.innerText = getMuscleName(mKey === 'upperback' ? 'upper_back' : mKey === 'lowerback' ? 'lower_back' : mKey);
+    } else { el.innerText = t(key); }
+  });
+  const searchInp = document.getElementById('exploreSearchInput');
+  if (searchInp) searchInp.placeholder = t('exploreSearchPlaceholder');
+  document.querySelectorAll('.lang-pill').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLang));
+  renderCompletedList(); renderExploreList(); renderHistoryList();
+}
+
+function normalizeMuscleName(m) {
+  if (!m) return "chest";
+  m = m.toLowerCase().trim();
+  if (m.includes("chest") || m.includes("pec")) return "chest";
+  if (m.includes("shoulder") || m.includes("delt")) return "shoulders";
+  if (m.includes("trap") || m.includes("middle back") || m.includes("upper back")) return "upper_back";
   if (m.includes("lat") || m.includes("dors")) return "lats";
-  if (m.includes("lower back") || m.includes("lomb") || m.includes("erector")) return "lower_back";
-  if (m.includes("bicep") || m.includes("bicipit")) return "biceps";
-  if (m.includes("tricep") || m.includes("tricipit")) return "triceps";
-  if (m.includes("forearm") || m.includes("avambr") || m.includes("wrist")) return "forearms";
-  if (m.includes("oblique") || m.includes("obliqu")) return "obliques";
-  if (m.includes("ab") || m.includes("core") || m.includes("addom")) return "abs";
-  if (m.includes("quad") || m.includes("quadricip") || m.includes("adductor") || m.includes("abductor")) return "quads";
-  if (m.includes("hamstring") || m.includes("femoral") || m.includes("ischiocrur")) return "hamstrings";
+  if (m.includes("lower back") || m.includes("lomb")) return "lower_back";
+  if (m.includes("bicep")) return "biceps";
+  if (m.includes("tricep")) return "triceps";
+  if (m.includes("forearm") || m.includes("wrist")) return "forearms";
+  if (m.includes("oblique")) return "obliques";
+  if (m.includes("ab") || m.includes("core")) return "abs";
+  if (m.includes("quad")) return "quads";
+  if (m.includes("hamstring") || m.includes("femoral")) return "hamstrings";
   if (m.includes("glute")) return "glutes";
-  if (m.includes("calf") || m.includes("calv") || m.includes("polpacc") || m.includes("soleus")) return "calves";
-  
+  if (m.includes("calf") || m.includes("calv")) return "calves";
   return "chest";
 }
 
-function normalizeEquipment(equip) {
-  if (!equip) return "barbell";
-  const eq = equip.toLowerCase();
-  if (eq.includes("barbell") || eq.includes("ez") || eq.includes("olympic")) return "barbell";
+function normalizeEquipment(eq) {
+  if (!eq) return "barbell";
+  eq = eq.toLowerCase();
+  if (eq.includes("barbell") || eq.includes("ez")) return "barbell";
   if (eq.includes("dumbbell") || eq.includes("kettlebell")) return "dumbbell";
-  if (eq.includes("body") || eq.includes("none") || eq.includes("other")) return "bodyweight";
+  if (eq.includes("body") || eq.includes("none")) return "bodyweight";
   return "machine";
 }
 
-function getAllExercises() {
-  return [...customExercises, ...(apiExercises.length ? apiExercises : FALLBACK_EXERCISES)];
-}
+function getAllExercises() { return [...customExercises, ...(apiExercises.length ? apiExercises : FALLBACK_EXERCISES)]; }
 
 async function loadOpenExerciseDatabase() {
   try {
-    const cachedData = localStorage.getItem('my_gym_cached_exercises_v1');
-    if (cachedData) {
-      apiExercises = JSON.parse(cachedData);
-      renderExploreList();
-    }
-
+    const cachedData = localStorage.getItem('my_gym_cached_v2');
+    if (cachedData) { apiExercises = JSON.parse(cachedData); renderExploreList(); }
     const res = await fetch(GITHUB_EXERCISES_URL);
     if (res.ok) {
       const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        apiExercises = data.map(item => {
-          const muscleKey = item.primaryMuscles && item.primaryMuscles.length > 0
-            ? normalizeMuscleName(item.primaryMuscles[0])
-            : normalizeMuscleName(item.category || "");
-
-          return {
-            name: item.name,
-            muscle: muscleKey,
-            icon: normalizeEquipment(item.equipment),
-            images: Array.isArray(item.images) ? item.images : [],
-            video: "",
-            steps: Array.isArray(item.instructions) && item.instructions.length > 0
-              ? item.instructions
-              : ["Esegui il movimento controllando la fase eccentrica e concentrica."]
-          };
-        });
-
-        localStorage.setItem('my_gym_cached_exercises_v1', JSON.stringify(apiExercises));
+      if (Array.isArray(data)) {
+        apiExercises = data.map(item => ({
+          name: item.name,
+          muscle: normalizeMuscleName(item.primaryMuscles?.[0] || item.category || ""),
+          icon: normalizeEquipment(item.equipment),
+          images: item.images || [], video: "",
+          steps: item.instructions?.length ? item.instructions : ["Esegui in modo controllato."]
+        }));
+        localStorage.setItem('my_gym_cached_v2', JSON.stringify(apiExercises));
         renderExploreList();
       }
     }
   } catch (err) {
-    console.warn("Utilizzo database locale di fallback:", err);
-    if (apiExercises.length === 0) apiExercises = FALLBACK_EXERCISES;
+    if (!apiExercises.length) apiExercises = FALLBACK_EXERCISES;
     renderExploreList();
   }
 }
@@ -241,85 +207,76 @@ async function loadOpenExerciseDatabase() {
 function renderBodySvg(containerId, orientation, isExplore = false) {
   const container = document.getElementById(containerId);
   if (!container) return;
-
   container.innerHTML = BODY_SVGS[orientation];
   if (isExplore) container.classList.add('explore-interactive');
 
-  if (!isExplore) {
-    container.querySelectorAll('.muscle').forEach(el => {
-      if (targetedMuscles.has(el.dataset.muscle)) {
-        el.classList.add('active');
-      }
-    });
-  } else {
-    container.querySelectorAll('.muscle').forEach(el => {
-      if (el.dataset.muscle === currentExploreMuscle) {
-        el.classList.add('selected');
-      }
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setExploreMuscleFilter(el.dataset.muscle);
-      });
-    });
-  }
+  container.querySelectorAll('.muscle').forEach(el => {
+    if (!isExplore && targetedMuscles.has(el.dataset.muscle)) el.classList.add('active');
+    if (isExplore) {
+      if (el.dataset.muscle === currentExploreMuscle) el.classList.add('selected');
+      el.addEventListener('click', (e) => { e.stopPropagation(); setExploreMuscleFilter(el.dataset.muscle); });
+    }
+  });
 }
 
-function setActiveNavTab(tabId, viewId, showBottomBar = false) {
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-  
-  document.getElementById(tabId).classList.add('active');
+function setActiveNavTab(tabId, viewId, showBottom) {
+  document.querySelectorAll('.nav-btn, .drawer-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(tabId)?.classList.add('active');
+  document.querySelector(`[data-target="${viewId}"]`)?.classList.add('active');
   document.getElementById(viewId).classList.add('active');
-  document.getElementById('bottomBar').style.display = showBottomBar ? 'flex' : 'none';
+  document.getElementById('bottomBar').style.display = showBottom ? 'flex' : 'none';
 }
 
-document.getElementById('tabWorkoutBtn').addEventListener('click', () => {
-  setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true);
+const burgerBtn = document.getElementById('burgerBtn');
+const drawerMenu = document.getElementById('drawerMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+
+function openDrawer() { drawerMenu.classList.add('open'); menuOverlay.classList.add('open'); }
+function closeDrawer() { drawerMenu.classList.remove('open'); menuOverlay.classList.remove('open'); }
+
+burgerBtn.addEventListener('click', openDrawer);
+btnCloseDrawer.addEventListener('click', closeDrawer);
+menuOverlay.addEventListener('click', closeDrawer);
+
+document.querySelectorAll('.drawer-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.target;
+    setActiveNavTab(target === 'viewWorkout' ? 'tabWorkoutBtn' : target === 'viewExplore' ? 'tabExploreBtn' : 'tabHistoryBtn', target, target === 'viewWorkout');
+    closeDrawer();
+    if (target === 'viewExplore') renderExploreList();
+    if (target === 'viewHistory') renderHistoryList();
+  });
 });
 
-document.getElementById('tabExploreBtn').addEventListener('click', () => {
-  setActiveNavTab('tabExploreBtn', 'viewExplore', false);
-  renderExploreList();
+document.getElementById('tabWorkoutBtn').addEventListener('click', () => setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true));
+document.getElementById('tabExploreBtn').addEventListener('click', () => { setActiveNavTab('tabExploreBtn', 'viewExplore', false); renderExploreList(); });
+document.getElementById('tabHistoryBtn').addEventListener('click', () => { setActiveNavTab('tabHistoryBtn', 'viewHistory', false); renderHistoryList(); });
+
+document.querySelectorAll('.lang-pill').forEach(btn => {
+  btn.addEventListener('click', () => { currentLang = btn.dataset.lang; localStorage.setItem('my_gym_lang', currentLang); applyTranslations(); });
 });
 
-document.getElementById('tabHistoryBtn').addEventListener('click', () => {
-  setActiveNavTab('tabHistoryBtn', 'viewHistory', false);
-  renderHistoryList();
-});
-
-document.getElementById('dashFlipBtn').addEventListener('click', () => {
-  dashOrientation = dashOrientation === 'front' ? 'back' : 'front';
-  renderBodySvg('dashBodyContainer', dashOrientation);
-});
-
-document.getElementById('exploreFlipBtn').addEventListener('click', () => {
-  exploreOrientation = exploreOrientation === 'front' ? 'back' : 'front';
-  renderBodySvg('exploreBodyContainer', exploreOrientation, true);
-});
-
-document.getElementById('recapFlipBtn').addEventListener('click', () => {
-  recapOrientation = recapOrientation === 'front' ? 'back' : 'front';
-  renderBodySvg('recapBodyContainer', recapOrientation);
-});
+document.getElementById('dashFlipBtn').addEventListener('click', () => { dashOrientation = dashOrientation === 'front' ? 'back' : 'front'; renderBodySvg('dashBodyContainer', dashOrientation); });
+document.getElementById('exploreFlipBtn').addEventListener('click', () => { exploreOrientation = exploreOrientation === 'front' ? 'back' : 'front'; renderBodySvg('exploreBodyContainer', exploreOrientation, true); });
+document.getElementById('recapFlipBtn').addEventListener('click', () => { recapOrientation = recapOrientation === 'front' ? 'back' : 'front'; renderBodySvg('recapBodyContainer', recapOrientation); });
 
 const searchInput = document.getElementById('exerciseSearch');
 const searchResults = document.getElementById('searchResults');
 
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
-  if (!query) {
-    searchResults.classList.remove('open');
-    return;
-  }
-
+  if (!query) return searchResults.classList.remove('open');
   const matches = getAllExercises().filter(ex => ex.name.toLowerCase().includes(query));
-  if (matches.length === 0) {
-    searchResults.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-muted);">Nessun esercizio trovato</div>`;
+  
+  if (!matches.length) {
+    searchResults.innerHTML = `<div class="p-3 text-[0.8rem] text-gray-400">Nessun esercizio trovato</div>`;
   } else {
-    searchResults.innerHTML = matches.slice(0, 8).map((ex, index) => `
-      <div class="search-item" data-index="${index}" data-name="${ex.name}">
+    searchResults.innerHTML = matches.slice(0, 8).map((ex, i) => `
+      <div class="search-item p-3 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
         <span>${ex.name}</span>
-        <span class="ex-badge">${MUSCLE_NAMES[ex.muscle] || ex.muscle}</span>
+        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300">${getMuscleName(ex.muscle)}</span>
       </div>
     `).join('');
   }
@@ -329,140 +286,95 @@ searchInput.addEventListener('input', () => {
 searchResults.addEventListener('click', (e) => {
   const item = e.target.closest('.search-item');
   if (!item) return;
-
-  const found = getAllExercises().find(ex => ex.name === item.dataset.name);
-  selectedExercise = found || {
-    name: item.dataset.name,
-    muscle: "chest",
-    icon: "barbell"
-  };
-
+  selectedExercise = getAllExercises().find(ex => ex.name === item.dataset.name) || { name: item.dataset.name, muscle: "chest", icon: "barbell" };
   searchInput.value = selectedExercise.name;
   searchResults.classList.remove('open');
-
-  document.getElementById('selectedExIcon').innerHTML = ICONS[selectedExercise.icon] || ICONS.barbell;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = selectedExercise.name;
-  document.getElementById('selectedExMuscle').innerText = MUSCLE_NAMES[selectedExercise.muscle] || selectedExercise.muscle;
-  document.getElementById('selectedExPreview').style.display = 'flex';
+  document.getElementById('selectedExMuscle').innerText = getMuscleName(selectedExercise.muscle);
+  document.getElementById('selectedExPreview').classList.remove('hidden');
+  document.getElementById('selectedExPreview').classList.add('flex');
 });
 
-document.addEventListener('click', (e) => {
-  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-    searchResults.classList.remove('open');
-  }
-});
+document.addEventListener('click', (e) => { if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) searchResults.classList.remove('open'); });
 
 document.getElementById('btnAddExercise').addEventListener('click', () => {
   const name = searchInput.value.trim();
   if (!name) return;
-
-  if (!selectedExercise || selectedExercise.name !== name) {
-    selectedExercise = { name: name, muscle: "chest", icon: "barbell" };
-  }
-
-  const sets = parseInt(document.getElementById('sets').value) || 1;
-  const reps = parseInt(document.getElementById('reps').value) || 1;
-  const weight = parseFloat(document.getElementById('weight').value) || 0;
+  if (!selectedExercise || selectedExercise.name !== name) selectedExercise = { name, muscle: "chest", icon: "barbell" };
 
   completedExercises.push({
-    name: selectedExercise.name,
-    muscle: selectedExercise.muscle,
-    iconKey: selectedExercise.icon,
-    sets,
-    reps,
-    weight
+    name: selectedExercise.name, muscle: selectedExercise.muscle, iconKey: selectedExercise.icon,
+    sets: parseInt(document.getElementById('sets').value)||1, reps: parseInt(document.getElementById('reps').value)||1, weight: parseFloat(document.getElementById('weight').value)||0
   });
 
   targetedMuscles.add(selectedExercise.muscle);
   renderBodySvg('dashBodyContainer', dashOrientation);
   renderCompletedList();
   startRestTimer(90);
-
   searchInput.value = '';
-  document.getElementById('selectedExPreview').style.display = 'none';
+  document.getElementById('selectedExPreview').classList.add('hidden');
+  document.getElementById('selectedExPreview').classList.remove('flex');
   selectedExercise = null;
 });
 
 function renderCompletedList() {
   document.getElementById('exerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="exercise-item">
-      <div class="ex-icon-box">${ICONS[ex.iconKey] || ICONS.barbell}</div>
-      <div class="ex-details">
-        <div class="ex-title">
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3">
+      <div class="w-10 h-10 bg-black/40 border border-white/10 rounded-lg flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.iconKey]}</div>
+      <div class="flex-1">
+        <div class="text-[0.9rem] font-semibold text-white flex justify-between items-center">
           <span>${ex.name}</span>
-          <span class="ex-badge">${MUSCLE_NAMES[ex.muscle] || ex.muscle}</span>
+          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300">${getMuscleName(ex.muscle)}</span>
         </div>
-        <div class="ex-meta">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
+        <div class="font-mono text-[0.8rem] text-gray-400 mt-1">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
       </div>
     </div>
   `).join('');
 }
 
 const exploreSearchInput = document.getElementById('exploreSearchInput');
-exploreSearchInput.addEventListener('input', () => {
-  renderExploreList();
-});
+exploreSearchInput.addEventListener('input', renderExploreList);
 
-function setExploreMuscleFilter(muscle) {
-  currentExploreMuscle = muscle;
-  
-  document.querySelectorAll('.pill').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.muscle === muscle);
-  });
-
+function setExploreMuscleFilter(m) {
+  currentExploreMuscle = m;
+  document.querySelectorAll('.pill').forEach(b => b.classList.toggle('active', b.dataset.muscle === m));
   renderBodySvg('exploreBodyContainer', exploreOrientation, true);
   renderExploreList();
 }
 
-document.querySelectorAll('.pill').forEach(btn => {
-  btn.addEventListener('click', () => setExploreMuscleFilter(btn.dataset.muscle));
-});
+document.querySelectorAll('.pill').forEach(btn => btn.addEventListener('click', () => setExploreMuscleFilter(btn.dataset.muscle)));
 
 function renderExploreList() {
-  const all = getAllExercises();
-  const searchFilter = (exploreSearchInput.value || '').trim().toLowerCase();
-
-  currentFilteredExploreList = all.filter(ex => {
-    const matchesMuscle = (currentExploreMuscle === "all" || ex.muscle === currentExploreMuscle);
-    const muscleLabel = (MUSCLE_NAMES[ex.muscle] || '').toLowerCase();
-    const matchesQuery = !searchFilter || 
-      ex.name.toLowerCase().includes(searchFilter) || 
-      ex.muscle.toLowerCase().includes(searchFilter) ||
-      muscleLabel.includes(searchFilter);
-    return matchesMuscle && matchesQuery;
+  const filter = exploreSearchInput.value.trim().toLowerCase();
+  currentFilteredExploreList = getAllExercises().filter(ex => {
+    const matchesM = currentExploreMuscle === "all" || ex.muscle === currentExploreMuscle;
+    const matchesQ = !filter || ex.name.toLowerCase().includes(filter) || getMuscleName(ex.muscle).toLowerCase().includes(filter);
+    return matchesM && matchesQ;
   });
 
-  document.getElementById('exploreCountLabel').innerText = `Esercizi (${currentFilteredExploreList.length})`;
+  document.getElementById('exploreCountLabel').innerText = `${t('exploreCountLabel')} (${currentFilteredExploreList.length})`;
 
-  if (currentFilteredExploreList.length === 0) {
-    document.getElementById('exploreExerciseList').innerHTML = `
-      <div style="text-align:center; padding: 24px 0; color: var(--text-muted); font-size: 0.85rem;">
-        Nessun esercizio trovato per i filtri selezionati.
-      </div>
-    `;
+  if (!currentFilteredExploreList.length) {
+    document.getElementById('exploreExerciseList').innerHTML = `<div class="text-center py-6 text-gray-400 text-sm">${t('emptyExplore')}</div>`;
     return;
   }
 
-  document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, index) => `
-    <div class="exercise-item">
-      <div class="ex-icon-box">${ICONS[ex.icon] || ICONS.barbell}</div>
-      <div class="ex-details">
-        <div class="ex-title">
-          <span>${ex.name}</span>
-          <span class="ex-badge">${MUSCLE_NAMES[ex.muscle] || ex.muscle}</span>
-        </div>
+  document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, i) => `
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3">
+      <div class="w-10 h-10 bg-black/40 border border-white/10 rounded-lg flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.icon] || ICONS.barbell}</div>
+      <div class="flex-1 text-[0.9rem] font-semibold text-white flex justify-between items-center">
+        <span class="truncate pr-2">${ex.name}</span>
+        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
       </div>
-      <button class="btn-discover" data-index="${index}">Scopri esecuzione</button>
+      <button class="btn-discover px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-semibold hover:bg-purple-500/20 hover:border-purple-500 transition-colors whitespace-nowrap" data-index="${i}">${t('discoverBtn')}</button>
     </div>
   `).join('');
 }
 
-document.getElementById('exploreExerciseList').addEventListener('click', (e) => {
+document.getElementById('exploreExerciseList').addEventListener('click', e => {
   const btn = e.target.closest('.btn-discover');
-  if (!btn) return;
-  const index = parseInt(btn.dataset.index, 10);
-  const ex = currentFilteredExploreList[index];
-  if (ex) openExerciseDetail(ex);
+  if (btn) openExerciseDetail(currentFilteredExploreList[parseInt(btn.dataset.index)]);
 });
 
 function openExerciseDetail(ex) {
@@ -470,55 +382,28 @@ function openExerciseDetail(ex) {
   clearInterval(imageAnimationInterval);
 
   document.getElementById('detailExName').innerText = ex.name;
-  document.getElementById('detailExMuscle').innerText = MUSCLE_NAMES[ex.muscle] || ex.muscle;
-  document.getElementById('detailExEquip').innerText = ex.icon === 'barbell' ? 'Bilanciere' : ex.icon === 'dumbbell' ? 'Manubri' : ex.icon === 'bodyweight' ? 'Corpo Libero' : 'Macchinario';
+  document.getElementById('detailExMuscle').innerText = getMuscleName(ex.muscle);
+  document.getElementById('detailExEquip').innerText = t(`equip${ex.icon.charAt(0).toUpperCase() + ex.icon.slice(1)}`);
 
-  const videoEl = document.getElementById('detailVideo');
-  const imgEl = document.getElementById('detailImg');
-  const placeholderEl = document.getElementById('mediaPlaceholder');
+  const vEl = document.getElementById('detailVideo'), iEl = document.getElementById('detailImg'), pEl = document.getElementById('mediaPlaceholder');
+  vEl.pause(); vEl.removeAttribute('src'); vEl.classList.add('hidden'); iEl.classList.add('hidden'); pEl.classList.add('hidden'); pEl.classList.remove('flex');
 
-  videoEl.pause();
-  videoEl.removeAttribute('src');
-  videoEl.style.display = 'none';
-  imgEl.style.display = 'none';
-  placeholderEl.style.display = 'none';
-
-  if (Array.isArray(ex.images) && ex.images.length > 0) {
-    imgEl.style.display = 'block';
-    let currentFrame = 0;
-    imgEl.src = GITHUB_IMAGE_BASE_URL + ex.images[0];
-
-    if (ex.images.length > 1) {
-      imageAnimationInterval = setInterval(() => {
-        currentFrame = (currentFrame + 1) % ex.images.length;
-        imgEl.src = GITHUB_IMAGE_BASE_URL + ex.images[currentFrame];
-      }, 950);
-    }
-  } else if (ex.video && typeof ex.video === 'string' && ex.video.trim().length > 0) {
-    videoEl.style.display = 'block';
-    videoEl.src = ex.video.trim();
-    videoEl.load();
-    videoEl.play().catch(() => {});
+  if (ex.images?.length > 0) {
+    iEl.classList.remove('hidden');
+    let f = 0; iEl.src = GITHUB_IMAGE_BASE_URL + ex.images[0];
+    if (ex.images.length > 1) imageAnimationInterval = setInterval(() => { f = (f+1)%ex.images.length; iEl.src = GITHUB_IMAGE_BASE_URL + ex.images[f]; }, 950);
+  } else if (ex.video) {
+    vEl.classList.remove('hidden'); vEl.src = ex.video; vEl.play().catch(()=>{});
   } else {
-    placeholderEl.style.display = 'flex';
+    pEl.classList.remove('hidden'); pEl.classList.add('flex');
   }
 
-  const stepsList = document.getElementById('detailStepsList');
-  if (Array.isArray(ex.steps) && ex.steps.length > 0) {
-    stepsList.innerHTML = ex.steps.map(step => `<li>${step}</li>`).join('');
-  } else {
-    stepsList.innerHTML = `<li>Esegui il movimento in modo controllato mantenendo una corretta postura.</li>`;
-  }
-
+  document.getElementById('detailStepsList').innerHTML = ex.steps?.length ? ex.steps.map(s => `<li>${s}</li>`).join('') : `<li>Esegui con controllo.</li>`;
   document.getElementById('detailModal').classList.add('open');
 }
 
 document.getElementById('btnCloseDetailModal').addEventListener('click', () => {
-  clearInterval(imageAnimationInterval);
-  const videoEl = document.getElementById('detailVideo');
-  videoEl.pause();
-  videoEl.removeAttribute('src');
-  document.getElementById('detailModal').classList.remove('open');
+  clearInterval(imageAnimationInterval); document.getElementById('detailVideo').pause(); document.getElementById('detailModal').classList.remove('open');
 });
 
 document.getElementById('btnUseFromDetail').addEventListener('click', () => {
@@ -526,248 +411,124 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   clearInterval(imageAnimationInterval);
   selectedExercise = exerciseInDetail;
   searchInput.value = exerciseInDetail.name;
-
-  document.getElementById('selectedExIcon').innerHTML = ICONS[exerciseInDetail.icon] || ICONS.barbell;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = exerciseInDetail.name;
-  document.getElementById('selectedExMuscle').innerText = MUSCLE_NAMES[exerciseInDetail.muscle] || exerciseInDetail.muscle;
-  document.getElementById('selectedExPreview').style.display = 'flex';
-
-  const videoEl = document.getElementById('detailVideo');
-  videoEl.pause();
-  videoEl.removeAttribute('src');
+  document.getElementById('selectedExMuscle').innerText = getMuscleName(exerciseInDetail.muscle);
+  document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');
+  
   document.getElementById('detailModal').classList.remove('open');
   setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true);
 });
 
-function saveCompletedSessionToHistory(sessionData) {
-  try {
-    let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-    history.unshift(sessionData);
-    
-    if (history.length > MAX_HISTORY_ITEMS) {
-      history = history.slice(0, MAX_HISTORY_ITEMS);
-    }
-    
-    localStorage.setItem('my_gym_history', JSON.stringify(history));
-  } catch (err) {
-    console.warn("Spazio storage limitato, pulizia automatica cronologia:", err);
-    try {
-      let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-      history = history.slice(0, 10);
-      localStorage.setItem('my_gym_history', JSON.stringify(history));
-    } catch (e) {}
-  }
+function saveCompletedSessionToHistory(sd) {
+  let hist = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+  hist.unshift(sd);
+  if (hist.length > MAX_HISTORY_ITEMS) hist = hist.slice(0, MAX_HISTORY_ITEMS);
+  localStorage.setItem('my_gym_history', JSON.stringify(hist));
 }
 
 function renderHistoryList() {
-  const listContainer = document.getElementById('historyList');
-  const history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-  
-  document.getElementById('historyCountLabel').innerText = `${history.length} sessioni archiviate (max ${MAX_HISTORY_ITEMS})`;
-
-  if (history.length === 0) {
-    listContainer.innerHTML = `
-      <div style="text-align:center; padding: 36px 0; color: var(--text-muted); font-size: 0.85rem;">
-        Nessun workout registrato finora.<br>Completa la tua prima sessione per visualizzarla qui!
-      </div>
-    `;
+  const hist = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+  document.getElementById('historyCountLabel').innerText = `${hist.length} / ${MAX_HISTORY_ITEMS}`;
+  if (!hist.length) {
+    document.getElementById('historyList').innerHTML = `<div class="text-center py-8 text-gray-400 text-sm">${t('emptyHistory')}</div>`;
     return;
   }
 
-  listContainer.innerHTML = history.map((session, index) => {
-    const musclesList = Array.isArray(session.targetedMuscles) ? session.targetedMuscles : [];
-    return `
-      <div class="history-card">
-        <div class="history-card-header">
-          <div>
-            <div class="history-title">${session.title}</div>
-            <div class="history-date">${session.date}</div>
-          </div>
-          <button class="btn-del-single" onclick="deleteHistorySession(${index})" title="Elimina sessione">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-          </button>
+  document.getElementById('historyList').innerHTML = hist.map((s, i) => `
+    <div class="bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3.5 flex flex-col gap-2.5 shadow-lg">
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="text-white font-bold text-base">${s.title}</div>
+          <div class="text-gray-400 text-xs font-mono mt-0.5">${s.date}</div>
         </div>
-
-        <div class="history-stats-row">
-          <div>
-            <div class="history-stat-val">${session.totalVolume.toLocaleString()} kg</div>
-            <div class="history-stat-lbl">Volume</div>
-          </div>
-          <div>
-            <div class="history-stat-val">${session.exerciseCount}</div>
-            <div class="history-stat-lbl">Esercizi</div>
-          </div>
-          <div>
-            <div class="history-stat-val">${session.duration}</div>
-            <div class="history-stat-lbl">Tempo</div>
-          </div>
-        </div>
-
-        ${musclesList.length > 0 ? `
-          <div class="history-muscles-tags">
-            ${musclesList.map(m => `<span class="history-muscle-tag">${MUSCLE_NAMES[m] || m}</span>`).join('')}
-          </div>
-        ` : ''}
+        <button class="text-gray-400 hover:text-red-500 p-1 transition-colors" onclick="deleteHistorySession(${i})">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        </button>
       </div>
-    `;
-  }).join('');
+      <div class="grid grid-cols-3 gap-2 bg-black/30 border border-white/10 rounded-lg p-2 text-center">
+        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.totalVolume.toLocaleString()} kg</div><div class="text-[0.65rem] text-gray-400">${t('statVolume')}</div></div>
+        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.exerciseCount}</div><div class="text-[0.65rem] text-gray-400">${t('statExercises')}</div></div>
+        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.duration}</div><div class="text-[0.65rem] text-gray-400">${t('statTime')}</div></div>
+      </div>
+      ${s.targetedMuscles?.length ? `<div class="flex flex-wrap gap-1.5 mt-1">${s.targetedMuscles.map(m => `<span class="text-[0.65rem] bg-purple-500/15 text-purple-300 rounded-md px-2 py-0.5 font-bold uppercase">${getMuscleName(m)}</span>`).join('')}</div>` : ''}
+    </div>
+  `).join('');
 }
 
-window.deleteHistorySession = function(index) {
-  let history = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-  history.splice(index, 1);
-  localStorage.setItem('my_gym_history', JSON.stringify(history));
-  renderHistoryList();
+window.deleteHistorySession = (i) => {
+  let h = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+  h.splice(i, 1); localStorage.setItem('my_gym_history', JSON.stringify(h)); renderHistoryList();
 };
 
 document.getElementById('btnClearHistory').addEventListener('click', () => {
-  if (confirm("Vuoi cancellare tutta la cronologia dei workout?")) {
-    localStorage.removeItem('my_gym_history');
-    renderHistoryList();
-  }
+  if (confirm("Vuoi cancellare tutta la cronologia?")) { localStorage.removeItem('my_gym_history'); renderHistoryList(); }
 });
 
-function startRestTimer(seconds) {
-  clearInterval(restInterval);
-  let remain = seconds;
-  updateRestDisplay(remain);
-  
-  restInterval = setInterval(() => {
-    remain--;
-    if (remain <= 0) {
-      clearInterval(restInterval);
-      updateRestDisplay(0);
-      if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
-    } else {
-      updateRestDisplay(remain);
-    }
-  }, 1000);
+function startRestTimer(sec) {
+  clearInterval(restInterval); let r = sec; updateRestDisplay(r);
+  restInterval = setInterval(() => { r--; if (r <= 0) { clearInterval(restInterval); updateRestDisplay(0); if (navigator.vibrate) navigator.vibrate([150, 80, 150]); } else updateRestDisplay(r); }, 1000);
 }
-
-function stopRestTimer() {
-  clearInterval(restInterval);
-  updateRestDisplay(0);
-}
-
-function updateRestDisplay(sec) {
-  const m = String(Math.floor(sec / 60)).padStart(2, '0');
-  const s = String(sec % 60).padStart(2, '0');
-  document.getElementById('restDisplay').innerText = `${m}:${s}`;
-}
-
+function stopRestTimer() { clearInterval(restInterval); updateRestDisplay(0); }
+function updateRestDisplay(sec) { document.getElementById('restDisplay').innerText = `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`; }
 document.getElementById('btnRest60').addEventListener('click', () => startRestTimer(60));
 document.getElementById('btnRest90').addEventListener('click', () => startRestTimer(90));
 document.getElementById('btnRestStop').addEventListener('click', stopRestTimer);
 
 setInterval(() => {
-  const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
-  const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
-  const s = String(elapsed % 60).padStart(2, '0');
-  document.getElementById('sessionTimer').innerText = `${m}:${s}`;
+  const e = Math.floor((Date.now() - sessionStartTime) / 1000);
+  document.getElementById('sessionTimer').innerText = `${String(Math.floor(e/60)).padStart(2,'0')}:${String(e%60).padStart(2,'0')}`;
 }, 1000);
 
 document.getElementById('btnShowRecap').addEventListener('click', () => {
-  const totalVolume = completedExercises.reduce((acc, curr) => acc + (curr.sets * curr.reps * curr.weight), 0);
-  const sessionTitle = document.getElementById('customTitle').value || 'Workout';
-  const sessionDuration = document.getElementById('sessionTimer').innerText;
+  const tv = completedExercises.reduce((a, c) => a + (c.sets * c.reps * c.weight), 0);
+  const st = document.getElementById('customTitle').value || 'Workout';
+  const sd = document.getElementById('sessionTimer').innerText;
   
-  document.getElementById('recapSessionName').innerText = sessionTitle;
-  document.getElementById('recapTotalWeight').innerText = `${totalVolume.toLocaleString()} kg`;
+  document.getElementById('recapSessionName').innerText = st;
+  document.getElementById('recapTotalWeight').innerText = `${tv.toLocaleString()} kg`;
   document.getElementById('recapCount').innerText = completedExercises.length;
-  document.getElementById('recapDuration').innerText = sessionDuration;
+  document.getElementById('recapDuration').innerText = sd;
 
   renderBodySvg('recapBodyContainer', recapOrientation);
 
   document.getElementById('recapExerciseList').innerHTML = completedExercises.map(ex => `
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem;">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <div style="width: 18px; height: 18px; stroke: var(--green);">${ICONS[ex.iconKey] || ICONS.barbell}</div>
-        <span>${ex.name}</span>
-      </div>
-      <span style="font-family: 'JetBrains Mono'; color: var(--text-muted);">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
+    <div class="flex items-center justify-between py-1.5 border-b border-white/10 text-[0.82rem] text-white">
+      <div class="flex items-center gap-2"><div class="w-4 h-4 stroke-purple-500">${ICONS[ex.iconKey]}</div><span>${ex.name}</span></div>
+      <span class="font-mono text-gray-400">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
     </div>
   `).join('');
 
-  if (completedExercises.length > 0) {
-    const now = new Date();
-    const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    
+  if (completedExercises.length) {
+    const n = new Date();
     saveCompletedSessionToHistory({
-      title: sessionTitle,
-      date: formattedDate,
-      duration: sessionDuration,
-      totalVolume: totalVolume,
-      exerciseCount: completedExercises.length,
-      targetedMuscles: Array.from(targetedMuscles),
-      exercises: completedExercises.map(ex => ({
-        name: ex.name,
-        muscle: ex.muscle,
-        iconKey: ex.iconKey,
-        sets: ex.sets,
-        reps: ex.reps,
-        weight: ex.weight
-      }))
+      title: st, date: `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`,
+      duration: sd, totalVolume: tv, exerciseCount: completedExercises.length, targetedMuscles: Array.from(targetedMuscles), exercises: completedExercises
     });
   }
-
   document.getElementById('recapModal').classList.add('open');
 });
 
 document.getElementById('btnResetSession').addEventListener('click', () => {
   document.getElementById('recapModal').classList.remove('open');
-  completedExercises = [];
-  targetedMuscles.clear();
-  renderBodySvg('dashBodyContainer', dashOrientation);
-  renderCompletedList();
-  sessionStartTime = Date.now();
+  completedExercises = []; targetedMuscles.clear(); renderBodySvg('dashBodyContainer', dashOrientation); renderCompletedList(); sessionStartTime = Date.now();
 });
 
-document.getElementById('btnOpenModal').addEventListener('click', () => {
-  document.getElementById('newExName').value = '';
-  document.getElementById('newExModal').classList.add('open');
-});
-
-document.getElementById('btnCloseModal').addEventListener('click', () => {
-  document.getElementById('newExModal').classList.remove('open');
-});
-
+document.getElementById('btnOpenModal').addEventListener('click', () => { document.getElementById('newExName').value = ''; document.getElementById('newExModal').classList.add('open'); });
+document.getElementById('btnCloseModal').addEventListener('click', () => document.getElementById('newExModal').classList.remove('open'));
 document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
-  const name = document.getElementById('newExName').value.trim();
-  const muscle = document.getElementById('newExMuscle').value;
-  const icon = document.getElementById('newExIcon').value;
-  if (!name) return;
-
-  const newEx = {
-    name,
-    muscle,
-    icon,
-    images: [],
-    video: "",
-    steps: ["Esegui l'esercizio con movimento controllato e carichi idonei."]
-  };
-  customExercises.push(newEx);
-  localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
-  
-  selectedExercise = newEx;
-  searchInput.value = name;
-  document.getElementById('selectedExIcon').innerHTML = ICONS[icon] || ICONS.barbell;
-  document.getElementById('selectedExName').innerText = name;
-  document.getElementById('selectedExMuscle').innerText = MUSCLE_NAMES[muscle] || muscle;
-  document.getElementById('selectedExPreview').style.display = 'flex';
-
-  document.getElementById('newExModal').classList.remove('open');
-  renderExploreList();
+  const n = document.getElementById('newExName').value.trim(), m = document.getElementById('newExMuscle').value, i = document.getElementById('newExIcon').value;
+  if (!n) return;
+  const nx = { name: n, muscle: m, icon: i, images: [], video: "", steps: ["Esegui con controllo."] };
+  customExercises.push(nx); localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
+  selectedExercise = nx; searchInput.value = n;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[i]}</div>`;
+  document.getElementById('selectedExName').innerText = n; document.getElementById('selectedExMuscle').innerText = getMuscleName(m);
+  document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');
+  document.getElementById('newExModal').classList.remove('open'); renderExploreList();
 });
 
-renderBodySvg('dashBodyContainer', 'front');
-renderBodySvg('exploreBodyContainer', 'front', true);
-loadOpenExerciseDatabase();
+renderBodySvg('dashBodyContainer', 'front'); renderBodySvg('exploreBodyContainer', 'front', true);
+loadOpenExerciseDatabase(); applyTranslations();
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
-}
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{})); }
