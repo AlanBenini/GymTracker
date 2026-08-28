@@ -84,9 +84,13 @@
     <section id="viewExplore" class="view-section">
       <div class="explore-header">
         <div>
-          <h2 style="font-size: 1.15rem; font-weight: 700;">Atlante Muscolare</h2>
-          <p style="font-size: 0.75rem; color: var(--text-muted);">Tocca una parte del corpo per filtrare gli esercizi</p>
+          <h2 style="font-size: 1.15rem; font-weight: 700;">Database & Atlante Esercizi</h2>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Cerca nel database o tocca il muscolo sulla sagoma</p>
         </div>
+      </div>
+
+      <div class="explore-search-container">
+        <input type="text" id="exploreSearchInput" placeholder="Cerca esercizio, attrezzatura, muscolo..." autocomplete="off" />
       </div>
 
       <div class="explore-body-card">
@@ -111,6 +115,38 @@
 
   <div class="bottom-bar" id="bottomBar">
     <button class="btn-finish" id="btnShowRecap">Termina e Mostra Recap</button>
+  </div>
+
+  <div class="modal" id="detailModal">
+    <div class="modal-card detail-modal-card">
+      <div class="detail-header">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700;" id="detailExName">Nome Esercizio</h2>
+          <div style="display:flex; gap:6px; margin-top:4px;">
+            <span class="ex-badge" id="detailExMuscle">Petto</span>
+            <span class="ex-badge" style="background:rgba(59,130,246,0.12); color:#93c5fd;" id="detailExEquip">Bilanciere</span>
+          </div>
+        </div>
+        <button class="btn-close" id="btnCloseDetailModal">✕</button>
+      </div>
+
+      <div class="video-container" id="videoWrapper">
+        <video id="detailVideo" autoplay loop muted playsinline controls></video>
+        <div class="video-placeholder" id="videoPlaceholder" style="display:none;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
+          </svg>
+          <span>Video dimostrativo</span>
+        </div>
+      </div>
+
+      <div class="section-label">Esecuzione e Consigli</div>
+      <ol class="steps-list" id="detailStepsList"></ol>
+
+      <div style="display:flex; gap: 8px; margin-top: 6px;">
+        <button class="btn-primary" style="flex:1;" id="btnUseFromDetail">+ Inserisci nel Workout</button>
+      </div>
+    </div>
   </div>
 
   <div class="modal" id="newExModal">

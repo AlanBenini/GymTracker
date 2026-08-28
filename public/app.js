@@ -39,21 +39,249 @@ const BODY_SVGS = {
 };
 
 const FALLBACK_EXERCISES = [
-  { name: "Panca Piana Bilanciere", muscle: "chest", icon: "barbell" },
-  { name: "Spinte Manubri Inclinata", muscle: "chest", icon: "dumbbell" },
-  { name: "Croci ai Cavi", muscle: "chest", icon: "machine" },
-  { name: "Trazioni alla Sbarra", muscle: "back", icon: "bodyweight" },
-  { name: "Lat Machine", muscle: "back", icon: "machine" },
-  { name: "Rematore con Bilanciere", muscle: "back", icon: "barbell" },
-  { name: "Military Press", muscle: "shoulders", icon: "barbell" },
-  { name: "Alzate Laterali Manubri", muscle: "shoulders", icon: "dumbbell" },
-  { name: "Squat con Bilanciere", muscle: "legs", icon: "barbell" },
-  { name: "Leg Press 45°", muscle: "legs", icon: "machine" },
-  { name: "Leg Curl Femorali", muscle: "legs", icon: "machine" },
-  { name: "Curl Bicipiti Manubri", muscle: "arms", icon: "dumbbell" },
-  { name: "Pushdown Tricipiti", muscle: "arms", icon: "machine" },
-  { name: "Crunch Addominali", muscle: "abs", icon: "bodyweight" },
-  { name: "Plank", muscle: "abs", icon: "bodyweight" }
+  {
+    name: "Panca Piana Bilanciere",
+    muscle: "chest",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bench-press-front.mp4",
+    steps: [
+      "Sdraiati sulla panca con gli occhi sotto il bilanciere e i piedi ben saldi a terra.",
+      "Impugna il bilanciere a larghezza superiore alle spalle e adduci le scapole.",
+      "Abbassa la barra in modo controllato fino a sfiorare la parte media del petto.",
+      "Spingi con forza verso l'alto tornando alla posizione di partenza senza rimbalzare."
+    ]
+  },
+  {
+    name: "Spinte Manubri Inclinata",
+    muscle: "chest",
+    icon: "dumbbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-incline-bench-press-front.mp4",
+    steps: [
+      "Regola la panca tra 30° e 45° e porta i manubri all'altezza del petto.",
+      "Mantieni il petto aperto e spingi i manubri verso l'alto senza farli toccare in cima.",
+      "Scendi lentamente aprendo i gomiti a circa 45-60 gradi rispetto al busto."
+    ]
+  },
+  {
+    name: "Croci ai Cavi",
+    muscle: "chest",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-standing-fly-front.mp4",
+    steps: [
+      "Posiziona le carrucole all'altezza delle spalle, afferra le maniglie e fai un passo avanti.",
+      "Con i gomiti leggermente flessi, unisci le mani davanti al petto contraendo i pettorali.",
+      "Torna indietro controllando la tensione fino ad avvertire l'allungamento."
+    ]
+  },
+  {
+    name: "Chest Press",
+    muscle: "chest",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-chest-press-front.mp4",
+    steps: [
+      "Regola il sedile in modo che le impugnature siano all'altezza del centro del petto.",
+      "Spingi in avanti fino a quasi distendere le braccia.",
+      "Controlla il ritorno senza far sbattere i pesi."
+    ]
+  },
+  {
+    name: "Trazioni alla Sbarra",
+    muscle: "back",
+    icon: "bodyweight",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-pullup-front.mp4",
+    steps: [
+      "Afferra la sbarra con presa prona a una larghezza leggermente superiore alle spalle.",
+      "Attiva il dorso deprimendo le scapole e tira il corpo verso l'alto.",
+      "Porta il mento oltre la sbarra e scendi fino a distendere completamente le braccia."
+    ]
+  },
+  {
+    name: "Lat Machine",
+    muscle: "back",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-lat-pulldown-front.mp4",
+    steps: [
+      "Siediti regolando il cuscinetto sulle cosce e impugna la sbarra con presa ampia.",
+      "Tira la sbarra verso la parte alta del petto aprendo il petto.",
+      "Rilascia il carico in modo lento e controllato sentendo l'allungamento del gran dorsale."
+    ]
+  },
+  {
+    name: "Rematore con Bilanciere",
+    muscle: "back",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bent-over-row-front.mp4",
+    steps: [
+      "Busto inclinato a 45 gradi con schiena neutra e ginocchia leggermente piegate.",
+      "Tira il bilanciere verso l'ombelico guidando il movimento con i gomiti.",
+      "Contrai la schiena in cima e distendi le braccia controllando il carico."
+    ]
+  },
+  {
+    name: "Pulley Basso",
+    muscle: "back",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-seated-row-front.mp4",
+    steps: [
+      "Siediti con i piedi saldi sulla pedana e la schiena dritta.",
+      "Tira la maniglia verso l'addome portando le spalle indietro.",
+      "Distendi le braccia mantenendo il busto stabile."
+    ]
+  },
+  {
+    name: "Military Press",
+    muscle: "shoulders",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-overhead-press-front.mp4",
+    steps: [
+      "In piedi con il bilanciere poggiato sulle clavicole e i gomiti leggermente avanti.",
+      "Contrai addome e glutei e spingi il bilanciere sopra la testa in linea retta.",
+      "Blocca la posizione in cima e riporta il bilanciere al petto controllando il peso."
+    ]
+  },
+  {
+    name: "Alzate Laterali Manubri",
+    muscle: "shoulders",
+    icon: "dumbbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-lateral-raise-front.mp4",
+    steps: [
+      "In piedi con manubri ai lati del corpo e busto leggermente inclinato in avanti.",
+      "Solleva le braccia lateralmente guidando il movimento con i gomiti fino all'altezza delle spalle.",
+      "Mantieni un secondo la contrazione e scendi lentamente."
+    ]
+  },
+  {
+    name: "Face Pull al Cavo",
+    muscle: "shoulders",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-face-pull-front.mp4",
+    steps: [
+      "Aggancia la corda al cavo alto e afferrala con presa neutra.",
+      "Tira la corda verso il viso aprendo i gomiti e ruotando le mani indietro.",
+      "Contrai i deltoidi posteriori e torna lentamente avanti."
+    ]
+  },
+  {
+    name: "Squat con Bilanciere",
+    muscle: "legs",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-squat-front.mp4",
+    steps: [
+      "Posiziona il bilanciere sui trapezi, piedi a larghezza spalle con punte leggermente aperte.",
+      "Scendi piegando anche e ginocchia mantenendo la schiena dritta fino al parallelo.",
+      "Spingi sui talloni e sull'avampiede per risalire in posizione eretta."
+    ]
+  },
+  {
+    name: "Leg Press 45°",
+    muscle: "legs",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-leg-press-front.mp4",
+    steps: [
+      "Posiziona i piedi al centro della pedana con schiena e glutei ben adesi allo schienale.",
+      "Sblocca i fermi e fletti le ginocchia fino a formare un angolo di circa 90 gradi.",
+      "Spingi senza iperestendere completamente le ginocchia nel punto più alto."
+    ]
+  },
+  {
+    name: "Leg Extension",
+    muscle: "legs",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-leg-extension-front.mp4",
+    steps: [
+      "Regola il cuscinetto sulla parte inferiore della tibia e schiena contro lo schienale.",
+      "Estendi le gambe fino a contrarre al massimo i quadricipiti.",
+      "Scendi lentamente senza far cadere il pacco pesi."
+    ]
+  },
+  {
+    name: "Leg Curl Femorali",
+    muscle: "legs",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-lying-leg-curl-front.mp4",
+    steps: [
+      "Sdraiati sulla macchina con il cuscinetto dietro i polpacci.",
+      "Fletti le ginocchia portando i talloni verso i glutei.",
+      "Rilascia il carico in modo controllato sentendo l'allungamento dei femorali."
+    ]
+  },
+  {
+    name: "Calf Raise Polpacci",
+    muscle: "legs",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-standing-calf-raise-front.mp4",
+    steps: [
+      "Punte dei piedi sul bordo del gradino e spalle sotto i cuscinetti.",
+      "Sollevati sulla punta dei piedi contraendo i polpacci al massimo.",
+      "Scendi sotto il livello del gradino per allungare il muscolo."
+    ]
+  },
+  {
+    name: "Curl Bicipiti Manubri",
+    muscle: "arms",
+    icon: "dumbbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-curl-front.mp4",
+    steps: [
+      "Impugna i manubri con le braccia lungo i fianchi e i gomiti fermi vicino al tronco.",
+      "Fletti i gomiti ruotando i palmi verso l'alto fino a contrarre al massimo i bicipiti.",
+      "Abbassa i manubri lentamente tornando alla distensione completa."
+    ]
+  },
+  {
+    name: "Curl Bilanciere Sagomato",
+    muscle: "arms",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-ez-bar-curl-front.mp4",
+    steps: [
+      "Impugna il bilanciere EZ con presa leggermente più stretta delle spalle.",
+      "Solleva il bilanciere senza oscillare con la schiena.",
+      "Scendi lentamente fino a distendere le braccia."
+    ]
+  },
+  {
+    name: "Pushdown Tricipiti",
+    muscle: "arms",
+    icon: "machine",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-pushdown-front.mp4",
+    steps: [
+      "Afferra la corda o barra al cavo alto con i gomiti bloccati lungo i fianchi.",
+      "Spingi verso il basso estendendo completamente le braccia.",
+      "Torna su controllando la fase eccentrica senza muovere i gomiti avanti."
+    ]
+  },
+  {
+    name: "French Press",
+    muscle: "arms",
+    icon: "barbell",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-lying-triceps-extension-front.mp4",
+    steps: [
+      "Sdraiati su una panca piana con il bilanciere sopra la fronte.",
+      "Fletti i gomiti portando il bilanciere verso la fronte mantenendo i gomiti fermi.",
+      "Estendi le braccia contraendo i tricipiti."
+    ]
+  },
+  {
+    name: "Crunch Addominali",
+    muscle: "abs",
+    icon: "bodyweight",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-crunch-front.mp4",
+    steps: [
+      "Sdraiati a terra con le ginocchia piegate e i piedi piatti.",
+      "Solleva le spalle da terra contraendo l'addome senza tirare il collo con le mani.",
+      "Mantieni la contrazione un istante ed espira, poi torna lentamente a terra."
+    ]
+  },
+  {
+    name: "Plank Isometrico",
+    muscle: "abs",
+    icon: "bodyweight",
+    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-plank-front.mp4",
+    steps: [
+      "Appoggia gli avambracci a terra sotto le spalle con corpo dritto dalla testa ai talloni.",
+      "Contrai addome, glutei e quadricipiti evitando di inarcare la zona lombare.",
+      "Mantieni la posizione respirando in modo regolare."
+    ]
+  }
 ];
 
 let apiExercises = [];
@@ -63,6 +291,7 @@ let targetedMuscles = new Set();
 
 let selectedExercise = null;
 let currentExploreMuscle = "all";
+let exerciseInDetail = null;
 
 let dashOrientation = 'front';
 let exploreOrientation = 'front';
@@ -89,15 +318,34 @@ function getAllExercises() {
 
 async function fetchMuscleWikiExercises() {
   try {
-    const res = await fetch('/api/exercises');
+    const res = await fetch('/api/exercises?limit=100');
     if (res.ok) {
       const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        apiExercises = data.map(item => ({
-          name: item.name || item.title,
-          muscle: normalizeMuscleName(item.target_muscle || item.category),
-          icon: item.equipment === "barbell" ? "barbell" : item.equipment === "dumbbell" ? "dumbbell" : "machine"
-        }));
+      const rawList = Array.isArray(data) ? data : (data.exercises || data.results || []);
+      
+      if (Array.isArray(rawList) && rawList.length > 0) {
+        apiExercises = rawList.map(item => {
+          let videoUrl = "";
+          if (Array.isArray(item.videos) && item.videos.length > 0) {
+            videoUrl = item.videos[0].url || item.videos[0];
+          }
+
+          let steps = [];
+          if (Array.isArray(item.steps)) {
+            steps = item.steps.map(s => typeof s === 'string' ? s : (s.text || s.step || ""));
+          }
+
+          const equip = (item.category || item.equipment || "").toLowerCase();
+          const iconKey = equip.includes("barbell") ? "barbell" : equip.includes("dumbbell") ? "dumbbell" : equip.includes("bodyweight") ? "bodyweight" : "machine";
+
+          return {
+            name: item.name || item.title,
+            muscle: normalizeMuscleName(item.target_muscle || (item.muscles ? item.muscles[0] : "") || item.category),
+            icon: iconKey,
+            video: videoUrl,
+            steps: steps.length ? steps : ["Esegui il movimento controllando la fase eccentrica e concentrica."]
+          };
+        });
       }
     }
   } catch (err) {
@@ -192,7 +440,8 @@ searchResults.addEventListener('click', (e) => {
   const item = e.target.closest('.search-item');
   if (!item) return;
 
-  selectedExercise = {
+  const found = getAllExercises().find(ex => ex.name === item.dataset.name);
+  selectedExercise = found || {
     name: item.dataset.name,
     muscle: item.dataset.muscle,
     icon: item.dataset.icon
@@ -259,6 +508,11 @@ function renderCompletedList() {
   `).join('');
 }
 
+const exploreSearchInput = document.getElementById('exploreSearchInput');
+exploreSearchInput.addEventListener('input', () => {
+  renderExploreList();
+});
+
 function setExploreMuscleFilter(muscle) {
   currentExploreMuscle = muscle;
   
@@ -276,11 +530,26 @@ document.querySelectorAll('.pill').forEach(btn => {
 
 function renderExploreList() {
   const all = getAllExercises();
-  const filtered = currentExploreMuscle === "all" 
-    ? all 
-    : all.filter(ex => ex.muscle === currentExploreMuscle);
+  const searchFilter = (exploreSearchInput.value || '').trim().toLowerCase();
+
+  const filtered = all.filter(ex => {
+    const matchesMuscle = (currentExploreMuscle === "all" || ex.muscle === currentExploreMuscle);
+    const matchesQuery = !searchFilter || 
+      ex.name.toLowerCase().includes(searchFilter) || 
+      ex.muscle.toLowerCase().includes(searchFilter);
+    return matchesMuscle && matchesQuery;
+  });
 
   document.getElementById('exploreCountLabel').innerText = `Esercizi (${filtered.length})`;
+
+  if (filtered.length === 0) {
+    document.getElementById('exploreExerciseList').innerHTML = `
+      <div style="text-align:center; padding: 24px 0; color: var(--text-muted); font-size: 0.85rem;">
+        Nessun esercizio trovato per i filtri selezionati.
+      </div>
+    `;
+    return;
+  }
 
   document.getElementById('exploreExerciseList').innerHTML = filtered.map(ex => `
     <div class="exercise-item">
@@ -291,23 +560,63 @@ function renderExploreList() {
           <span class="ex-badge">${ex.muscle}</span>
         </div>
       </div>
-      <button class="btn-add-quick" onclick="pickFromExplore('${encodeURIComponent(JSON.stringify(ex))}')">+ Usa</button>
+      <button class="btn-discover" onclick="openExerciseDetail('${encodeURIComponent(JSON.stringify(ex))}')">Scopri esecuzione</button>
     </div>
   `).join('');
 }
 
-window.pickFromExplore = function(encodedEx) {
+window.openExerciseDetail = function(encodedEx) {
   const ex = JSON.parse(decodeURIComponent(encodedEx));
-  selectedExercise = ex;
-  searchInput.value = ex.name;
+  exerciseInDetail = ex;
 
-  document.getElementById('selectedExIcon').innerHTML = ICONS[ex.icon] || ICONS.barbell;
-  document.getElementById('selectedExName').innerText = ex.name;
-  document.getElementById('selectedExMuscle').innerText = ex.muscle;
+  document.getElementById('detailExName').innerText = ex.name;
+  document.getElementById('detailExMuscle').innerText = ex.muscle;
+  document.getElementById('detailExEquip').innerText = ex.icon === 'barbell' ? 'Bilanciere' : ex.icon === 'dumbbell' ? 'Manubri' : ex.icon === 'bodyweight' ? 'Corpo Libero' : 'Macchinario';
+
+  const videoEl = document.getElementById('detailVideo');
+  const placeholderEl = document.getElementById('videoPlaceholder');
+
+  if (ex.video) {
+    videoEl.src = ex.video;
+    videoEl.style.display = 'block';
+    placeholderEl.style.display = 'none';
+    videoEl.load();
+    videoEl.play().catch(() => {});
+  } else {
+    videoEl.pause();
+    videoEl.style.display = 'none';
+    placeholderEl.style.display = 'flex';
+  }
+
+  const stepsList = document.getElementById('detailStepsList');
+  if (Array.isArray(ex.steps) && ex.steps.length > 0) {
+    stepsList.innerHTML = ex.steps.map(step => `<li>${step}</li>`).join('');
+  } else {
+    stepsList.innerHTML = `<li>Esegui il movimento in modo controllato mantenendo una corretta postura.</li>`;
+  }
+
+  document.getElementById('detailModal').classList.add('open');
+};
+
+document.getElementById('btnCloseDetailModal').addEventListener('click', () => {
+  const videoEl = document.getElementById('detailVideo');
+  videoEl.pause();
+  document.getElementById('detailModal').classList.remove('open');
+});
+
+document.getElementById('btnUseFromDetail').addEventListener('click', () => {
+  if (!exerciseInDetail) return;
+  selectedExercise = exerciseInDetail;
+  searchInput.value = exerciseInDetail.name;
+
+  document.getElementById('selectedExIcon').innerHTML = ICONS[exerciseInDetail.icon] || ICONS.barbell;
+  document.getElementById('selectedExName').innerText = exerciseInDetail.name;
+  document.getElementById('selectedExMuscle').innerText = exerciseInDetail.muscle;
   document.getElementById('selectedExPreview').style.display = 'flex';
 
+  document.getElementById('detailModal').classList.remove('open');
   document.getElementById('tabWorkoutBtn').click();
-};
+});
 
 function startRestTimer(seconds) {
   clearInterval(restInterval);
@@ -393,7 +702,13 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   const icon = document.getElementById('newExIcon').value;
   if (!name) return;
 
-  const newEx = { name, muscle, icon };
+  const newEx = {
+    name,
+    muscle,
+    icon,
+    video: "",
+    steps: ["Esegui l'esercizio con movimento controllato e carichi idonei."]
+  };
   customExercises.push(newEx);
   localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
   
