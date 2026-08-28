@@ -1,7 +1,7 @@
 body {
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.06), transparent 30%),
-    radial-gradient(circle at 85% 20%, rgba(34, 197, 94, 0.04), transparent 30%);
+    radial-gradient(circle at 10% 40%, rgba(168, 85, 247, 0.08), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(34, 197, 94, 0.05), transparent 35%);
 }
 
 .view-section { display: none; }
@@ -10,29 +10,31 @@ body {
 .menu-overlay { display: none; z-index: 150; }
 .menu-overlay.open { display: block; }
 
-.drawer-menu { right: -300px; z-index: 160; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.drawer-menu.open { right: 0; }
+.drawer-menu { left: -300px; z-index: 160; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(15, 10, 25, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-right: 1px solid rgba(255,255,255,0.1); width: 280px; position: fixed; top: 0; bottom: 0; padding: 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.8); }
+.drawer-menu.open { left: 0; }
 
-.modal { display: none; z-index: 200; }
+.modal { display: none; z-index: 200; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .modal.open { display: flex; }
 
-.body-wrapper.large .body-svg { width: 120px; height: 165px; }
-.body-svg { width: 85px; height: 120px; }
+.body-wrapper.large .body-svg { width: 130px; height: 175px; }
+.body-svg { width: 90px; height: 125px; }
 
 .muscle { fill: #1e1b2e; transition: fill 0.3s ease, filter 0.3s ease; cursor: default; }
-.muscle.active { fill: #a855f7; filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.35)); }
+.muscle.active { fill: #a855f7; filter: drop-shadow(0 0 4px rgba(168, 85, 247, 0.4)); }
 
 .explore-interactive .muscle { cursor: pointer; }
-.explore-interactive .muscle:hover { fill: #3a2e5d; }
-.explore-interactive .muscle.selected { fill: #22c55e; filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.35)); }
+.explore-interactive .muscle:hover { fill: #4c3b7a; }
+.explore-interactive .muscle.selected { fill: #22c55e; filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.4)); }
 
-.nav-btn.active { background: rgba(255,255,255,0.05); color: #fff; border-color: rgba(255,255,255,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-.drawer-item.active { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); color: #fff; box-shadow: 0 4px 15px rgba(168,85,247,0.1); }
+.drawer-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: transparent; border-radius: 100px; color: #9ca3af; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; }
+.drawer-item:hover, .drawer-item.active { background: rgba(168,85,247,0.15); color: #fff; }
+.drawer-item.active .w-8 { background: #a855f7; color: #fff; box-shadow: 0 0 12px rgba(168,85,247,0.5); stroke: #fff; }
+
+.lang-pill { flex: 1; padding: 10px 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; color: #9ca3af; font-size: 0.8rem; font-weight: 800; cursor: pointer; transition: all 0.2s; }
 .lang-pill.active { background: #a855f7; border-color: #a855f7; color: #fff; box-shadow: 0 4px 12px rgba(168,85,247,0.35); }
-.pill.active { background: #a855f7; border-color: #a855f7; color: #fff; box-shadow: 0 4px 12px rgba(168,85,247,0.35); }
 
-/* Nascondere barre di scorrimento webkit mantenendo lo scroll */
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-.muscle-pills::-webkit-scrollbar { display: none; }
+.pill { background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); color: #9ca3af; border-radius: 100px; padding: 10px 18px; font-size: 0.82rem; font-weight: 700; white-space: nowrap; cursor: pointer; transition: all 0.2s; }
+.pill.active { background: #a855f7; border-color: #a855f7; color: #fff; box-shadow: 0 4px 15px rgba(168,85,247,0.35); }
+
+::-webkit-scrollbar { width: 0; height: 0; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }

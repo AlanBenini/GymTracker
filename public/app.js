@@ -60,55 +60,55 @@ const GITHUB_IMAGE_BASE_URL = "https://raw.githubusercontent.com/yuhonas/free-ex
 const MAX_HISTORY_ITEMS = 30;
 
 const FALLBACK_EXERCISES = [
-  { name: "Panca Piana Bilanciere", muscle: "chest", icon: "barbell", images: [], video: "", steps: ["Spingi con forza verso l'alto tornando alla posizione di partenza senza rimbalzare."] },
-  { name: "Trazioni alla Sbarra", muscle: "lats", icon: "bodyweight", images: [], video: "", steps: ["Porta il mento oltre la sbarra e scendi fino a distendere completamente le braccia."] }
+  { name: "Panca Piana Bilanciere", muscle: "chest", icon: "barbell", images: [], video: "", steps: ["Spingi con forza verso l'alto tornando alla posizione di partenza."] },
+  { name: "Trazioni alla Sbarra", muscle: "lats", icon: "bodyweight", images: [], video: "", steps: ["Porta il mento oltre la sbarra e scendi fino a distendere le braccia."] }
 ];
 
 const I18N = {
   it: {
     menuTitle: "Menu", tabWorkout: "Allenamento", tabExplore: "Esplora Esercizi", tabHistory: "Cronologia",
-    langLabel: "Lingua / Language", titleRenameSub: "Tocca per rinominare sessione", flipBtn: "↻ Gira",
-    flipBtnLarge: "↻ Gira Fronte / Retro", restHeader: "Recupero", stopBtn: "Stop", addExerciseBtn: "+ Registra Esercizio",
-    logLabel: "Log Esercizi", exploreTitle: "Database & Atlante Muscolare", exploreSub: "Tocca un muscolo sulla sagoma o usa la ricerca",
-    exploreSearchPlaceholder: "Cerca tra oltre 800 esercizi...", exploreCountLabel: "Esercizi Disponibili",
-    discoverBtn: "Scopri esecuzione", historyTitle: "Cronologia Workout", clearBtn: "Svuota", finishBtn: "Termina e Salva Workout",
-    noMedia: "Dimostrazione visiva non disponibile", execStepsLabel: "Esecuzione e Istruzioni", useInWorkoutBtn: "+ Inserisci nel Workout",
-    newExTitle: "Nuovo Esercizio", targetMuscleLabel: "Gruppo Muscolare", equipTypeLabel: "Attrezzatura",
-    cancelBtn: "Annulla", saveExBtn: "Salva", recapSub: "Sessione salvata in cronologia", statVolume: "Volume",
-    statExercises: "Esercizi", statTime: "Tempo", recapDetailLabel: "Dettaglio Esercizi", newSessionBtn: "Nuova Sessione",
-    emptyHistory: "Nessun workout registrato finora.<br>Completa la tua prima sessione per visualizzarla qui!",
-    emptyExplore: "Nessun esercizio trovato per i filtri selezionati.", equipBarbell: "Bilanciere", equipDumbbell: "Manubri",
-    equipMachine: "Macchinario / Cavi", equipBodyweight: "Corpo Libero",
-    muscles: { all: "Tutti", chest: "Petto", shoulders: "Spalle", upper_back: "Schiena Alta", lats: "Gran Dorsale", lower_back: "Lombari", biceps: "Bicipiti", triceps: "Tricipiti", forearms: "Avambracci", abs: "Addome", obliques: "Obliqui", quads: "Quadricipiti", hamstrings: "Femorali", glutes: "Glutei", calves: "Polpacci" }
+    langLabel: "Lingua / Language", titleRenameSub: "Tocca per rinominare", flipBtn: "↻ Gira",
+    flipBtnLarge: "↻ Fronte / Retro", restHeader: "Recupero", stopBtn: "Stop", addExerciseBtn: "+ Registra",
+    logLabel: "Log Esercizi", exploreTitle: "Database Esercizi", exploreSub: "Tocca un muscolo sulla sagoma",
+    exploreSearchPlaceholder: "Cerca tra oltre 800 esercizi...", exploreCountLabel: "Disponibili",
+    discoverBtn: "Esecuzione", historyTitle: "Cronologia", clearBtn: "Svuota", finishBtn: "Termina e Salva",
+    noMedia: "Video non disponibile", execStepsLabel: "Istruzioni", useInWorkoutBtn: "+ Usa",
+    newExTitle: "Nuovo Esercizio", targetMuscleLabel: "Muscolo", equipTypeLabel: "Attrezzatura",
+    cancelBtn: "Annulla", saveExBtn: "Salva", recapSub: "Salvato in cronologia", statVolume: "Volume",
+    statExercises: "Esercizi", statTime: "Tempo", recapDetailLabel: "Dettaglio", newSessionBtn: "Nuova Sessione",
+    emptyHistory: "Nessun workout registrato.<br>Inizia ora!",
+    emptyExplore: "Nessun esercizio trovato.", equipBarbell: "Bilanciere", equipDumbbell: "Manubri",
+    equipMachine: "Macchinario", equipBodyweight: "Corpo Libero",
+    muscles: { all: "Tutti", chest: "Petto", shoulders: "Spalle", upper_back: "Schiena Alta", lats: "Dorsali", lower_back: "Lombari", biceps: "Bicipiti", triceps: "Tricipiti", forearms: "Avambracci", abs: "Addome", obliques: "Obliqui", quads: "Quadricipiti", hamstrings: "Femorali", glutes: "Glutei", calves: "Polpacci" }
   },
   en: {
     menuTitle: "Menu", tabWorkout: "Workout", tabExplore: "Explore", tabHistory: "History",
-    langLabel: "Language", titleRenameSub: "Tap to rename session", flipBtn: "↻ Flip",
-    flipBtnLarge: "↻ Flip Front / Back", restHeader: "Rest", stopBtn: "Stop", addExerciseBtn: "+ Add Exercise",
-    logLabel: "Log", exploreTitle: "Database & Muscle Map", exploreSub: "Tap a muscle or search",
-    exploreSearchPlaceholder: "Search 800+ exercises...", exploreCountLabel: "Available Exercises",
-    discoverBtn: "View Execution", historyTitle: "History", clearBtn: "Clear", finishBtn: "Finish & Save",
-    noMedia: "Visual demo not available", execStepsLabel: "Instructions", useInWorkoutBtn: "+ Add to Workout",
-    newExTitle: "Custom Exercise", targetMuscleLabel: "Target Muscle", equipTypeLabel: "Equipment",
-    cancelBtn: "Cancel", saveExBtn: "Save", recapSub: "Session saved to history", statVolume: "Volume",
-    statExercises: "Exercises", statTime: "Duration", recapDetailLabel: "Exercise Details", newSessionBtn: "New Session",
-    emptyHistory: "No workouts recorded yet.<br>Complete your first session!",
+    langLabel: "Language", titleRenameSub: "Tap to rename", flipBtn: "↻ Flip",
+    flipBtnLarge: "↻ Flip", restHeader: "Rest", stopBtn: "Stop", addExerciseBtn: "+ Log Exercise",
+    logLabel: "Log", exploreTitle: "Database", exploreSub: "Tap a muscle or search",
+    exploreSearchPlaceholder: "Search 800+ exercises...", exploreCountLabel: "Available",
+    discoverBtn: "View", historyTitle: "History", clearBtn: "Clear", finishBtn: "Save Workout",
+    noMedia: "Video unavailable", execStepsLabel: "Instructions", useInWorkoutBtn: "+ Use",
+    newExTitle: "Custom Exercise", targetMuscleLabel: "Muscle", equipTypeLabel: "Equipment",
+    cancelBtn: "Cancel", saveExBtn: "Save", recapSub: "Saved to history", statVolume: "Volume",
+    statExercises: "Exercises", statTime: "Time", recapDetailLabel: "Details", newSessionBtn: "New Session",
+    emptyHistory: "No workouts recorded.<br>Start now!",
     emptyExplore: "No exercises found.", equipBarbell: "Barbell", equipDumbbell: "Dumbbells",
-    equipMachine: "Machine / Cables", equipBodyweight: "Bodyweight",
+    equipMachine: "Machine", equipBodyweight: "Bodyweight",
     muscles: { all: "All", chest: "Chest", shoulders: "Shoulders", upper_back: "Upper Back", lats: "Lats", lower_back: "Lower Back", biceps: "Biceps", triceps: "Triceps", forearms: "Forearms", abs: "Abs", obliques: "Obliques", quads: "Quads", hamstrings: "Hamstrings", glutes: "Glutes", calves: "Calves" }
   },
   es: {
     menuTitle: "Menú", tabWorkout: "Rutina", tabExplore: "Explorar", tabHistory: "Historial",
     langLabel: "Idioma", titleRenameSub: "Toca para renombrar", flipBtn: "↻ Girar",
-    flipBtnLarge: "↻ Girar Frente / Dorso", restHeader: "Descanso", stopBtn: "Parar", addExerciseBtn: "+ Añadir Ejercicio",
-    logLabel: "Registro", exploreTitle: "Base de Datos", exploreSub: "Toca un músculo o busca",
-    exploreSearchPlaceholder: "Buscar 800+ ejercicios...", exploreCountLabel: "Ejercicios Disponibles",
-    discoverBtn: "Ver ejecución", historyTitle: "Historial", clearBtn: "Vaciar", finishBtn: "Terminar y Guardar",
-    noMedia: "Demo visual no disponible", execStepsLabel: "Instrucciones", useInWorkoutBtn: "+ Añadir a Rutina",
+    flipBtnLarge: "↻ Girar", restHeader: "Descanso", stopBtn: "Parar", addExerciseBtn: "+ Registrar",
+    logLabel: "Registro", exploreTitle: "Base de Datos", exploreSub: "Toca un músculo",
+    exploreSearchPlaceholder: "Buscar 800+ ejercicios...", exploreCountLabel: "Disponibles",
+    discoverBtn: "Ver", historyTitle: "Historial", clearBtn: "Vaciar", finishBtn: "Guardar",
+    noMedia: "Video no disponible", execStepsLabel: "Instrucciones", useInWorkoutBtn: "+ Usar",
     newExTitle: "Nuevo Ejercicio", targetMuscleLabel: "Músculo", equipTypeLabel: "Equipamiento",
-    cancelBtn: "Cancelar", saveExBtn: "Guardar", recapSub: "Sesión guardada", statVolume: "Volumen",
-    statExercises: "Ejercicios", statTime: "Tiempo", recapDetailLabel: "Detalle de Ejercicios", newSessionBtn: "Nueva Sesión",
-    emptyHistory: "No hay entrenamientos guardados.<br>¡Completa tu primera sesión!",
+    cancelBtn: "Cancelar", saveExBtn: "Guardar", recapSub: "Guardado", statVolume: "Volumen",
+    statExercises: "Ejercicios", statTime: "Tiempo", recapDetailLabel: "Detalle", newSessionBtn: "Nueva Sesión",
+    emptyHistory: "No hay entrenamientos.<br>¡Empieza ahora!",
     emptyExplore: "No se encontraron ejercicios.", equipBarbell: "Barra", equipDumbbell: "Mancuernas",
     equipMachine: "Máquina", equipBodyweight: "Peso Corporal",
     muscles: { all: "Todos", chest: "Pecho", shoulders: "Hombros", upper_back: "Espalda Alta", lats: "Dorsales", lower_back: "Lumbares", biceps: "Bíceps", triceps: "Tríceps", forearms: "Antebrazos", abs: "Abdomen", obliques: "Oblicuos", quads: "Cuádriceps", hamstrings: "Isquios", glutes: "Glúteos", calves: "Gemelos" }
@@ -219,10 +219,9 @@ function renderBodySvg(containerId, orientation, isExplore = false) {
   });
 }
 
-function setActiveNavTab(tabId, viewId, showBottom) {
-  document.querySelectorAll('.nav-btn, .drawer-item').forEach(b => b.classList.remove('active'));
+function setActiveNavTab(viewId, showBottom) {
+  document.querySelectorAll('.drawer-item').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(tabId)?.classList.add('active');
   document.querySelector(`[data-target="${viewId}"]`)?.classList.add('active');
   document.getElementById(viewId).classList.add('active');
   document.getElementById('bottomBar').style.display = showBottom ? 'flex' : 'none';
@@ -243,16 +242,12 @@ menuOverlay.addEventListener('click', closeDrawer);
 document.querySelectorAll('.drawer-item').forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.dataset.target;
-    setActiveNavTab(target === 'viewWorkout' ? 'tabWorkoutBtn' : target === 'viewExplore' ? 'tabExploreBtn' : 'tabHistoryBtn', target, target === 'viewWorkout');
+    setActiveNavTab(target, target === 'viewWorkout');
     closeDrawer();
     if (target === 'viewExplore') renderExploreList();
     if (target === 'viewHistory') renderHistoryList();
   });
 });
-
-document.getElementById('tabWorkoutBtn').addEventListener('click', () => setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true));
-document.getElementById('tabExploreBtn').addEventListener('click', () => { setActiveNavTab('tabExploreBtn', 'viewExplore', false); renderExploreList(); });
-document.getElementById('tabHistoryBtn').addEventListener('click', () => { setActiveNavTab('tabHistoryBtn', 'viewHistory', false); renderHistoryList(); });
 
 document.querySelectorAll('.lang-pill').forEach(btn => {
   btn.addEventListener('click', () => { currentLang = btn.dataset.lang; localStorage.setItem('my_gym_lang', currentLang); applyTranslations(); });
@@ -274,9 +269,9 @@ searchInput.addEventListener('input', () => {
     searchResults.innerHTML = `<div class="p-3 text-[0.8rem] text-gray-400">Nessun esercizio trovato</div>`;
   } else {
     searchResults.innerHTML = matches.slice(0, 8).map((ex, i) => `
-      <div class="search-item p-3 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
-        <span>${ex.name}</span>
-        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300">${getMuscleName(ex.muscle)}</span>
+      <div class="search-item" data-index="${i}" data-name="${ex.name}">
+        <span class="truncate pr-2">${ex.name}</span>
+        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/20 text-purple-300 whitespace-nowrap">${getMuscleName(ex.muscle)}</span>
       </div>
     `).join('');
   }
@@ -289,7 +284,7 @@ searchResults.addEventListener('click', (e) => {
   selectedExercise = getAllExercises().find(ex => ex.name === item.dataset.name) || { name: item.dataset.name, muscle: "chest", icon: "barbell" };
   searchInput.value = selectedExercise.name;
   searchResults.classList.remove('open');
-  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = selectedExercise.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(selectedExercise.muscle);
   document.getElementById('selectedExPreview').classList.remove('hidden');
@@ -320,14 +315,14 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
 
 function renderCompletedList() {
   document.getElementById('exerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3">
-      <div class="w-10 h-10 bg-black/40 border border-white/10 rounded-lg flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.iconKey]}</div>
-      <div class="flex-1">
-        <div class="text-[0.9rem] font-semibold text-white flex justify-between items-center">
-          <span>${ex.name}</span>
-          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300">${getMuscleName(ex.muscle)}</span>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
+      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.iconKey]}</div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[0.95rem] font-bold text-white truncate pr-2">${ex.name}</span>
+          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/20 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
         </div>
-        <div class="font-mono text-[0.8rem] text-gray-400 mt-1">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
+        <div class="font-mono text-[0.8rem] text-gray-400 font-semibold">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
       </div>
     </div>
   `).join('');
@@ -361,19 +356,19 @@ function renderExploreList() {
   }
 
   document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, i) => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3">
-      <div class="w-10 h-10 bg-black/40 border border-white/10 rounded-lg flex items-center justify-center shrink-0 stroke-purple-500">${ICONS[ex.icon] || ICONS.barbell}</div>
-      <div class="flex-1 text-[0.9rem] font-semibold text-white flex justify-between items-center">
-        <span class="truncate pr-2">${ex.name}</span>
-        <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/15 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
+      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.icon] || ICONS.barbell}</div>
+      <div class="flex-1 min-w-0">
+        <div class="text-[0.95rem] font-bold text-white truncate">${ex.name}</div>
+        <div class="text-[0.65rem] uppercase font-bold text-purple-300 mt-0.5">${getMuscleName(ex.muscle)}</div>
       </div>
-      <button class="btn-discover px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-semibold hover:bg-purple-500/20 hover:border-purple-500 transition-colors whitespace-nowrap" data-index="${i}">${t('discoverBtn')}</button>
+      <button class="px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-[0.75rem] font-bold active:bg-purple-500/20 active:border-purple-500 transition-colors shrink-0" data-index="${i}">${t('discoverBtn')}</button>
     </div>
   `).join('');
 }
 
 document.getElementById('exploreExerciseList').addEventListener('click', e => {
-  const btn = e.target.closest('.btn-discover');
+  const btn = e.target.closest('button');
   if (btn) openExerciseDetail(currentFilteredExploreList[parseInt(btn.dataset.index)]);
 });
 
@@ -411,13 +406,13 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   clearInterval(imageAnimationInterval);
   selectedExercise = exerciseInDetail;
   searchInput.value = exerciseInDetail.name;
-  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = exerciseInDetail.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(exerciseInDetail.muscle);
   document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');
   
   document.getElementById('detailModal').classList.remove('open');
-  setActiveNavTab('tabWorkoutBtn', 'viewWorkout', true);
+  setActiveNavTab('viewWorkout', true);
 });
 
 function saveCompletedSessionToHistory(sd) {
@@ -436,22 +431,20 @@ function renderHistoryList() {
   }
 
   document.getElementById('historyList').innerHTML = hist.map((s, i) => `
-    <div class="bg-surface backdrop-blur-md border border-white/10 rounded-xl p-3.5 flex flex-col gap-2.5 shadow-lg">
+    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
       <div class="flex justify-between items-start">
         <div>
-          <div class="text-white font-bold text-base">${s.title}</div>
-          <div class="text-gray-400 text-xs font-mono mt-0.5">${s.date}</div>
+          <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
+          <div class="text-gray-400 text-xs font-mono font-semibold mt-0.5">${s.date}</div>
         </div>
-        <button class="text-gray-400 hover:text-red-500 p-1 transition-colors" onclick="deleteHistorySession(${i})">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-        </button>
+        <button class="w-8 h-8 flex items-center justify-center bg-red-500/10 border border-red-500/20 text-red-400 rounded-full active:bg-red-500/20 transition-colors" onclick="deleteHistorySession(${i})">✕</button>
       </div>
-      <div class="grid grid-cols-3 gap-2 bg-black/30 border border-white/10 rounded-lg p-2 text-center">
-        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.totalVolume.toLocaleString()} kg</div><div class="text-[0.65rem] text-gray-400">${t('statVolume')}</div></div>
-        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.exerciseCount}</div><div class="text-[0.65rem] text-gray-400">${t('statExercises')}</div></div>
-        <div><div class="font-mono text-sm font-bold text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.duration}</div><div class="text-[0.65rem] text-gray-400">${t('statTime')}</div></div>
+      <div class="grid grid-cols-3 gap-2 bg-black/20 border border-white/5 rounded-2xl p-2.5 text-center">
+        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.totalVolume.toLocaleString()} kg</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statVolume')}</div></div>
+        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.exerciseCount}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statExercises')}</div></div>
+        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.duration}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statTime')}</div></div>
       </div>
-      ${s.targetedMuscles?.length ? `<div class="flex flex-wrap gap-1.5 mt-1">${s.targetedMuscles.map(m => `<span class="text-[0.65rem] bg-purple-500/15 text-purple-300 rounded-md px-2 py-0.5 font-bold uppercase">${getMuscleName(m)}</span>`).join('')}</div>` : ''}
+      ${s.targetedMuscles?.length ? `<div class="flex flex-wrap gap-1.5 mt-1">${s.targetedMuscles.map(m => `<span class="text-[0.65rem] bg-purple-500/20 text-purple-300 rounded-lg px-2.5 py-1 font-bold uppercase">${getMuscleName(m)}</span>`).join('')}</div>` : ''}
     </div>
   `).join('');
 }
@@ -493,9 +486,9 @@ document.getElementById('btnShowRecap').addEventListener('click', () => {
   renderBodySvg('recapBodyContainer', recapOrientation);
 
   document.getElementById('recapExerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center justify-between py-1.5 border-b border-white/10 text-[0.82rem] text-white">
-      <div class="flex items-center gap-2"><div class="w-4 h-4 stroke-purple-500">${ICONS[ex.iconKey]}</div><span>${ex.name}</span></div>
-      <span class="font-mono text-gray-400">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
+    <div class="flex items-center justify-between py-2 border-b border-white/5 text-[0.85rem] font-semibold text-white">
+      <div class="flex items-center gap-2"><div class="w-5 h-5 stroke-purple-400">${ICONS[ex.iconKey]}</div><span class="truncate">${ex.name}</span></div>
+      <span class="font-mono text-gray-400 shrink-0">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
     </div>
   `).join('');
 
@@ -522,7 +515,7 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   const nx = { name: n, muscle: m, icon: i, images: [], video: "", steps: ["Esegui con controllo."] };
   customExercises.push(nx); localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
   selectedExercise = nx; searchInput.value = n;
-  document.getElementById('selectedExIcon').innerHTML = `<div class="w-5 h-5 stroke-purple-500">${ICONS[i]}</div>`;
+  document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[i]}</div>`;
   document.getElementById('selectedExName').innerText = n; document.getElementById('selectedExMuscle').innerText = getMuscleName(m);
   document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');
   document.getElementById('newExModal').classList.remove('open'); renderExploreList();
