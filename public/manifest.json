@@ -1,6 +1,6 @@
 {
-  "name": "Gym Workout Tracker",
-  "short_name": "GymTracker",
+  "name": "Geeekd Gym Tracker",
+  "short_name": "GeeekdGym",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0d11",
