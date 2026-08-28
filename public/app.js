@@ -65,11 +65,15 @@ const BODY_SVGS = {
   `
 };
 
+const GITHUB_EXERCISES_URL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json";
+const GITHUB_IMAGE_BASE_URL = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
+
 const FALLBACK_EXERCISES = [
   {
     name: "Panca Piana Bilanciere",
     muscle: "chest",
     icon: "barbell",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bench-press-front.mp4",
     steps: [
       "Sdraiati sulla panca con gli occhi sotto il bilanciere e i piedi ben saldi a terra.",
@@ -82,6 +86,7 @@ const FALLBACK_EXERCISES = [
     name: "Spinte Manubri Inclinata",
     muscle: "chest",
     icon: "dumbbell",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-incline-bench-press-front.mp4",
     steps: [
       "Regola la panca tra 30° e 45° e porta i manubri all'altezza del petto.",
@@ -90,20 +95,10 @@ const FALLBACK_EXERCISES = [
     ]
   },
   {
-    name: "Croci ai Cavi",
-    muscle: "chest",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-standing-fly-front.mp4",
-    steps: [
-      "Posiziona le carrucole all'altezza delle spalle, afferra le maniglie e fai un passo avanti.",
-      "Con i gomiti leggermente flessi, unisci le mani davanti al petto contraendo i pettorali.",
-      "Torna indietro controllando la tensione fino ad avvertire l'allungamento."
-    ]
-  },
-  {
     name: "Military Press",
     muscle: "shoulders",
     icon: "barbell",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-overhead-press-front.mp4",
     steps: [
       "In piedi con il bilanciere poggiato sulle clavicole e i gomiti leggermente avanti.",
@@ -112,42 +107,10 @@ const FALLBACK_EXERCISES = [
     ]
   },
   {
-    name: "Alzate Laterali Manubri",
-    muscle: "shoulders",
-    icon: "dumbbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-lateral-raise-front.mp4",
-    steps: [
-      "In piedi con manubri ai lati del corpo e busto leggermente inclinato in avanti.",
-      "Solleva le braccia lateralmente guidando il movimento con i gomiti fino all'altezza delle spalle.",
-      "Mantieni un secondo la contrazione e scendi lentamente."
-    ]
-  },
-  {
-    name: "Face Pull al Cavo",
-    muscle: "shoulders",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-face-pull-front.mp4",
-    steps: [
-      "Aggancia la corda al cavo alto e afferrala con presa neutra.",
-      "Tira la corda verso il viso aprendo i gomiti e ruotando le mani indietro.",
-      "Contrai i deltoidi posteriori e torna lentamente avanti."
-    ]
-  },
-  {
-    name: "Scrollate con Manubri (Shrugs)",
-    muscle: "upper_back",
-    icon: "dumbbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-shrug-front.mp4",
-    steps: [
-      "In piedi con le braccia distese e i manubri lungo i fianchi.",
-      "Solleva le spalle verso le orecchie contraendo al massimo i trapezi.",
-      "Mantieni la contrazione in cima e scendi lentamente senza ruotare le spalle."
-    ]
-  },
-  {
     name: "Trazioni alla Sbarra",
     muscle: "lats",
     icon: "bodyweight",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-pullup-front.mp4",
     steps: [
       "Afferra la sbarra con presa prona a una larghezza leggermente superiore alle spalle.",
@@ -156,53 +119,10 @@ const FALLBACK_EXERCISES = [
     ]
   },
   {
-    name: "Lat Machine",
-    muscle: "lats",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-lat-pulldown-front.mp4",
-    steps: [
-      "Siediti regolando il cuscinetto sulle cosce e impugna la sbarra con presa ampia.",
-      "Tira la sbarra verso la parte alta del petto aprendo il petto.",
-      "Rilascia il carico in modo lento e controllato sentendo l'allungamento del gran dorsale."
-    ]
-  },
-  {
-    name: "Rematore con Bilanciere",
-    muscle: "lats",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-bent-over-row-front.mp4",
-    steps: [
-      "Busto inclinato a 45 gradi con schiena neutra e ginocchia leggermente piegate.",
-      "Tira il bilanciere verso l'ombelico guidando il movimento con i gomiti.",
-      "Contrai la schiena in cima e distendi le braccia controllando il carico."
-    ]
-  },
-  {
-    name: "Stacco da Terra (Deadlift)",
-    muscle: "lower_back",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-deadlift-front.mp4",
-    steps: [
-      "Piedi a larghezza delle anche sotto il bilanciere con presa salda all'esterno delle tibie.",
-      "Mantieni la schiena neutra e spingi sul pavimento estendendo anche e ginocchia insieme.",
-      "Raggiungi l'estensione completa dei fianchi e scendi controllando la discesa."
-    ]
-  },
-  {
-    name: "Iperestensioni Lombari",
-    muscle: "lower_back",
-    icon: "bodyweight",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-hyperextension-front.mp4",
-    steps: [
-      "Posizionati sulla panca a 45 gradi con il bacino sul cuscino.",
-      "Fletti il busto in avanti e risali contraendo i muscoli lombari fino all'allineamento.",
-      "Non iperestendere eccessivamente la schiena in cima."
-    ]
-  },
-  {
     name: "Curl Bicipiti con Manubri",
     muscle: "biceps",
     icon: "dumbbell",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-curl-front.mp4",
     steps: [
       "Impugna i manubri con le braccia lungo i fianchi e i gomiti fermi vicino al tronco.",
@@ -211,146 +131,15 @@ const FALLBACK_EXERCISES = [
     ]
   },
   {
-    name: "Curl a Martello (Hammer Curl)",
-    muscle: "biceps",
-    icon: "dumbbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-dumbbell-hammer-curl-front.mp4",
-    steps: [
-      "Impugna i manubri con i palmi rivolti uno verso l'altro (presa neutra).",
-      "Solleva i manubri mantenendo i polsi stabili senza ruotarli.",
-      "Scendi lentamente fino alla posizione iniziale."
-    ]
-  },
-  {
-    name: "Pushdown Tricipiti con Corda",
-    muscle: "triceps",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-cable-pushdown-front.mp4",
-    steps: [
-      "Afferra la corda al cavo alto con i gomiti bloccati lungo i fianchi.",
-      "Spingi verso il basso estendendo le braccia e allargando leggermente le estremità della corda in fondo.",
-      "Torna su controllando la fase eccentrica senza muovere i gomiti avanti."
-    ]
-  },
-  {
-    name: "French Press con Bilanciere",
-    muscle: "triceps",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-lying-triceps-extension-front.mp4",
-    steps: [
-      "Sdraiati sulla panca piana con il bilanciere dritto sopra la fronte.",
-      "Fletti i gomiti portando la barra verso la fronte mantenendo i gomiti stabili.",
-      "Estendi le braccia contraendo con forza i tricipiti."
-    ]
-  },
-  {
-    name: "Wrist Curl Avambracci",
-    muscle: "forearms",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-wrist-curl-front.mp4",
-    steps: [
-      "Seduto sulla panca con gli avambracci poggiati sulle cosce e i polsi oltre le ginocchia.",
-      "Fletti i polsi verso l'alto sollevando il bilanciere.",
-      "Abbassa la barra aprendo leggermente le dita per allungare gli avambracci."
-    ]
-  },
-  {
-    name: "Crunch Addominali",
-    muscle: "abs",
-    icon: "bodyweight",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-crunch-front.mp4",
-    steps: [
-      "Sdraiati a terra con le ginocchia piegate e i piedi piatti.",
-      "Solleva le spalle da terra contraendo l'addome senza tirare il collo con le mani.",
-      "Mantieni la contrazione un istante ed espira, poi torna lentamente a terra."
-    ]
-  },
-  {
-    name: "Plank Isometrico",
-    muscle: "abs",
-    icon: "bodyweight",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-plank-front.mp4",
-    steps: [
-      "Appoggia gli avambracci a terra sotto le spalle con corpo dritto dalla testa ai talloni.",
-      "Contrai addome, glutei e quadricipiti evitando di inarcare la zona lombare.",
-      "Mantieni la posizione respirando in modo regolare."
-    ]
-  },
-  {
-    name: "Russian Twist Obliqui",
-    muscle: "obliques",
-    icon: "bodyweight",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-bodyweight-russian-twist-front.mp4",
-    steps: [
-      "Siediti a terra sollevando i piedi e inclinando il busto all'indietro a circa 45 gradi.",
-      "Ruota il busto da un lato all'altro toccando il pavimento con le mani.",
-      "Mantieni il core teso durante tutta la rotazione."
-    ]
-  },
-  {
     name: "Squat con Bilanciere",
     muscle: "quads",
     icon: "barbell",
+    images: [],
     video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-squat-front.mp4",
     steps: [
       "Posiziona il bilanciere sui trapezi, piedi a larghezza spalle con punte leggermente aperte.",
       "Scendi piegando anche e ginocchia mantenendo la schiena dritta fino al parallelo.",
       "Spingi sui talloni e sull'avampiede per risalire in posizione eretta."
-    ]
-  },
-  {
-    name: "Leg Extension",
-    muscle: "quads",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-leg-extension-front.mp4",
-    steps: [
-      "Regola il cuscinetto sulla parte inferiore della tibia e schiena contro lo schienale.",
-      "Estendi le gambe fino a contrarre al massimo i quadricipiti.",
-      "Scendi lentamente senza far cadere il pacco pesi."
-    ]
-  },
-  {
-    name: "Leg Curl Femorali",
-    muscle: "hamstrings",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-lying-leg-curl-front.mp4",
-    steps: [
-      "Sdraiati sulla macchina con il cuscinetto dietro i polpacci.",
-      "Fletti le ginocchia portando i talloni verso i glutei.",
-      "Rilascia il carico in modo controllato sentendo l'allungamento dei femorali."
-    ]
-  },
-  {
-    name: "Stacco Rumeno (Romanian Deadlift)",
-    muscle: "hamstrings",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-romanian-deadlift-front.mp4",
-    steps: [
-      "In piedi con il bilanciere, ginocchia leggermente flesse e fisse.",
-      "Spingi indietro il bacino facendo scorrere la barra lungo le cosce fino a sentire l'allungamento nei femorali.",
-      "Riporta avanti i fianchi contraendo glutei e femorali."
-    ]
-  },
-  {
-    name: "Hip Thrust Bilanciere",
-    muscle: "glutes",
-    icon: "barbell",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-barbell-hip-thrust-front.mp4",
-    steps: [
-      "Schiena appoggiata alla panca e bilanciere posizionato sul bacino con apposita imbottitura.",
-      "Spingi attraverso i talloni sollevando i fianchi fino a formare una linea retta con il tronco.",
-      "Stringi i glutei in cima per un secondo prima di scendere in modo controllato."
-    ]
-  },
-  {
-    name: "Calf Raise in Piedi",
-    muscle: "calves",
-    icon: "machine",
-    video: "https://media.musclewiki.com/media/uploads/videos/branded/male-machine-standing-calf-raise-front.mp4",
-    steps: [
-      "Punte dei piedi sul bordo del gradino e spalle sotto i cuscinetti.",
-      "Sollevati sulla punta dei piedi contraendo i polpacci al massimo.",
-      "Scendi sotto il livello del gradino per allungare il muscolo."
     ]
   }
 ];
@@ -364,6 +153,7 @@ let selectedExercise = null;
 let currentExploreMuscle = "all";
 let exerciseInDetail = null;
 let currentFilteredExploreList = [];
+let imageAnimationInterval = null;
 
 let dashOrientation = 'front';
 let exploreOrientation = 'front';
@@ -374,68 +164,77 @@ let restInterval = null;
 
 function normalizeMuscleName(apiMuscle) {
   if (!apiMuscle) return "chest";
-  const m = apiMuscle.toLowerCase();
+  const m = apiMuscle.toLowerCase().trim();
   
   if (m.includes("chest") || m.includes("pec") || m.includes("petto")) return "chest";
   if (m.includes("shoulder") || m.includes("delt") || m.includes("spall")) return "shoulders";
-  if (m.includes("trap") || m.includes("upper back") || m.includes("schiena alta")) return "upper_back";
+  if (m.includes("trap") || m.includes("middle back") || m.includes("neck") || m.includes("upper back") || m.includes("schiena alta")) return "upper_back";
   if (m.includes("lat") || m.includes("dors")) return "lats";
   if (m.includes("lower back") || m.includes("lomb") || m.includes("erector")) return "lower_back";
   if (m.includes("bicep") || m.includes("bicipit")) return "biceps";
   if (m.includes("tricep") || m.includes("tricipit")) return "triceps";
-  if (m.includes("forearm") || m.includes("avambr")) return "forearms";
+  if (m.includes("forearm") || m.includes("avambr") || m.includes("wrist")) return "forearms";
   if (m.includes("oblique") || m.includes("obliqu")) return "obliques";
   if (m.includes("ab") || m.includes("core") || m.includes("addom")) return "abs";
-  if (m.includes("quad") || m.includes("quadricip")) return "quads";
+  if (m.includes("quad") || m.includes("quadricip") || m.includes("adductor") || m.includes("abductor")) return "quads";
   if (m.includes("hamstring") || m.includes("femoral") || m.includes("ischiocrur")) return "hamstrings";
   if (m.includes("glute")) return "glutes";
-  if (m.includes("calf") || m.includes("calv") || m.includes("polpacc") || m.includes("soleus") || m.includes("gastrocnemius")) return "calves";
+  if (m.includes("calf") || m.includes("calv") || m.includes("polpacc") || m.includes("soleus")) return "calves";
   
   return "chest";
+}
+
+function normalizeEquipment(equip) {
+  if (!equip) return "barbell";
+  const eq = equip.toLowerCase();
+  if (eq.includes("barbell") || eq.includes("ez") || eq.includes("olympic")) return "barbell";
+  if (eq.includes("dumbbell") || eq.includes("kettlebell")) return "dumbbell";
+  if (eq.includes("body") || eq.includes("none") || eq.includes("other")) return "bodyweight";
+  return "machine";
 }
 
 function getAllExercises() {
   return [...customExercises, ...(apiExercises.length ? apiExercises : FALLBACK_EXERCISES)];
 }
 
-async function fetchMuscleWikiExercises() {
+async function loadOpenExerciseDatabase() {
   try {
-    const res = await fetch('/api/exercises?limit=100');
+    const cachedData = localStorage.getItem('my_gym_cached_exercises_v1');
+    if (cachedData) {
+      apiExercises = JSON.parse(cachedData);
+      renderExploreList();
+    }
+
+    const res = await fetch(GITHUB_EXERCISES_URL);
     if (res.ok) {
       const data = await res.json();
-      const rawList = Array.isArray(data) ? data : (data.exercises || data.results || []);
-      
-      if (Array.isArray(rawList) && rawList.length > 0) {
-        apiExercises = rawList.map(item => {
-          let videoUrl = "";
-          if (Array.isArray(item.videos) && item.videos.length > 0) {
-            videoUrl = item.videos[0].url || item.videos[0];
-          }
-
-          let steps = [];
-          if (Array.isArray(item.steps)) {
-            steps = item.steps.map(s => typeof s === 'string' ? s : (s.text || s.step || ""));
-          }
-
-          const equip = (item.category || item.equipment || "").toLowerCase();
-          const iconKey = equip.includes("barbell") ? "barbell" : equip.includes("dumbbell") ? "dumbbell" : equip.includes("bodyweight") ? "bodyweight" : "machine";
-
-          const target = item.target_muscle || (item.muscles ? item.muscles[0] : "") || item.category || "";
+      if (Array.isArray(data) && data.length > 0) {
+        apiExercises = data.map(item => {
+          const muscleKey = item.primaryMuscles && item.primaryMuscles.length > 0
+            ? normalizeMuscleName(item.primaryMuscles[0])
+            : normalizeMuscleName(item.category || "");
 
           return {
-            name: item.name || item.title,
-            muscle: normalizeMuscleName(target),
-            icon: iconKey,
-            video: videoUrl,
-            steps: steps.length ? steps : ["Esegui il movimento controllando la fase eccentrica e concentrica."]
+            name: item.name,
+            muscle: muscleKey,
+            icon: normalizeEquipment(item.equipment),
+            images: Array.isArray(item.images) ? item.images : [],
+            video: "",
+            steps: Array.isArray(item.instructions) && item.instructions.length > 0
+              ? item.instructions
+              : ["Esegui il movimento controllando la fase eccentrica e concentrica."]
           };
         });
+
+        localStorage.setItem('my_gym_cached_exercises_v1', JSON.stringify(apiExercises));
+        renderExploreList();
       }
     }
   } catch (err) {
-    console.warn("Uso database offline:", err);
+    console.warn("Utilizzo database locale di fallback:", err);
+    if (apiExercises.length === 0) apiExercises = FALLBACK_EXERCISES;
+    renderExploreList();
   }
-  renderExploreList();
 }
 
 function renderBodySvg(containerId, orientation, isExplore = false) {
@@ -637,7 +436,7 @@ function renderExploreList() {
     return;
   }
 
-  document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.map((ex, index) => `
+  document.getElementById('exploreExerciseList').innerHTML = currentFilteredExploreList.slice(0, 60).map((ex, index) => `
     <div class="exercise-item">
       <div class="ex-icon-box">${ICONS[ex.icon] || ICONS.barbell}</div>
       <div class="ex-details">
@@ -661,36 +460,39 @@ document.getElementById('exploreExerciseList').addEventListener('click', (e) => 
 
 function openExerciseDetail(ex) {
   exerciseInDetail = ex;
+  clearInterval(imageAnimationInterval);
 
   document.getElementById('detailExName').innerText = ex.name;
   document.getElementById('detailExMuscle').innerText = MUSCLE_NAMES[ex.muscle] || ex.muscle;
   document.getElementById('detailExEquip').innerText = ex.icon === 'barbell' ? 'Bilanciere' : ex.icon === 'dumbbell' ? 'Manubri' : ex.icon === 'bodyweight' ? 'Corpo Libero' : 'Macchinario';
 
   const videoEl = document.getElementById('detailVideo');
-  const placeholderEl = document.getElementById('videoPlaceholder');
+  const imgEl = document.getElementById('detailImg');
+  const placeholderEl = document.getElementById('mediaPlaceholder');
 
   videoEl.pause();
   videoEl.removeAttribute('src');
-  videoEl.load();
+  videoEl.style.display = 'none';
+  imgEl.style.display = 'none';
+  placeholderEl.style.display = 'none';
 
-  videoEl.onerror = () => {
-    videoEl.style.display = 'none';
-    placeholderEl.style.display = 'flex';
-  };
+  if (Array.isArray(ex.images) && ex.images.length > 0) {
+    imgEl.style.display = 'block';
+    let currentFrame = 0;
+    imgEl.src = GITHUB_IMAGE_BASE_URL + ex.images[0];
 
-  videoEl.onloadeddata = () => {
-    videoEl.style.display = 'block';
-    placeholderEl.style.display = 'none';
-  };
-
-  if (ex.video && typeof ex.video === 'string' && ex.video.trim().length > 0) {
-    placeholderEl.style.display = 'none';
+    if (ex.images.length > 1) {
+      imageAnimationInterval = setInterval(() => {
+        currentFrame = (currentFrame + 1) % ex.images.length;
+        imgEl.src = GITHUB_IMAGE_BASE_URL + ex.images[currentFrame];
+      }, 950);
+    }
+  } else if (ex.video && typeof ex.video === 'string' && ex.video.trim().length > 0) {
     videoEl.style.display = 'block';
     videoEl.src = ex.video.trim();
     videoEl.load();
     videoEl.play().catch(() => {});
   } else {
-    videoEl.style.display = 'none';
     placeholderEl.style.display = 'flex';
   }
 
@@ -705,6 +507,7 @@ function openExerciseDetail(ex) {
 }
 
 document.getElementById('btnCloseDetailModal').addEventListener('click', () => {
+  clearInterval(imageAnimationInterval);
   const videoEl = document.getElementById('detailVideo');
   videoEl.pause();
   videoEl.removeAttribute('src');
@@ -713,6 +516,7 @@ document.getElementById('btnCloseDetailModal').addEventListener('click', () => {
 
 document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   if (!exerciseInDetail) return;
+  clearInterval(imageAnimationInterval);
   selectedExercise = exerciseInDetail;
   searchInput.value = exerciseInDetail.name;
 
@@ -818,6 +622,7 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
     name,
     muscle,
     icon,
+    images: [],
     video: "",
     steps: ["Esegui l'esercizio con movimento controllato e carichi idonei."]
   };
@@ -837,4 +642,4 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
 
 renderBodySvg('dashBodyContainer', 'front');
 renderBodySvg('exploreBodyContainer', 'front', true);
-fetchMuscleWikiExercises();
+loadOpenExerciseDatabase();

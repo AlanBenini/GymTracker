@@ -555,9 +555,9 @@ select:focus, input:focus { border-color: var(--blue); }
   font-size: 0.85rem;
 }
 
-.video-container {
+.media-container {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 11;
   background: #090a0f;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -565,16 +565,25 @@ select:focus, input:focus { border-color: var(--blue); }
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-.video-container video {
+.detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0d1017;
+  transition: opacity 0.2s ease;
+}
+
+.media-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   background: #000;
 }
 
-.video-placeholder {
+.media-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
@@ -587,7 +596,7 @@ select:focus, input:focus { border-color: var(--blue); }
   background: rgba(0, 0, 0, 0.4);
 }
 
-.video-placeholder svg {
+.media-placeholder svg {
   stroke: var(--text-muted);
 }
 

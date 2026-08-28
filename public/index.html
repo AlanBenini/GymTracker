@@ -90,7 +90,7 @@
       </div>
 
       <div class="explore-search-container">
-        <input type="text" id="exploreSearchInput" placeholder="Cerca per nome, muscolo o attrezzo..." autocomplete="off" />
+        <input type="text" id="exploreSearchInput" placeholder="Cerca tra oltre 800 esercizi..." autocomplete="off" />
       </div>
 
       <div class="explore-body-card">
@@ -138,17 +138,18 @@
         <button class="btn-close" id="btnCloseDetailModal">✕</button>
       </div>
 
-      <div class="video-container" id="videoWrapper">
+      <div class="media-container" id="mediaWrapper">
+        <img id="detailImg" class="detail-img" alt="Dimostrazione Esercizio" style="display:none;" />
         <video id="detailVideo" autoplay loop muted playsinline controls style="display:none;"></video>
-        <div class="video-placeholder" id="videoPlaceholder">
+        <div class="media-placeholder" id="mediaPlaceholder">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
             <path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/>
           </svg>
-          <span>Video dimostrativo non disponibile</span>
+          <span>Dimostrazione visiva non disponibile</span>
         </div>
       </div>
 
-      <div class="section-label">Esecuzione e Consigli</div>
+      <div class="section-label">Esecuzione e Istruzioni</div>
       <ol class="steps-list" id="detailStepsList"></ol>
 
       <div style="display:flex; gap: 8px; margin-top: 6px;">
