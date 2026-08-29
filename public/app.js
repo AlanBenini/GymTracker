@@ -310,16 +310,25 @@ document.getElementById('recapFlipBtn').addEventListener('click', () => { recapO
 const searchInput = document.getElementById('exerciseSearch');
 const searchResults = document.getElementById('searchResults');
 
+function closeSearchDropdown() {
+  searchResults.classList.remove('open');
+  searchResults.innerHTML = '';
+}
+
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
-  if (!query) return searchResults.classList.remove('open');
+  if (!query) {
+    closeSearchDropdown();
+    return;
+  }
+
   const matches = getAllExercises().filter(ex => ex.name.toLowerCase().includes(query));
   
   if (!matches.length) {
     searchResults.innerHTML = `<div class="p-3 text-[0.8rem] text-gray-400">Nessun esercizio trovato</div>`;
   } else {
     searchResults.innerHTML = matches.slice(0, 8).map((ex, i) => `
-      <div class="search-item p-3 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
+      <div class="search-item p-3.5 flex justify-between items-center border-b border-white/10 cursor-pointer text-[0.86rem] text-white active:bg-white/10 hover:bg-white/5" data-index="${i}" data-name="${ex.name}">
         <span class="truncate pr-2">${ex.name}</span>
         <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-full font-bold bg-purple-500/20 text-purple-300 whitespace-nowrap shrink-0">${getMuscleName(ex.muscle)}</span>
       </div>
@@ -333,7 +342,9 @@ searchResults.addEventListener('click', (e) => {
   if (!item) return;
   selectedExercise = getAllExercises().find(ex => ex.name === item.dataset.name) || { name: item.dataset.name, muscle: "chest", icon: "barbell" };
   searchInput.value = selectedExercise.name;
-  searchResults.classList.remove('open');
+  
+  closeSearchDropdown();
+
   document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = selectedExercise.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(selectedExercise.muscle);
@@ -341,7 +352,11 @@ searchResults.addEventListener('click', (e) => {
   document.getElementById('selectedExPreview').classList.add('flex');
 });
 
-document.addEventListener('click', (e) => { if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) searchResults.classList.remove('open'); });
+document.addEventListener('click', (e) => { 
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    closeSearchDropdown();
+  }
+});
 
 document.getElementById('btnAddExercise').addEventListener('click', () => {
   const name = searchInput.value.trim();
@@ -362,6 +377,7 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
   document.getElementById('sets').value = '';
   document.getElementById('reps').value = '';
   document.getElementById('weight').value = '';
+  closeSearchDropdown();
   document.getElementById('selectedExPreview').classList.add('hidden');
   document.getElementById('selectedExPreview').classList.remove('flex');
   selectedExercise = null;
@@ -460,6 +476,7 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   clearInterval(imageAnimationInterval);
   selectedExercise = exerciseInDetail;
   searchInput.value = exerciseInDetail.name;
+  closeSearchDropdown();
   document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = exerciseInDetail.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(exerciseInDetail.muscle);
@@ -576,6 +593,7 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   const nx = { name: n, muscle: m, icon: i, images: [], video: "", steps: ["Esegui con controllo."] };
   customExercises.push(nx); localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
   selectedExercise = nx; searchInput.value = n;
+  closeSearchDropdown();
   document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[i]}</div>`;
   document.getElementById('selectedExName').innerText = n; document.getElementById('selectedExMuscle').innerText = getMuscleName(m);
   document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');

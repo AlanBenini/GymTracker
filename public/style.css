@@ -7,6 +7,9 @@ body {
 .view-section { display: none; }
 .view-section.active { display: flex; }
 
+.search-results { display: none; }
+.search-results.open { display: block; }
+
 .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 150; }
 .menu-overlay.open { display: block; }
 
