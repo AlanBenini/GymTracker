@@ -557,37 +557,74 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
 });
 
 function saveCompletedSessionToHistory(sd) {
-  let hist = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-  hist.unshift(sd);
-  if (hist.length > MAX_HISTORY_ITEMS) hist = hist.slice(0, MAX_HISTORY_ITEMS);
-  localStorage.setItem('my_gym_history', JSON.stringify(hist));
+  try {
+    let hist = JSON.parse(localStorage.getItem('my_gym_history')) || [];
+    hist.unshift(sd);
+    if (hist.length > MAX_HISTORY_ITEMS) hist = hist.slice(0, MAX_HISTORY_ITEMS);
+    localStorage.setItem('my_gym_history', JSON.stringify(hist));
+  } catch (e) {}
 }
 
 function renderHistoryList() {
+  const listContainer = document.getElementById('historyList');
+  if (!listContainer) return;
   const hist = JSON.parse(localStorage.getItem('my_gym_history')) || [];
-  document.getElementById('historyCountLabel').innerText = `${hist.length} / ${MAX_HISTORY_ITEMS}`;
+  
+  const countEl = document.getElementById('historyCountLabel');
+  if (countEl) countEl.innerText = `${hist.length} / ${MAX_HISTORY_ITEMS}`;
+
   if (!hist.length) {
-    document.getElementById('historyList').innerHTML = `<div class="text-center py-8 text-gray-400 text-sm">${t('emptyHistory')}</div>`;
+    listContainer.innerHTML = `<div class="text-center py-8 text-gray-400 text-sm">${t('emptyHistory')}</div>`;
     return;
   }
 
-  listContainer.innerHTML = hist.map((s, i) => `
-    <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
-      <div class="flex justify-between items-start">
-        <div>
-          <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
-          <div class="text-gray-400 text-xs font-mono font-semibold mt-0.5">${s.date}</div>
+  listContainer.innerHTML = hist.map((s, i) => {
+    const musclesList = Array.isArray(s.targetedMuscles) ? s.targetedMuscles : [];
+    const exList = Array.isArray(s.exercises) ? s.exercises : [];
+
+    return `
+      <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="text-white font-extrabold text-[1.05rem]">${s.title}</div>
+            <div class="text-gray-400 text-xs font-mono font-semibold mt-0.5">${s.date}</div>
+          </div>
+          <button class="w-8 h-8 flex items-center justify-center bg-red-500/10 border border-red-500/20 text-red-400 rounded-full active:bg-red-500/20 transition-colors" onclick="deleteHistorySession(${i})">✕</button>
         </div>
-        <button class="w-8 h-8 flex items-center justify-center bg-red-500/10 border border-red-500/20 text-red-400 rounded-full active:bg-red-500/20 transition-colors" onclick="deleteHistorySession(${i})">✕</button>
+        <div class="grid grid-cols-3 gap-2 bg-black/20 border border-white/5 rounded-2xl p-2.5 text-center">
+          <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${(s.totalVolume || 0).toLocaleString()} kg</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statVolume')}</div></div>
+          <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.exerciseCount || exList.length}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statExercises')}</div></div>
+          <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.duration || '00:00'}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statTime')}</div></div>
+        </div>
+        ${musclesList.length ? `<div class="flex flex-wrap gap-1.5 mt-0.5">${musclesList.map(m => `<span class="text-[0.65rem] bg-purple-500/20 text-purple-300 rounded-lg px-2.5 py-1 font-bold uppercase">${getMuscleName(m)}</span>`).join('')}</div>` : ''}
+        
+        ${exList.length ? `
+          <div class="flex flex-col gap-2 pt-2 border-t border-white/5 mt-1">
+            ${exList.map(ex => {
+              const setsArr = Array.isArray(ex.setsData) ? ex.setsData : [];
+              return `
+                <div class="flex flex-col text-xs text-gray-300">
+                  <div class="font-semibold text-white flex items-center justify-between">
+                    <span>${ex.name}</span>
+                    <span class="text-purple-400 font-mono font-bold">${ex.sets || setsArr.length} set</span>
+                  </div>
+                  ${setsArr.length ? `
+                    <div class="flex flex-wrap gap-1 mt-1">
+                      ${setsArr.map(st => `
+                        <span class="font-mono text-[0.68rem] bg-black/40 border border-white/5 rounded px-1.5 py-0.5 text-gray-400">
+                          #${st.setNumber} ${st.weight}kg × ${st.reps}
+                        </span>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
       </div>
-      <div class="grid grid-cols-3 gap-2 bg-black/20 border border-white/5 rounded-2xl p-2.5 text-center">
-        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.totalVolume.toLocaleString()} kg</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statVolume')}</div></div>
-        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.exerciseCount}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statExercises')}</div></div>
-        <div><div class="font-mono text-[0.95rem] font-bold text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.35)]">${s.duration}</div><div class="text-[0.65rem] uppercase font-bold text-gray-500 mt-0.5">${t('statTime')}</div></div>
-      </div>
-      ${s.targetedMuscles?.length ? `<div class="flex flex-wrap gap-1.5 mt-1">${s.targetedMuscles.map(m => `<span class="text-[0.65rem] bg-purple-500/20 text-purple-300 rounded-lg px-2.5 py-1 font-bold uppercase">${getMuscleName(m)}</span>`).join('')}</div>` : ''}
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 window.deleteHistorySession = (i) => {
