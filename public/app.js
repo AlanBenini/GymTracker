@@ -55,13 +55,30 @@ const BODY_SVGS = {
   `
 };
 
-const DATASET_URL = "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.json";
-const MEDIA_BASE_URL = "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/";
+const DATASET_CDN_URL = "https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/data/exercises.json";
+const DATASET_RAW_URL = "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.json";
+const MEDIA_BASE_URL = "https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/";
 const MAX_HISTORY_ITEMS = 30;
 
-const FALLBACK_EXERCISES = [
-  { name: "Barbell Bench Press", muscle: "chest", icon: "barbell", gif: "", steps: { it: ["Abbassa la barra al petto e spingi verso l'alto con forza."], en: ["Lower the bar to your chest and press up explosively."] } },
-  { name: "Pull-up", muscle: "lats", icon: "bodyweight", gif: "", steps: { it: ["Tirati su fino a superare la sbarra col mento e scendi con controllo."], en: ["Pull yourself up until your chin clears the bar, then lower with control."] } }
+const INITIAL_EXERCISES = [
+  { name: "Barbell Bench Press", muscle: "chest", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0025-EIeI8Vf.gif", steps: ["Sdraiati sulla panca, abbassa la barra al petto e spingi verso l'alto con forza."] },
+  { name: "Incline Dumbbell Press", muscle: "chest", icon: "dumbbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0314-Y2uXj7E.gif", steps: ["Spingi i manubri verso l'alto su panca inclinata a 30 gradi."] },
+  { name: "Cable Crossover", muscle: "chest", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0179-8HwJgP4.gif", steps: ["Unisci i cavi davanti al petto contraendo i pettorali."] },
+  { name: "Military Press", muscle: "shoulders", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0079-Pq4lM0F.gif", steps: ["Spingi il bilanciere sopra la testa in linea retta partendo dalle clavicole."] },
+  { name: "Dumbbell Lateral Raise", muscle: "shoulders", icon: "dumbbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0334-1YwX0pQ.gif", steps: ["Solleva i manubri lateralmente fino all'altezza delle spalle."] },
+  { name: "Dumbbell Shrug", muscle: "upper_back", icon: "dumbbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0406-8N2mP0L.gif", steps: ["Solleva le spalle verso le orecchie contraendo al massimo i trapezi."] },
+  { name: "Pull-up", muscle: "lats", icon: "bodyweight", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0652-3kH2gL9.gif", steps: ["Porta il mento sopra la sbarra e scendi controllando la discesa."] },
+  { name: "Lat Pulldown", muscle: "lats", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0198-4Lm9qP2.gif", steps: ["Tira la sbarra al petto adducendo le scapole."] },
+  { name: "Barbell Bent Over Row", muscle: "lats", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0027-1Kq9mX0.gif", steps: ["Busto a 45 gradi, tira la barra verso l'ombelico."] },
+  { name: "Barbell Deadlift", muscle: "lower_back", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0032-4Nm8kP1.gif", steps: ["Schiena dritta, spingi con le gambe ed estendi le anche."] },
+  { name: "Dumbbell Bicep Curl", muscle: "biceps", icon: "dumbbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0294-6M1kP9X.gif", steps: ["Fletti i gomiti ruotando i palmi verso l'alto senza oscillare."] },
+  { name: "Cable Tricep Pushdown", muscle: "triceps", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0241-7L0mP4K.gif", steps: ["Spingi il cavo verso il basso bloccando i gomiti lungo i fianchi."] },
+  { name: "Barbell Squat", muscle: "quads", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0043-9Q2mP8K.gif", steps: ["Scendi piegando anche e ginocchia fino al parallelo."] },
+  { name: "Leg Extension", muscle: "quads", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0585-2Lk9qP0.gif", steps: ["Estendi le gambe contraendo al massimo i quadricipiti."] },
+  { name: "Lying Leg Curl", muscle: "hamstrings", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0599-4Mk8qP1.gif", steps: ["Fletti le ginocchia portando i talloni verso i glutei."] },
+  { name: "Barbell Hip Thrust", muscle: "glutes", icon: "barbell", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0047-8Lk0mP2.gif", steps: ["Solleva il bacino contraendo i glutei in cima."] },
+  { name: "Standing Calf Raise", muscle: "calves", icon: "machine", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0786-1Mk9qP8.gif", steps: ["Sollevati sulle punte dei piedi e scendi lentamente."] },
+  { name: "Crunch", muscle: "abs", icon: "bodyweight", gif: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/0274-9Nm1kP0.gif", steps: ["Solleva le spalle contraendo l'addome senza tirare il collo."] }
 ];
 
 const I18N = {
@@ -122,7 +139,7 @@ const I18N = {
 };
 
 let currentLang = localStorage.getItem('my_gym_lang') || 'it';
-let apiExercises = [];
+let apiExercises = INITIAL_EXERCISES;
 let customExercises = JSON.parse(localStorage.getItem('my_gym_custom_exercises')) || [];
 let completedExercises = [];
 let targetedMuscles = new Set();
@@ -272,23 +289,31 @@ function normalizeEquipment(eq) {
   return "machine";
 }
 
-function getAllExercises() { return [...customExercises, ...(apiExercises.length ? apiExercises : FALLBACK_EXERCISES)]; }
+function getAllExercises() { return [...customExercises, ...apiExercises]; }
 
 async function loadOpenExerciseDatabase() {
   try {
-    const cachedData = localStorage.getItem('my_gym_dataset_hasan_v1');
-    if (cachedData) {
-      apiExercises = JSON.parse(cachedData);
+    const cachedCompact = localStorage.getItem('my_gym_dataset_hasan_compact_v2');
+    if (cachedCompact) {
+      apiExercises = JSON.parse(cachedCompact);
       renderExploreList();
     }
 
-    const res = await fetch(DATASET_URL);
-    if (res.ok) {
+    let res = await fetch(DATASET_CDN_URL).catch(() => null);
+    if (!res || !res.ok) {
+      res = await fetch(DATASET_RAW_URL).catch(() => null);
+    }
+
+    if (res && res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         apiExercises = data.map(item => {
           const rawGif = item.gif_url || item.gif || "";
-          const fullGifUrl = rawGif.startsWith("http") ? rawGif : (rawGif ? MEDIA_BASE_URL + rawGif : "");
+          let fullGifUrl = "";
+          if (rawGif) {
+            fullGifUrl = rawGif.startsWith("http") ? rawGif : MEDIA_BASE_URL + rawGif;
+          }
+
           const targetStr = item.target || item.category || item.body_part || "";
 
           return {
@@ -302,12 +327,18 @@ async function loadOpenExerciseDatabase() {
           };
         });
 
-        localStorage.setItem('my_gym_dataset_hasan_v1', JSON.stringify(apiExercises));
+        try {
+          localStorage.setItem('my_gym_dataset_hasan_compact_v2', JSON.stringify(apiExercises));
+        } catch (storageErr) {
+          console.warn("Storage quota gestita in memoria.");
+        }
+
         renderExploreList();
       }
     }
   } catch (err) {
-    if (!apiExercises.length) apiExercises = FALLBACK_EXERCISES;
+    console.warn("Uso catalogo di default:", err);
+    if (!apiExercises.length) apiExercises = INITIAL_EXERCISES;
     renderExploreList();
   }
 }
@@ -512,9 +543,12 @@ function setExploreMuscleFilter(m) {
 document.querySelectorAll('.pill').forEach(btn => btn.addEventListener('click', () => setExploreMuscleFilter(btn.dataset.muscle)));
 
 function renderExploreList() {
+  const all = getAllExercises();
   const filter = exploreSearchInput.value.trim().toLowerCase();
-  currentFilteredExploreList = getAllExercises().filter(ex => {
+
+  currentFilteredExploreList = all.filter(ex => {
     const matchesM = currentExploreMuscle === "all" || ex.muscle === currentExploreMuscle;
+    const muscleLabel = getMuscleName(ex.muscle).toLowerCase();
     const matchesQ = !filter || ex.name.toLowerCase().includes(filter) || getMuscleName(ex.muscle).toLowerCase().includes(filter);
     return matchesM && matchesQ;
   });
@@ -754,7 +788,7 @@ document.getElementById('btnCloseModal').addEventListener('click', () => documen
 document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   const n = document.getElementById('newExName').value.trim(), m = document.getElementById('newExMuscle').value, i = document.getElementById('newExIcon').value;
   if (!n) return;
-  const nx = { name: n, muscle: m, icon: i, images: [], video: "", steps: ["Esegui con controllo."] };
+  const nx = { name: n, muscle: m, icon: i, gif: "", steps: ["Esegui con controllo."] };
   customExercises.push(nx); localStorage.setItem('my_gym_custom_exercises', JSON.stringify(customExercises));
   selectedExercise = nx; searchInput.value = n;
   closeSearchDropdown();
