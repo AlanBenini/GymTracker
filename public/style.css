@@ -7,13 +7,25 @@ body {
 .view-section { display: none; }
 .view-section.active { display: flex; }
 
-.menu-overlay { display: none; z-index: 150; }
+.menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 150; }
 .menu-overlay.open { display: block; }
 
 .drawer-menu { right: -300px; left: auto; z-index: 160; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(15, 10, 25, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-left: 1px solid rgba(255,255,255,0.1); border-right: none; width: 280px; position: fixed; top: 0; bottom: 0; padding: 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
 .drawer-menu.open { right: 0; left: auto; }
 
-.modal { display: none; z-index: 200; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.modal { 
+  display: none; 
+  position: fixed; 
+  inset: 0; 
+  z-index: 200; 
+  background: rgba(0, 0, 0, 0.8); 
+  backdrop-filter: blur(16px); 
+  -webkit-backdrop-filter: blur(16px); 
+  padding: 16px; 
+  overflow-y: auto; 
+  align-items: center; 
+  justify-content: center; 
+}
 .modal.open { display: flex; }
 
 .body-wrapper.large .body-svg { width: 130px; height: 175px; }

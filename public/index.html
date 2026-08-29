@@ -76,7 +76,7 @@
           <path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/>
         </svg>
         <span class="text-[1.1rem] font-extrabold tracking-tight flex items-baseline gap-1.5 drop-shadow-md">
-          GEEEKDGYM <span class="text-xs font-semibold text-gray-400">Workout Tracker</span>
+          GEEEKD <span class="text-xs font-semibold text-gray-400">Gym</span>
         </span>
       </div>
       <button class="text-white bg-transparent outline-none active:opacity-50 transition-opacity p-2 -mr-2" id="burgerBtn">
@@ -198,7 +198,7 @@
   </div>
 
   <div class="modal" id="detailModal">
-    <div class="w-full max-w-[440px] max-h-[90vh] overflow-y-auto bg-[#100c16]/95 backdrop-blur-3xl border border-purple-500/30 rounded-[2rem] p-6 flex flex-col gap-5 shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
+    <div class="w-full max-w-[440px] max-h-[85dvh] overflow-y-auto bg-[#100c16]/95 backdrop-blur-3xl border border-purple-500/30 rounded-[2rem] p-5 sm:p-6 flex flex-col gap-4 sm:gap-5 shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-auto overscroll-contain">
       <div class="flex justify-between items-start">
         <div class="flex-1 pr-3">
           <h2 class="text-xl font-extrabold text-white leading-tight" id="detailExName">Nome Esercizio</h2>
@@ -210,7 +210,7 @@
         <button class="w-9 h-9 flex items-center justify-center bg-white/5 border border-white/10 text-gray-400 rounded-full text-sm shrink-0 active:bg-white/10" id="btnCloseDetailModal">✕</button>
       </div>
 
-      <div class="w-full aspect-[16/11] bg-black/60 rounded-2xl overflow-hidden border border-white/5 flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+      <div class="w-full aspect-[16/11] bg-black/60 rounded-2xl overflow-hidden border border-white/5 flex items-center justify-center relative shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] shrink-0">
         <img id="detailImg" class="w-full h-full object-contain hidden" alt="Dimostrazione" />
         <video id="detailVideo" autoplay loop muted playsinline controls class="w-full h-full object-cover hidden"></video>
         <div class="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-500 text-[0.8rem] font-medium bg-white/5" id="mediaPlaceholder">
@@ -222,12 +222,12 @@
       <div class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-500" data-i18n="execStepsLabel">Istruzioni</div>
       <ol class="pl-5 flex flex-col gap-3 text-[0.9rem] leading-relaxed text-gray-200 marker:text-purple-500 marker:font-bold" id="detailStepsList"></ol>
 
-      <button class="bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-bold py-4 px-4 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(168,85,247,0.4)] active:scale-95 transition-transform w-full mt-2" id="btnUseFromDetail" data-i18n="useInWorkoutBtn">+ Inserisci nel Workout</button>
+      <button class="bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-bold py-4 px-4 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(168,85,247,0.4)] active:scale-95 transition-transform w-full mt-2 shrink-0" id="btnUseFromDetail" data-i18n="useInWorkoutBtn">+ Inserisci nel Workout</button>
     </div>
   </div>
 
   <div class="modal" id="newExModal">
-    <div class="w-full max-w-[420px] bg-[#100c16]/95 backdrop-blur-3xl border border-purple-500/30 rounded-[2rem] p-6 flex flex-col gap-4 shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
+    <div class="w-full max-w-[420px] max-h-[85dvh] overflow-y-auto bg-[#100c16]/95 backdrop-blur-3xl border border-purple-500/30 rounded-[2rem] p-6 flex flex-col gap-4 shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-auto overscroll-contain">
       <h3 class="text-lg font-extrabold text-white" data-i18n="newExTitle">Aggiungi Nuovo Esercizio</h3>
       
       <input type="text" class="w-full bg-black/20 border border-white/10 rounded-full px-4 py-3.5 text-white text-[0.95rem] outline-none focus:border-purple-500 placeholder-gray-500" id="newExName" placeholder="Nome (es. Hack Squat)" />
@@ -270,7 +270,7 @@
   </div>
 
   <div class="modal" id="recapModal">
-    <div class="w-full max-w-[420px] bg-[#100c16]/95 backdrop-blur-3xl border border-green-500/30 rounded-[2rem] p-6 flex flex-col gap-5 shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
+    <div class="w-full max-w-[420px] max-h-[85dvh] overflow-y-auto bg-[#100c16]/95 backdrop-blur-3xl border border-green-500/30 rounded-[2rem] p-6 flex flex-col gap-5 shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-auto overscroll-contain">
       <div class="text-center">
         <h2 class="text-xl font-extrabold text-white" id="recapSessionName">Recap Workout</h2>
         <p class="text-[0.8rem] text-green-400/80 font-medium mt-1" data-i18n="recapSub">Sessione salvata in cronologia</p>
