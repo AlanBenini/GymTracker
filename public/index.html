@@ -59,7 +59,7 @@
       </button>
     </div>
     <div class="mt-auto pt-5 border-t border-white/10 flex flex-col gap-3">
-      <div class="text-[0.7rem] font-bold uppercase tracking-wider text-gray-400" data-i18n="langLabel">Lingua</div>
+      <div class="text-[0.7rem] font-bold uppercase tracking-wider text-gray-400" data-i18n="langLabel">Lingua / Language</div>
       <div class="flex gap-2">
         <button class="lang-pill active" data-lang="it">IT</button>
         <button class="lang-pill" data-lang="en">EN</button>
@@ -131,11 +131,12 @@
           <span class="text-[0.65rem] uppercase px-2.5 py-1 rounded-full font-extrabold bg-purple-500/20 text-purple-300 shrink-0" id="selectedExMuscle"></span>
         </div>
 
-        <div class="grid grid-cols-2 gap-2.5 w-full">
-          <input type="number" class="w-full bg-black/20 border border-white/10 rounded-full px-4 py-3.5 text-white text-[0.95rem] outline-none text-center focus:border-purple-500 transition-colors placeholder-gray-500" id="sets" placeholder="Serie" min="1">
-          <input type="number" class="w-full bg-black/20 border border-white/10 rounded-full px-4 py-3.5 text-white text-[0.95rem] outline-none text-center focus:border-purple-500 transition-colors placeholder-gray-500" id="reps" placeholder="Reps" min="1">
+        <div class="flex flex-col gap-2 w-full" id="setsContainer"></div>
+
+        <div class="flex gap-2 w-full pt-1">
+          <button type="button" class="flex-1 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-gray-300 hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center gap-1.5" id="btnAddSetRow" data-i18n="addSetBtn">+ Serie</button>
+          <button type="button" class="py-2.5 px-4 bg-red-500/10 border border-red-500/20 rounded-full text-xs font-bold text-red-400 hover:bg-red-500/20 active:scale-95 transition-all" id="btnRemoveSetRow" data-i18n="removeSetBtn">- Rimuovi</button>
         </div>
-        <input type="number" class="w-full bg-black/20 border border-white/10 rounded-full px-4 py-3.5 text-white text-[0.95rem] outline-none text-center focus:border-purple-500 transition-colors placeholder-gray-500" id="weight" placeholder="Carico in kg" min="0">
 
         <button class="bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-bold py-4 px-4 rounded-full flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(168,85,247,0.4)] active:scale-95 transition-transform w-full mt-1 text-[0.95rem]" id="btnAddExercise" data-i18n="addExerciseBtn">+ Registra Esercizio</button>
       </div>

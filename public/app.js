@@ -76,6 +76,7 @@ const I18N = {
     newExTitle: "Nuovo Esercizio", targetMuscleLabel: "Muscolo", equipTypeLabel: "Attrezzatura",
     cancelBtn: "Annulla", saveExBtn: "Salva", recapSub: "Salvato in cronologia", statVolume: "Volume",
     statExercises: "Esercizi", statTime: "Tempo", recapDetailLabel: "Dettaglio", newSessionBtn: "Nuova Sessione",
+    addSetBtn: "+ Serie", removeSetBtn: "- Rimuovi",
     emptyHistory: "Nessun workout registrato.<br>Inizia ora!",
     emptyExplore: "Nessun esercizio trovato.", equipBarbell: "Bilanciere", equipDumbbell: "Manubri",
     equipMachine: "Macchinario", equipBodyweight: "Corpo Libero",
@@ -93,6 +94,7 @@ const I18N = {
     newExTitle: "Custom Exercise", targetMuscleLabel: "Muscle", equipTypeLabel: "Equipment",
     cancelBtn: "Cancel", saveExBtn: "Save", recapSub: "Saved to history", statVolume: "Volume",
     statExercises: "Exercises", statTime: "Time", recapDetailLabel: "Details", newSessionBtn: "New Session",
+    addSetBtn: "+ Add Set", removeSetBtn: "- Remove",
     emptyHistory: "No workouts recorded.<br>Start now!",
     emptyExplore: "No exercises found.", equipBarbell: "Barbell", equipDumbbell: "Dumbbells",
     equipMachine: "Machine", equipBodyweight: "Bodyweight",
@@ -110,11 +112,12 @@ const I18N = {
     newExTitle: "Nuevo Ejercicio", targetMuscleLabel: "Músculo", equipTypeLabel: "Equipamiento",
     cancelBtn: "Cancelar", saveExBtn: "Guardar", recapSub: "Guardado", statVolume: "Volumen",
     statExercises: "Ejercicios", statTime: "Tiempo", recapDetailLabel: "Detalle", newSessionBtn: "Nueva Sesión",
+    addSetBtn: "+ Serie", removeSetBtn: "- Eliminar",
     emptyHistory: "No hay entrenamientos.<br>¡Empieza ahora!",
     emptyExplore: "No se encontraron ejercicios.", equipBarbell: "Barra", equipDumbbell: "Mancuernas",
     equipMachine: "Máquina", equipBodyweight: "Peso Corporal",
     startSessionBtn: "Iniciar", pauseSessionBtn: "Pausa", resumeSessionBtn: "Reanudar",
-    muscles: { all: "Todos", chest: "Pecho", shoulders: "Hombros", upper_back: "Espalda Alta", lats: "Dorsales", lower_back: "Lombares", biceps: "Bíceps", triceps: "Tríceps", forearms: "Antebrazos", abs: "Abdomen", obliques: "Oblicuos", quads: "Cuádriceps", hamstrings: "Isquios", glutes: "Glúteos", calves: "Gemelos" }
+    muscles: { all: "Todos", chest: "Pecho", shoulders: "Hombros", upper_back: "Espalda Alta", lats: "Dorsales", lower_back: "Lombari", biceps: "Bíceps", triceps: "Tríceps", forearms: "Antebrazos", abs: "Abdomen", obliques: "Oblicuos", quads: "Cuádriceps", hamstrings: "Isquios", glutes: "Glúteos", calves: "Gemelos" }
   }
 };
 
@@ -140,6 +143,7 @@ let restInterval = null;
 const sessionTimerDisplay = document.getElementById('sessionTimerDisplay');
 const sessionStatusDot = document.getElementById('sessionStatusDot');
 const btnToggleSession = document.getElementById('btnToggleSession');
+const setsContainer = document.getElementById('setsContainer');
 
 function updateSessionTimerUI() {
   const m = String(Math.floor(sessionSeconds / 60)).padStart(2, '0');
@@ -197,6 +201,48 @@ function applyTranslations() {
   document.querySelectorAll('.lang-pill').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLang));
   renderCompletedList(); renderExploreList(); renderHistoryList();
 }
+
+function createSetRowHTML(setNum, defaultWeight = '', defaultReps = '') {
+  return `
+    <div class="set-row flex items-center gap-2 bg-black/20 border border-white/5 rounded-2xl p-2 px-3 transition-all" data-set="${setNum}">
+      <span class="font-mono text-xs font-extrabold text-purple-400 w-6 shrink-0">#${setNum}</span>
+      <div class="flex-1 flex items-center gap-1.5 min-w-0">
+        <input type="number" class="set-weight w-full bg-black/30 border border-white/10 rounded-xl py-2 px-2 text-center text-sm font-semibold text-white outline-none focus:border-purple-500 placeholder-gray-600" placeholder="Kg" min="0" step="0.5" value="${defaultWeight}">
+        <span class="text-[0.68rem] text-gray-500 font-bold uppercase shrink-0">kg</span>
+      </div>
+      <div class="flex-1 flex items-center gap-1.5 min-w-0">
+        <input type="number" class="set-reps w-full bg-black/30 border border-white/10 rounded-xl py-2 px-2 text-center text-sm font-semibold text-white outline-none focus:border-purple-500 placeholder-gray-600" placeholder="Reps" min="1" value="${defaultReps}">
+        <span class="text-[0.68rem] text-gray-500 font-bold uppercase shrink-0">reps</span>
+      </div>
+    </div>
+  `;
+}
+
+function resetSetRows() {
+  setsContainer.innerHTML = createSetRowHTML(1);
+}
+
+document.getElementById('btnAddSetRow').addEventListener('click', () => {
+  const currentRows = setsContainer.querySelectorAll('.set-row');
+  const nextSetNum = currentRows.length + 1;
+  
+  let lastWeight = '';
+  let lastReps = '';
+  if (currentRows.length > 0) {
+    const lastRow = currentRows[currentRows.length - 1];
+    lastWeight = lastRow.querySelector('.set-weight').value || '';
+    lastReps = lastRow.querySelector('.set-reps').value || '';
+  }
+
+  setsContainer.insertAdjacentHTML('beforeend', createSetRowHTML(nextSetNum, lastWeight, lastReps));
+});
+
+document.getElementById('btnRemoveSetRow').addEventListener('click', () => {
+  const currentRows = setsContainer.querySelectorAll('.set-row');
+  if (currentRows.length > 1) {
+    currentRows[currentRows.length - 1].remove();
+  }
+});
 
 function normalizeMuscleName(m) {
   if (!m) return "chest";
@@ -363,9 +409,28 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
   if (!name) return;
   if (!selectedExercise || selectedExercise.name !== name) selectedExercise = { name, muscle: "chest", icon: "barbell" };
 
+  const rows = setsContainer.querySelectorAll('.set-row');
+  const setsData = [];
+  
+  rows.forEach((row, idx) => {
+    const weightVal = parseFloat(row.querySelector('.set-weight').value) || 0;
+    const repsVal = parseInt(row.querySelector('.set-reps').value) || 1;
+    setsData.push({
+      setNumber: idx + 1,
+      weight: weightVal,
+      reps: repsVal
+    });
+  });
+
+  const exerciseVolume = setsData.reduce((sum, s) => sum + (s.weight * s.reps), 0);
+
   completedExercises.push({
-    name: selectedExercise.name, muscle: selectedExercise.muscle, iconKey: selectedExercise.icon,
-    sets: parseInt(document.getElementById('sets').value)||1, reps: parseInt(document.getElementById('reps').value)||1, weight: parseFloat(document.getElementById('weight').value)||0
+    name: selectedExercise.name,
+    muscle: selectedExercise.muscle,
+    iconKey: selectedExercise.icon,
+    setsData: setsData,
+    sets: setsData.length,
+    volume: exerciseVolume
   });
 
   targetedMuscles.add(selectedExercise.muscle);
@@ -374,25 +439,29 @@ document.getElementById('btnAddExercise').addEventListener('click', () => {
   startRestTimer(90);
   
   searchInput.value = '';
-  document.getElementById('sets').value = '';
-  document.getElementById('reps').value = '';
-  document.getElementById('weight').value = '';
   closeSearchDropdown();
   document.getElementById('selectedExPreview').classList.add('hidden');
   document.getElementById('selectedExPreview').classList.remove('flex');
   selectedExercise = null;
+  resetSetRows();
 });
 
 function renderCompletedList() {
   document.getElementById('exerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-lg">
-      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.iconKey]}</div>
+    <div class="flex items-center gap-3 bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-3.5 shadow-lg">
+      <div class="w-12 h-12 bg-black/30 border border-white/10 rounded-2xl flex items-center justify-center shrink-0 stroke-purple-400">${ICONS[ex.iconKey]}</div>
       <div class="flex-1 min-w-0">
         <div class="flex justify-between items-center mb-1">
           <span class="text-[0.95rem] font-bold text-white truncate pr-2">${ex.name}</span>
-          <span class="text-[0.65rem] uppercase px-2 py-0.5 rounded-md font-bold bg-purple-500/20 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
+          <span class="text-[0.65rem] uppercase px-2.5 py-0.5 rounded-full font-bold bg-purple-500/20 text-purple-300 shrink-0">${getMuscleName(ex.muscle)}</span>
         </div>
-        <div class="font-mono text-[0.8rem] text-gray-400 font-semibold">${ex.sets} set × ${ex.reps} reps • ${ex.weight} kg</div>
+        <div class="flex flex-wrap gap-1.5 mt-2">
+          ${ex.setsData.map(s => `
+            <span class="font-mono text-[0.72rem] bg-black/30 border border-white/5 rounded-lg px-2 py-0.5 text-gray-300 font-semibold">
+              <strong class="text-purple-400 font-bold">#${s.setNumber}</strong> ${s.weight}kg × ${s.reps}
+            </span>
+          `).join('')}
+        </div>
       </div>
     </div>
   `).join('');
@@ -480,7 +549,8 @@ document.getElementById('btnUseFromDetail').addEventListener('click', () => {
   document.getElementById('selectedExIcon').innerHTML = `<div class="w-6 h-6 stroke-purple-500">${ICONS[selectedExercise.icon]}</div>`;
   document.getElementById('selectedExName').innerText = exerciseInDetail.name;
   document.getElementById('selectedExMuscle').innerText = getMuscleName(exerciseInDetail.muscle);
-  document.getElementById('selectedExPreview').classList.remove('hidden'); document.getElementById('selectedExPreview').classList.add('flex');
+  document.getElementById('selectedExPreview').classList.remove('hidden');
+  document.getElementById('selectedExPreview').classList.add('flex');
   
   document.getElementById('detailModal').classList.remove('open');
   setActiveNavTab('viewWorkout', true);
@@ -501,7 +571,7 @@ function renderHistoryList() {
     return;
   }
 
-  document.getElementById('historyList').innerHTML = hist.map((s, i) => `
+  listContainer.innerHTML = hist.map((s, i) => `
     <div class="bg-surface backdrop-blur-2xl border border-white/10 rounded-3xl p-4 flex flex-col gap-3 shadow-lg">
       <div class="flex justify-between items-start">
         <div>
@@ -540,7 +610,7 @@ document.getElementById('btnRest90').addEventListener('click', () => startRestTi
 document.getElementById('btnRestStop').addEventListener('click', stopRestTimer);
 
 document.getElementById('btnShowRecap').addEventListener('click', () => {
-  const tv = completedExercises.reduce((a, c) => a + (c.sets * c.reps * c.weight), 0);
+  const tv = completedExercises.reduce((a, c) => a + (c.volume || 0), 0);
   const st = document.getElementById('customTitle').value || 'Workout';
   const sd = document.getElementById('sessionTimerDisplay').innerText;
   
@@ -552,17 +622,31 @@ document.getElementById('btnShowRecap').addEventListener('click', () => {
   renderBodySvg('recapBodyContainer', recapOrientation);
 
   document.getElementById('recapExerciseList').innerHTML = completedExercises.map(ex => `
-    <div class="flex items-center justify-between py-2 border-b border-white/5 text-[0.85rem] font-semibold text-white">
-      <div class="flex items-center gap-2"><div class="w-5 h-5 stroke-purple-400">${ICONS[ex.iconKey]}</div><span class="truncate">${ex.name}</span></div>
-      <span class="font-mono text-gray-400 shrink-0">${ex.sets}×${ex.reps} @ ${ex.weight}kg</span>
+    <div class="flex flex-col py-2 border-b border-white/5 text-[0.85rem] text-white gap-1">
+      <div class="flex items-center justify-between font-semibold">
+        <div class="flex items-center gap-2"><div class="w-5 h-5 stroke-purple-400">${ICONS[ex.iconKey]}</div><span class="truncate">${ex.name}</span></div>
+        <span class="font-mono text-purple-300 font-bold">${ex.sets} set</span>
+      </div>
+      <div class="flex flex-wrap gap-1 pl-7">
+        ${ex.setsData.map(s => `
+          <span class="font-mono text-[0.68rem] bg-black/40 border border-white/5 rounded px-1.5 py-0.5 text-gray-300">
+            #${s.setNumber} ${s.weight}kg × ${s.reps}
+          </span>
+        `).join('')}
+      </div>
     </div>
   `).join('');
 
   if (completedExercises.length) {
     const n = new Date();
     saveCompletedSessionToHistory({
-      title: st, date: `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`,
-      duration: sd, totalVolume: tv, exerciseCount: completedExercises.length, targetedMuscles: Array.from(targetedMuscles), exercises: completedExercises
+      title: st,
+      date: `${String(n.getDate()).padStart(2,'0')}/${String(n.getMonth()+1).padStart(2,'0')}/${n.getFullYear()} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`,
+      duration: sd,
+      totalVolume: tv,
+      exerciseCount: completedExercises.length,
+      targetedMuscles: Array.from(targetedMuscles),
+      exercises: completedExercises
     });
   }
   document.getElementById('recapModal').classList.add('open');
@@ -583,6 +667,7 @@ document.getElementById('btnResetSession').addEventListener('click', () => {
   document.getElementById('recapModal').classList.remove('open');
   completedExercises = []; targetedMuscles.clear(); renderBodySvg('dashBodyContainer', dashOrientation); renderCompletedList(); 
   resetSessionUI();
+  resetSetRows();
 });
 
 document.getElementById('btnOpenModal').addEventListener('click', () => { document.getElementById('newExName').value = ''; document.getElementById('newExModal').classList.add('open'); });
@@ -600,6 +685,7 @@ document.getElementById('btnSaveCustomEx').addEventListener('click', () => {
   document.getElementById('newExModal').classList.remove('open'); renderExploreList();
 });
 
+resetSetRows();
 renderBodySvg('dashBodyContainer', 'front'); renderBodySvg('exploreBodyContainer', 'front', true);
 loadOpenExerciseDatabase(); applyTranslations();
 
